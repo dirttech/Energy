@@ -36,6 +36,8 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         }
         if (IsPostBack == false)
         {
+            fromDate.Value = DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy hh:mm:ss");
+            toDate.Value = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
             paramList.SelectedValue = criteria;
             meterList.SelectedValue = meter_type;
             unit = paramList.SelectedValue;
@@ -57,12 +59,12 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 wing2.Visible = false;
             }
 
-            Plot_Line_Graph(null);
+            Plot_Building_All(null);
         }
         
     }
 
-    protected void Plot_Line_Graph(string typ)
+    protected void Plot_Building_All(string typ)
     {
         try
         {
@@ -93,8 +95,19 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             unit = paramList.SelectedValue;
             plotType = paramList.SelectedItem.Text;
-           
-            FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
+
+            if (building == "Academic")
+            {
+                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime, "Academic Building", paramList.SelectedValue, meterList.SelectedValue, "Academic Block", out timeSt, out energyArray);
+            }
+            if (building == "ClassRooms")
+            {
+                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime, "Academic Building", paramList.SelectedValue, meterList.SelectedValue, "Lecture Block", out timeSt, out energyArray);
+            }
+            if (building == "Mess Building" || building == "Library Building" || building == "Faculty Housing")
+            {
+                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
+            }
 
             double en = energyArray[0]; 
                 //for (int l = 0; l < energyArray.Length; l++)
@@ -112,9 +125,14 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         }
 
     }
+
+    protected void Plot_Building_Academia()
+    {
+
+    }
     protected void plotButton_Click(object sender, EventArgs e)
     {
-        Plot_Line_Graph("Button");
+        Plot_Building_All("Button");
         
 
     }

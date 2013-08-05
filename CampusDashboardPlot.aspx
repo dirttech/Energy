@@ -149,7 +149,11 @@
     </div> 
 
            </td>                
-           <td style="padding-top:30px; padding-left:20px;">
+           <td style="padding-top:0px; padding-left:20px; line-height:30px;
+           ">
+
+               Criteria&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+               MeterType<br />
 
         <asp:DropDownList ID="paramList" runat="server">
         <asp:ListItem Value="Watts">Power</asp:ListItem>
@@ -158,8 +162,8 @@
             <asp:ListItem Value="Hertz">Frequency</asp:ListItem>
     </asp:DropDownList>
     <asp:DropDownList ID="meterList" runat="server">
-        <asp:ListItem Value="Building Total Mains">Power</asp:ListItem>
-        <asp:ListItem Value="Building Total Backup">Backup</asp:ListItem>
+        <asp:ListItem Value="Building Total Mains">Power Meter</asp:ListItem>
+        <asp:ListItem Value="Building Total Backup">Backup Meter</asp:ListItem>
     </asp:DropDownList>
 
            </td>                

@@ -15,9 +15,9 @@
         <asp:PolygonHotSpot Coordinates="467,56,512,41,524,73,515,77,515,91,485,98,482,83,470,85" 
             HotSpotMode="PostBack" PostBackValue="Mess Building" />
         <asp:PolygonHotSpot Coordinates="716,49,733,38,754,73,763,115,749,122,739,86" 
-            HotSpotMode="PostBack" PostBackValue="ClassRooms" />
+            HotSpotMode="PostBack" PostBackValue="Academic" />
         <asp:PolygonHotSpot Coordinates="766,80,770,61,800,67,800,82,793,82,784,103,770,103" 
-            HotSpotMode="PostBack" PostBackValue="ServiceBlock" />
+            HotSpotMode="PostBack" PostBackValue="ClassRooms" />
         <asp:PolygonHotSpot Coordinates="814,46,812,38,856,37,857,44,853,44,853,71,844,68,814,70,814,44" 
             HotSpotMode="PostBack" PostBackValue="Library Building" />
         <asp:PolygonHotSpot Coordinates="886,254,892,254,898,274,908,272,908,292,898,293,898,313,886,314,884,295,880,293,880,274,886,274" 

@@ -13,7 +13,7 @@
 <link href="Scripts/outlook/default.css" rel="stylesheet" type="text/css" media="all" /><%--
 <link href="Scripts/outlook/fonts.css" rel="stylesheet" type="text/css" media="all" />--%>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.js"></script>
 
 
 
@@ -31,7 +31,8 @@
 				<li class="current_page_item"><a href="Default.aspx">Home</a></li>
 				<li><a href="CampusDashboard.aspx">Campus Dashboard</a></li>
 				<li><a href="Loggin.aspx">Faculty Dashboard</a></li>
-				<li><a href="Team.aspx">Our Team</a></li>
+                <li><a href="News.aspx">News</a></li>
+				<li><a href="Team.aspx">People</a></li>
 				<li><a href="ContactUs.aspx">Contact us</a></li>
 			</ul>
 		</div>
