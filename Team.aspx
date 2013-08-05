@@ -892,27 +892,26 @@ Signal Processing
          <tr>
                
                     <td>
-                        <img src="images/team-images/magali_delmas.gif" class="personalImage" />
+                        <img src="images/team-images/deva.jpg" class="personalImage" />
                     </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Magali Delmas</label><br /><br />
-                    <label class="namePosition">Professor of Management</label><br />    
-                    <label class="below-info">UCLA<br />
-                    <a href="http://www.ioe.ucla.edu/delmas" target="_blank">ioe.ucla.edu/delmas</a>
+                    <label class="nameWrapper">Deva P. Seetharam</label><br /><br />
+                    <label class="namePosition"></label><br />    
+                    <label class="below-info">IBM Research<br />
+                    <a href="http://alumni.media.mit.edu/~deva/" target="_blank">alumni.media.mit.edu/~deva</a>
                     </label>
                     </td>
                 </tr>
                 <tr class="hidden-wrapper" id="Tr17">
                 <td colspan="2" style="border-top:1px groove gray;">
                 <label class="description"><br />
-                Energy Conservation and Efficiency, Eco-labels, Environmental and Corporate Performance
-Socially Responsible Investing
+              <br /><br />
                 <br />
               <br />
                 
                 </label>
                 <label class="below-info">
-                Email - delmas(at)ioe.ucla.edu<br />
+                Email - dseetharamat[at]in.ibm.com<br />
                 <br />
                <br />
                 
