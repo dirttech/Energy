@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Linq;
+using App_Code.FetchingEnergyss;
+using App_Code.Utility;
+using App_Code.User_Mapping;
+using System.Web.Script.Serialization;
+
+public partial class Users_MeVsAvg : System.Web.UI.Page
+{
+    public JavaScriptSerializer javaSerial = new JavaScriptSerializer();
+    public float[,] energyArray;
+    public float[,] avgEnergyArray;
+   
+    public static int meterId;
+    public static string deviceId;
+
+    protected void CheckLogin()
+    {
+        if (Session["UserName"] == null || Session["UserName"] == "")
+        {
+            Response.Redirect("~/Loggin.aspx");
+        }
+        else
+        {
+            nameTitle.InnerText = "Welcome " + Session["UserName"].ToString();
+        }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        CheckLogin();
+        if (Session["MeterID"] != null && Session["DeviceID"] != null)
+        {
+            meterId = Convert.ToInt32(Session["MeterID"]);
+            deviceId = Session["DeviceID"].ToString();
+
+            Heading.InnerText = hiddenHeadingType.Value;
+            if (IsPostBack == false)
+            {
+                DateTime frDate = DateTime.Today.AddDays(-7);
+                DateTime tDate = DateTime.Now;
+               
+                Utilities ut1 = Utilitie_S.DateTimeToEpoch(frDate);
+                Utilities ut2 = Utilitie_S.DateTimeToEpoch(tDate);
+                Heading.InnerText = "Last 7 Days";
+                Plot_Line_Graph(ut1.Epoch, ut2.Epoch);
+            }
+        }
+        else
+        {
+            Response.Write("<script>alert('Sorry! Your Meter is not registered yet.');</script>");
+            //Session["UserName"] = null;
+            //Response.Redirect("LoginPage.aspx");
+        }
+    }
+
+    protected void Plot_Line_Graph(int frTime, int tTime)
+    {
+        try
+        {
+            List<FetchingEnergy> energyObj = FetchingEnergy_s.fetchEnergyLining(frTime, tTime, meterId, deviceId, 20);
+
+            List<int> timeObj = new List<int>();
+            int count = energyObj.Count;
+            energyArray = new float[count, 2];
+            for (int i = 0; i < count - 1; i++)
+            {
+                energyArray[i, 1] = energyObj[i+1].FwdHr - energyObj[i].FwdHr;
+                energyArray[i, 0] = energyObj[i].TimeStamp;
+                timeObj.Add(energyObj[i].TimeStamp);
+
+            }           
+            timeObj.Add(energyObj[count - 1].TimeStamp);
+
+            List<FetchingEnergy> avgEnergyObj = FetchingEnergy_s.fetchAVGBar(timeObj, deviceId);
+            if (avgEnergyObj != null)
+            {
+                avgEnergyArray = new float[avgEnergyObj.Count, 2];
+                for (int i = 0; i < avgEnergyObj.Count - 1; i++)
+                {
+                    avgEnergyArray[i, 1] = avgEnergyObj[i + 1].FwdHr - avgEnergyObj[i].FwdHr;
+                    avgEnergyArray[i, 0] = avgEnergyObj[i].TimeStamp;
+                }
+            }
+           
+
+        }
+        catch (Exception e)
+        {
+
+        }
+
+    }
+  
+    protected void plot_Click(object sender, EventArgs e)
+    {
+        int fromTime, toTime;
+        Utilitie_S.Return_Line_Time(hidCompType.Value, out fromTime, out toTime);
+        Utilities frm = Utilitie_S.EpochToDateTime(fromTime);
+        Utilities to = Utilitie_S.EpochToDateTime(toTime);
+        subHeading.InnerText = frm.Date.ToString("d MMM yy h:mm") + " - " + to.Date.ToString("d MMM yy h:mm");
+        Plot_Line_Graph(fromTime, toTime);
+    }
+
+    protected void logOut_Click(object sender, EventArgs e)
+    {
+        Session["UserName"] = null;
+        Response.Redirect("~/Loggin.aspx");
+    }
+}

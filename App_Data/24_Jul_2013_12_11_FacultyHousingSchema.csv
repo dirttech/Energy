@@ -1,0 +1,84 @@
+UserID,Apartment,METER ID,FLOOR,BUILDING,Meter TYPE
+,0,2,0,Faculty Housing,Residential Mains
+,0,3,0,Faculty Housing,Unused
+,0,4,0,Faculty Housing,Residential Backup
+,0,5,0,Faculty Housing,Lift1
+,0,6,0,Faculty Housing,Lift2
+,0,7,0,Faculty Housing,Unused
+,101,8,1,Faculty Housing,Power
+,102A,9,1,Faculty Housing,Power
+,102B,10,1,Faculty Housing,Power
+,103,11,1,Faculty Housing,Power
+,101,12,1,Faculty Housing,Light Backup
+,102A,13,1,Faculty Housing,Light Backup
+,102B,14,1,Faculty Housing,Light Backup
+,201,20,2,Faculty Housing,Power
+,202,21,2,Faculty Housing,Power
+,203,22,2,Faculty Housing,Power
+,0,23,2,Faculty Housing,Unused
+,201,24,2,Faculty Housing,Light Backup
+,202,25,2,Faculty Housing,Light Backup
+,203,26,2,Faculty Housing,Light Backup
+,301,27,3,Faculty Housing,Power
+,302,28,3,Faculty Housing,Power
+,303,29,3,Faculty Housing,Power
+,0,30,3,Faculty Housing,Unused
+,301,31,3,Faculty Housing,Light Backup
+,302,32,3,Faculty Housing,Light Backup
+,303,33,3,Faculty Housing,Light Backup
+,401,40,4,Faculty Housing,Power
+,402,41,4,Faculty Housing,Power
+,403,42,4,Faculty Housing,Power
+,0,43,4,Faculty Housing,Unused
+,401,44,4,Faculty Housing,Light Backup
+,402,45,4,Faculty Housing,Light Backup
+,403,46,4,Faculty Housing,Light Backup
+,501,47,5,Faculty Housing,Power
+,502,48,5,Faculty Housing,Power
+,503,49,5,Faculty Housing,Power
+,0,50,5,Faculty Housing,Unused
+,501,51,5,Faculty Housing,Light Backup
+,502,52,5,Faculty Housing,Light Backup
+,503,53,5,Faculty Housing,Light Backup
+,601,60,6,Faculty Housing,Power
+,602,61,6,Faculty Housing,Power
+,603,62,6,Faculty Housing,Power
+,0,63,6,Faculty Housing,Unused
+,601,64,6,Faculty Housing,Light Backup
+,602,65,6,Faculty Housing,Light Backup
+,603,66,6,Faculty Housing,Light Backup
+,701,67,7,Faculty Housing,Power
+,702,68,7,Faculty Housing,Power
+,703,69,7,Faculty Housing,Power
+,0,70,7,Faculty Housing,Unused
+,701,71,7,Faculty Housing,Light Backup
+,702,72,7,Faculty Housing,Light Backup
+,703,73,7,Faculty Housing,Light Backup
+,801,80,8,Faculty Housing,Power
+,802,81,8,Faculty Housing,Power
+,803,82,8,Faculty Housing,Power
+,0,83,8,Faculty Housing,Unused
+,801,84,8,Faculty Housing,Light Backup
+,802,85,8,Faculty Housing,Light Backup
+,803,86,8,Faculty Housing,Light Backup
+,901,87,9,Faculty Housing,Power
+,902,88,9,Faculty Housing,Power
+,903,89,9,Faculty Housing,Power
+,0,90,9,Faculty Housing,Unused
+,901,91,9,Faculty Housing,Light Backup
+,902,92,9,Faculty Housing,Light Backup
+,903,93,9,Faculty Housing,Light Backup
+,1001,100,10,Faculty Housing,Power
+,1002,101,10,Faculty Housing,Power
+,1003,102,10,Faculty Housing,Power
+,0,103,10,Faculty Housing,Unused
+,1001,104,10,Faculty Housing,Light Backup
+,1002,105,10,Faculty Housing,Light Backup
+,1003,106,10,Faculty Housing,Light Backup
+,1101,107,11,Faculty Housing,Power
+,1102,108,11,Faculty Housing,Power
+,1103,109,11,Faculty Housing,Power
+,0,110,11,Faculty Housing,Unused
+,1101,111,11,Faculty Housing,Light Backup
+,1102,112,11,Faculty Housing,Light Backup
+,1103,113,11,Faculty Housing,Light Backup

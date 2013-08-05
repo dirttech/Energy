@@ -1,0 +1,54 @@
+﻿    .SideUpperLabel
+        {
+          font-family:@Arial Unicode MS;
+          font-size:large;
+          color:Navy;
+          padding-left:5px;
+          padding-top:4px;
+          font-weight:normal;   
+        }
+ .tplbl
+        {
+         background-color:#FFFF99;   
+        }
+        .HeadingLeftTop
+        {
+            display:none;
+        }
+         td
+        {
+            font-family:Verdana; 
+         
+            
+        }
+        .tabStyle
+        {
+          width:700px;
+             
+        }
+        .billQ
+        {
+           font-weight:bolder; 
+        }
+        .billA
+        {
+          color:Gray;
+          line-height:25px;
+          padding-left:10px;
+          padding-right:20px;
+        }
+        .SideBar
+        {
+            display:none;   
+        }
+        .hoverDiv
+        {
+            display:none;
+        }
+        .printHide
+        {
+            display:none;
+        }
+        
+        
+        

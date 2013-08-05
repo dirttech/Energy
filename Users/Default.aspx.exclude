@@ -1,0 +1,254 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+<%@ Import Namespace="System.Web.Script.Serialization" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Your Consumption</title>
+    <link rel="shortcut icon" href="../images/dashboard_icon.png" />
+    <style type="text/css">
+    .topBarNavigation a:hover
+{
+  font-size: x-large;   
+  color:White;
+  text-decoration:none;
+     
+}
+    </style>
+
+    <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
+     <link rel="stylesheet" type="text/css" media="screen" href="../Scripts/calender/bootstrap-datetimepicker.min.css" />
+   
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+      <script type="text/javascript">
+          function CopyHidden(ths) {
+
+              var hid = ths.getAttribute("compType");
+              document.getElementById('<%=hidCompType.ClientID%>').setAttribute("value", hid);
+              var tp = ths.innerText;
+              document.getElementById('<%=hiddenHeadingType.ClientID%>').setAttribute("value", tp);
+              document.getElementById('<%=Heading.ClientID %>').innerText = tp;
+
+          }
+    
+    </script>
+    <script type="text/javascript"   src="../Scripts/jquery-1.4.1.min.js"></script>
+       <script type="text/javascript">
+  
+    var energyData = <%=new JavaScriptSerializer().Serialize(energyArray)%>;
+  
+    var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
+    var startDate=sD*1000;
+   
+    var interval = <%= new JavaScriptSerializer().Serialize(timeInterval) %> ;
+    interval=interval/100;
+
+     jQuery(document).ready(function ($) {
+     $('#container').highcharts({
+            chart: {
+            renderTo: 'container',
+                zoomType: 'x',
+                spacingRight: 20
+            },
+             
+            title: {
+                text: 'Energy consumption data between given time interval'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Drag your finger over the plot to zoom in'
+            },
+            xAxis: {
+        
+                type: 'datetime',
+                
+               // maxZoom: 14 * 24 * 3600000 * 60 * 60, // fourteen days
+                title: {
+                    text: 'Time'
+                }
+            },
+             scrollbar: {
+    enabled: true
+  },
+            yAxis: {
+                title: {
+                    text: 'Energy Consumption (Watts)'
+                }
+            },
+            tooltip: {
+                valueSuffix: 'W',
+                shared: true
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                           linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                         stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                        
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+    
+            series: [{
+                type: 'area',
+                name: 'Power Consumption',
+                pointInterval: interval,
+                pointStart:startDate,
+                data:energyData
+            }]
+        });
+
+    });
+
+    </script>
+</head>
+<body>
+<script src="../Scripts/high_charts/js/highcharts.js"></script>
+    <script src="../Scripts/high_charts/js/modules/exporting.js"></script>
+    <form id="form1" runat="server" style="margin:0px;">
+
+     <div id="navigationTop">
+     <a href="front.aspx">Home</a>
+ <a href="Default.aspx" >Power Consumption</a>
+
+     <a href="BarGraph.aspx">Energy Consumption</a>
+
+     <a href="AverageComparison.aspx" >Me! vs Average</a>
+
+     <a href="TrackBill.aspx" >Track Bill</a>
+     </div>
+         <asp:LinkButton ID="logOut" runat="server"  
+        style="color:Black; font-weight:bold;  position:absolute; top:5px; right:20px;" 
+        onclick="logOut_Click">LOG OUT</asp:LinkButton>
+     <a style="color:Black;  font-size:large;  position:absolute; top:10px; left:20px;" id="nameTitle" runat="server">Welcome</a>
+     <br/>
+    <div>
+    <table ><tr ><td style="width:250px;">
+    <div class="HeadingLeftTop">
+    <label id="Heading" runat="server" style=" font-size:x-large;">Last 5 Days</label>    
+    <label id="subHeading" runat="server" style="font-size:small;" ></label>
+    </div>
+
+
+    <input id="hidCompType" type="hidden" runat="server" value="LNT"/>
+<input id="hiddenHeadingType" type="hidden" runat="server" value="Last Night" />
+        <asp:Button ID="plot" runat="server" Text="Plot Now" onclick="plot_Click" class="customButton" style="display:none; position:absolute;" />
+    </td><td>
+    
+       <table>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    From<br />
+    <div id="datetimepicker" class="input-append date">
+      <input type="text" id="fromDate" runat="server" style=" margin-left:30px;"/>
+      
+
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+    </div> 
+    </td><td >
+   &nbsp;&nbsp; To<br />
+    <div id="datetimepicker2" class="input-append date">
+      <input type="text" id="toDate" runat="server" style=" margin-left:10px;"/>
+      
+
+      <span class="add-on">
+        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+      </span>
+    </div> 
+       </td><td>
+       <br />
+       <asp:Button ID="submitDate" runat="server" Text="Submit" class="customButton" 
+                style=" margin-left:10px; margin-bottom:5px;" onclick="submitDate_Click"/>
+       </td></tr>    
+    </table>
+
+    </td><td></td></tr>
+    
+    <tr><td id="NavigationContainer">
+  
+  <ul id="Navigation">
+   <li><a class="navy" href="#" msg="Select month" compType="LNT" onclick="CopyHidden(this);" id="lnt" >Last Night</a></li>
+    <li><a class="navy" href="#" msg="Select day" compType="LDY" onclick="CopyHidden(this);" id="ldy">Last Day</a></li>
+    <li><a class="navy" href="#" msg="Select starting day" compType="SIXHR" onclick="CopyHidden(this);" id="sixhr">Last 6 Hours</a></li>
+    <li><a class="navy" href="#" msg="Select month" compType="LWK" onclick="CopyHidden(this);" id="lwk">Last 7 Days</a></li>
+    <li><a class="navy" href="#" msg="Select month" compType="THMNT" onclick="CopyHidden(this);" id="thmnt">This Month</a></li>
+     <li><a class="navy" href="#" msg="Select month" compType="LMNTH" onclick="CopyHidden(this);" id="lmnth">Last Month</a></li>
+      <li><a class="navy" href="#" msg="Select month" compType="THYR" onclick="CopyHidden(this);" id="thyr">This Year</a></li>
+  </ul>
+
+
+    </td><td>
+    
+     <div id="container" style="width: 900px; height: 700px; margin: 0 auto"></div>
+    
+    </td><td></td></tr>
+    </table>
+
+ 
+       
+    </div>
+
+
+     <script type="text/javascript"
+     src="../Scripts/calender/jquery.min.js">
+    </script> 
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+    <script type="text/jscript">
+        jQuery(document).ready(function ($) {
+            $('#datetimepicker').datetimepicker({
+                format: 'dd/MM/yyyy hh:mm:ss',
+                pick12HourFormat: true
+            });
+            $('#datetimepicker2').datetimepicker({
+                format: 'dd/MM/yyyy hh:mm:ss',
+                pick12HourFormat: true
+            });
+            $('.navy').hover(function () {
+                $('.navy').css('font-size', 'large');
+                $(this).css('font-size', 'x-large');
+
+
+            });
+            $('.navy').click(function () {
+                var offset = $(this).offset();
+                $("#plot").hide();
+                $("#plot").show("drop");
+                $("#plot").offset({ top: offset.top, left: offset.left + 130 });
+            });
+
+
+
+        });
+       
+    </script>
+    </form>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="SettingsMaster.master.cs" Inherits="UserSettings_SettingsMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="shortcut icon" href="../images/dashboard_icon.png" />
+    <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
+    <style type="text/css">
+        td
+        {
+            width:200px;
+        }
+        tr
+        {
+            padding:20px;   
+        }
+       div
+       {
+           margin:50px;
+           background-color:skyblue;
+           
+       }
+       .skindiv
+       {
+             -webkit-box-shadow: 0px 0px 8px 0px #000000;
+-moz-box-shadow: 0px 0px 8px 0px #000000;
+box-shadow: 0px 0px 8px 0px #000000;
+}
+      
+       body{
+            font-family:Verdana;
+        }
+        
+       a
+      {
+          font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+          text-decoration:none;
+      }
+        a:hover
+        {
+             text-decoration:none;
+        }
+    p, h2, h3
+        {
+          font-family:Verdana;  
+          color:White; 
+        }
+    </style>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    
+       <div id="navigationTop" style="margin:0px; padding:0px; padding-top:10px; margin-top:0px; position:fixed;">
+   <a href="ResetUserPassword.aspx">Reset Password</a>
+   <a href="EditUserProfile.aspx">Edit Profile</a>|
+   <a href="../Loggin.aspx" style="color:Black;">Login</a>
+     </div>
+       
+     <a style="color:Black;  font-size:large;  position:fixed; top:5px; left:20px;" id="nameTitle" runat="server">Welcome</a>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+    
+        </asp:ContentPlaceHolder>
+    
+    </form>
+</body>
+</html>

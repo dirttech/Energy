@@ -1,0 +1,139 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using App_Code.FetchingEnergyss;
+using App_Code.Utility;
+using System.Web.Script.Serialization;
+
+
+public partial class _Default : System.Web.UI.Page
+{
+    public JavaScriptSerializer javaSerial = new JavaScriptSerializer();
+    public float[] energyArray;
+    public int[] timeArray;
+    public static int meterId;
+    public static string deviceId;
+    public static string[] timeSeries;
+    public static int startDate;
+    public static int timeInterval = 0;
+
+
+    protected void CheckLogin()
+    {
+        if (Session["UserName"] == null || Session["UserName"] == "")
+        {
+            Response.Redirect("~/Loggin.aspx");
+        }
+        else
+        {
+            nameTitle.InnerText = "Welcome " + Session["UserName"].ToString();
+        }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        CheckLogin();
+        if(Session["MeterID"]!=null && Session["DeviceID"]!=null)
+        {
+        meterId = Convert.ToInt32(Session["MeterID"]);
+        deviceId = Session["DeviceID"].ToString();
+        
+            Heading.InnerText = hiddenHeadingType.Value;
+            if (IsPostBack == false)
+            {
+                DateTime frDate = DateTime.Today.AddDays(-5); ;
+                DateTime tDate = DateTime.Now;
+                if (fromDate.Value != "")
+                {
+                    frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                      System.Globalization.CultureInfo.InvariantCulture);
+                }
+                if (toDate.Value != "")
+                {
+                    tDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                      System.Globalization.CultureInfo.InvariantCulture);
+                }
+                Utilities ut1 = Utilitie_S.DateTimeToEpoch(frDate);
+                Utilities ut2 = Utilitie_S.DateTimeToEpoch(tDate);
+                Heading.InnerText = "Last 5 Days";
+                Plot_Line_Graph(ut1.Epoch, ut2.Epoch, meterId, deviceId);
+            }
+        }
+        else
+        {
+            Response.Write("<script>alert('Sorry! Your Meter is not registered yet.');</script>");
+            //Session["UserName"] = null;
+            //Response.Redirect("LoginPage.aspx");
+        }
+    }
+
+    protected void Plot_Line_Graph(int frTime,int tTime, int meterId, string deviceId)
+    {
+        Utilities ut = Utilitie_S.DateTimeToEpoch(DateTime.Now.AddDays(-3));
+        startDate = ut.Epoch;
+        timeInterval = 86400;
+        try
+        {
+            List<FetchingEnergy> energyObj = FetchingEnergy_s.fetchEnergyALL(startDate, startDate+timeInterval, meterId , deviceId);
+            
+            int count = energyObj.Count;
+            energyArray = new float[count-1];
+            timeArray = new int[count];
+            
+            for (int i = 0; i < count-1; i++)
+            {
+                energyArray[i] = energyObj[i+1].W;     
+            }
+
+
+            //for (int i = 0; i < count; i++)
+            //{
+            //    timeArray[i] = energyObj[i].TimeStamp;
+            //}
+
+            //timeSeries = Utilitie_S.TimeFormatter(timeArray);
+
+        }
+        catch (Exception e)
+        {
+
+        }
+       
+    }
+    protected void submitDate_Click(object sender, EventArgs e)
+    {
+         DateTime frDate = DateTime.Today;
+            DateTime tDate = DateTime.Now;
+            if (fromDate.Value != "")
+            {
+                frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                  System.Globalization.CultureInfo.InvariantCulture);
+            }
+            if (toDate.Value != "")
+            {
+                tDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                  System.Globalization.CultureInfo.InvariantCulture);
+            }
+            Utilities ut1 = Utilitie_S.DateTimeToEpoch(frDate);
+            Utilities ut2 = Utilitie_S.DateTimeToEpoch(tDate);
+
+            Plot_Line_Graph(ut1.Epoch,ut2.Epoch,meterId,deviceId);
+        
+    }
+    protected void plot_Click(object sender, EventArgs e)
+    {
+        int fromTime, toTime;
+        Utilitie_S.Return_Line_Time(hidCompType.Value, out fromTime, out toTime);
+        Utilities frm = Utilitie_S.EpochToDateTime(fromTime);
+        Utilities to = Utilitie_S.EpochToDateTime(toTime);
+        subHeading.InnerText = frm.Date.ToString("d MMM yy h:mm") + " - " + to.Date.ToString("d MMM yy h:mm");
+       
+        Plot_Line_Graph(fromTime, toTime,meterId,deviceId);
+    }
+    protected void logOut_Click(object sender, EventArgs e)
+    {
+        Session["UserName"] = null;
+        Response.Redirect("~/Loggin.aspx");
+    }
+}
