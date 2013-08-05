@@ -178,7 +178,7 @@
     <a>Our Team</a><br />
       <ul >
     <li><a  onclick="scrollTo('prof')">Faculty</a></li>
-    <li><a  onclick="scrollTo('phd')">Ph.D</a></li>
+    <li><a  onclick="scrollTo('Ph.D')">Ph.D</a></li>
     <li><a  onclick="scrollTo('ra')">Software Engineer / RA</a></li>
     <li><a  onclick="scrollTo('mtech')">M.Tech</a></li>
     <li><a  onclick="scrollTo('btech')">B.Tech</a></li>
@@ -276,9 +276,9 @@
        </div>
     </td></tr>
     <tr><td>
-    <h4 id="phd">Ph.D</h4>
+    <h4 id="Ph.D">Ph.D</h4>
     <hr />
-     <div id="phdDiv" class="teamWrapper">
+     <div id="Ph.DDiv" class="teamWrapper">
 
           <div class="personal-wrapper"  id="Div4">
             <table>
@@ -290,7 +290,7 @@
                     </td>   
                     <td class="infoWrapper">
                     <label class="nameWrapper">Pandarasamy Arjunan</label><br /><br />
-                    <label class="namePosition">PHD Scholar</label><br />    
+                    <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    
                     <a href="http://www.iiitd.edu.in/~samy/" target="_blank">iiitd.edu.in/~samy</a>
@@ -331,9 +331,9 @@ Internet of Things.
                     </td>   
                     <td class="infoWrapper">
                     <label class="nameWrapper">Nipun Batra</label><br /><br />
-                    <label class="namePosition">PHD Scholar</label><br />    
+                    <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
-                    TCS PhD Fellowship<br />
+                    TCS Ph.D Fellowship<br />
                     <a href="http://nipunbatra.wordpress.com/" target="_blank">nipunbatra.wordpress.com</a>
                     </label>
                     </td>
@@ -369,7 +369,7 @@ Internet of Things.
                     </td>   
                     <td class="infoWrapper">
                     <label class="nameWrapper">Manoj Gulati</label><br /><br />
-                    <label class="namePosition">PHD Scholar</label><br />    
+                    <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">ECE - IIIT Delhi<br />
                    
                     <a href="http://manojgulati.wordpress.com/" target="_blank">manojgulati.wordpress.com</a>
@@ -399,7 +399,7 @@ Internet of Things.
                 </div>
     </td></tr>
     <tr><td>
-    <h4 id="ra">SoftWare Engineer / RA</h4>
+    <h4 id="ra">Software Engineer / RA</h4>
     <hr />
       <div id="raDiv" class="teamWrapper">
 
