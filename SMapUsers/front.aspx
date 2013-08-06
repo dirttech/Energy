@@ -5,8 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
+<link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/wheather/weather.css" />
 <link rel="shortcut icon" href="../images/dashboard_icon.png" />
- <link rel="Stylesheet" type="text/css" href="../Scripts/wheather/weather.css" />
+ 
     <script type="text/jscript" src="../Scripts/jquery-1.4.1.min.js"></script>
     
     
@@ -66,6 +67,7 @@ box-shadow: 0px 0px 8px 0px #000000;
  color:#1a9cc8;
  line-height:20px;
     }
+
     </style>
 
 

@@ -132,7 +132,7 @@ namespace App_Code.FetchingEnergySmap
                     {
                         var f4 = f3[i];
                         timeSt[j] = Convert.ToInt32(f4[0] / 1000);
-                        values[j] = Convert.ToDouble(f4[1]);
+                        values[j] =Convert.ToDouble(f4[1]);
                     }
 
                     response.Close();
@@ -205,7 +205,7 @@ namespace App_Code.FetchingEnergySmap
                     {
                         var f4 = f3[0];
                         timeSt[j] = Convert.ToInt32(f4[0] / 1000);
-                        values[j] = Convert.ToDouble(f4[1]);
+                        values[j] =Convert.ToDouble(f4[1]);
 
                     }
                     response.Close();

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using App_Code.Login;
 using App_Code.UserRegisterationProcess;
 using App_Code.User_Mapping;
+using App_Code.SendMail;
 
 public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 {
@@ -16,35 +17,7 @@ public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 
     }
 
-    protected void SendMail(UserLogin confirmObj)
-    {
-        var fromaddr = "energy.iiitd.gmail.com";
-        var toaddr = confirmObj.EMail;
-        const string fromPassword = "iamback@IIITD";
-        string subject = "Confirmation of your apartment registration for energy dashboard";
-        string body = "Congratulations! We have confirmed your apartment registration for our energy dashboard." + "\n";
-        body += "Username: " + confirmObj.UserName + "\n";
-        body += "Password: " + confirmObj.Password + "\n";
-        body += "Login @ www.EnergyDashboard.com";
-
-        //body += "Email: " + "Inderpals@iiitd.ac.in" + "\n";
-        //body += "Subject: " + "Confirmation of your apartment registration for energy dashboard";
-
-        var smtp = new System.Net.Mail.SmtpClient();
-        {
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            smtp.Credentials = new NetworkCredential(fromaddr, fromPassword);
-            smtp.Timeout = 20000;
-        }
-        smtp.Send(fromaddr, toaddr, subject, body);
-
-
-
-    }
-
+   
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
         UserLogin confirmObj = new UserLogin();
@@ -77,7 +50,7 @@ public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 
               if (stst == true)
               {
-                  SendMail(confirmObj);
+                  SendingMails.SendRegistrationMail(confirmObj);
 
                   UserRegisteration regObj = new UserRegisteration();
 
