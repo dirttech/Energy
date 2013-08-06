@@ -156,10 +156,10 @@
                MeterType<br />
 
         <asp:DropDownList ID="paramList" runat="server">
-        <asp:ListItem Value="Watts">Power</asp:ListItem>
-        <asp:ListItem Value="Volts">Voltage</asp:ListItem>
-        <asp:ListItem Value="Watt-Hours">Energy</asp:ListItem>
-            <asp:ListItem Value="Hertz">Frequency</asp:ListItem>
+        <asp:ListItem Value="Power">Power</asp:ListItem>
+        <asp:ListItem Value="Voltage">Voltage</asp:ListItem>
+        <asp:ListItem Value="Energy">Energy</asp:ListItem>
+            <asp:ListItem Value="Frequency">Frequency</asp:ListItem>
     </asp:DropDownList>
     <asp:DropDownList ID="meterList" runat="server">
         <asp:ListItem Value="Building Total Mains">Power Meter</asp:ListItem>

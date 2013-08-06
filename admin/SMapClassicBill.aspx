@@ -152,91 +152,63 @@
     <div>
     
         <table class="tabStyle" id="printingDiv">
-            <tr>
-                <td width="30%">
+         <tr>
+                <td >
                 <img src="../images/iiitd_logo.png" height="50px" alt="IIITD"/>
                                    </td>
-                <td style="font-size:x-large;" width="32%">
+                <td style="font-size:x-large;">
                     ELECTRICITY BILL</td>
                 
-                <td class="tplbl">
+                <td class="tplbl" style="width:300px;">
                     <p id="billAmount" runat="server" class="SideUpperLabel"></p>
                    
                     <p id="dueDate" runat="server" class="SideUpperLabel"></p>
                 </td>
             </tr>
-            <tr style="vertical-align: top">
-                <td >
-                    <table>
-                    <tr> <td class="billQ">  Name  </td> 
-                     <td>  <label runat="server" id="fullName" class="billA"></label>  </td> </tr>
-                    <tr> <td class="billQ"> Address  </td> 
-                     <td>  <label runat="server" id="address" class="billA"></label> </td> </tr>
-                    <tr> <td class="billQ">  Mobile  </td> 
-                     <td>  <label runat="server" id="mobile" class="billA"></label>  </td>  </tr>
-                    </table>
+            <tr style="vertical-align: top; ">
+                
+                <td>   <label runat="server" id="fullName" class="billHead"></label>
+                   <label runat="server" id="address" class="billHead2"></label>
+                   <label runat="server" id="mobile" class="billHead2"></label>
+                        
                     
                     </td>
             
-                <td>                   
-                               <table>
-                    <tr><td class="billQ">Sanctioned Load</td>
-                    <td><label runat="server" id="Label2" class="billA">8 Kva</label></td></tr>
-                    <tr><td class="billQ">MDI</td>
-                    <td><label runat="server" id="Label3" class="billA">1</label></td></tr>
-                    <tr><td class="billQ">Power Factor</td>
-                    <td><label runat="server" id="Label4" class="billA">0.9</label></td></tr>
-                    </table>                             
+                <td colspan="2">                   
+                                 
                    </td>
-                               
-                  <td>
-                  
-                         <table>
-                    <tr><td class="billQ">Bill No.</td>
-                    <td><label runat="server" id="billNo" class="billA"></label></td></tr>
-                    <tr><td class="billQ">Enerzisation Date</td>
-                    <td><label runat="server" id="enrzDate" class="billA"></label></td></tr>
-                    <tr><td class="billQ">Meter Type</td>
-                    <td><label runat="server" id="Label7" class="billA">Permanent</label></td></tr>
-                   <tr><td class="billQ">Supply Type</td>
-                    <td><label runat="server" id="Label6" class="billA">LT</label></td></tr>
-                    </table>
-                  
-                  </td> 
-                  </tr>
-                  <tr>
-                  <td>
-                      <table>
-                    <tr><td class="billQ">Meter Status</td>
-                    <td><label runat="server" id="Label8" class="billA">OK</label></td></tr>
-                    <tr><td class="billQ">Billing Period</td>
-                    <td><label runat="server" id="billPeriod" class="billA"></label></td></tr>
-                    <tr><td class="billQ">Bill Date</td>
-                    <td><label runat="server" id="billDate" class="billA"></label></td></tr>
-                  
-                    </table>
-                  </td>
-                  <td></td>
-                  <td></td>
-                  </tr>
-                  <tr>
-                  <td>
-                   <table>
-                    <tr><td class="billQ">MeterNo.</td>
-                    <td><label runat="server" id="meterNo" class="billA"></label></td>
-                    </tr>
-                    
-                    </table>
-                  </td>
-                  <td>                    
-                    
-                   
-                   </td>
-
-                   <td> </td>
-               
+              
             </tr>
-            <tr >
+            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
+                <td width="35%">
+                <h4 >Billing Details:</h4>
+                <h5>
+                  Meter No. &nbsp;&nbsp;<label runat="server" id="meterNo" class="billA"></label>
+                  Bill No.  &nbsp;&nbsp;  <label runat="server" id="billNo" class="billA"></label>
+                  Bill Period &nbsp;&nbsp;  <label runat="server" id="billPeriod" class="billA"></label>
+                  Bill Date &nbsp;&nbsp; <label runat="server" id="billDate" class="billA"></label>
+                  </h5>
+                    </td>
+                <td width="32%">
+                <h5>
+                 Power Factor &nbsp;&nbsp;<label class="billA">0.9</label>
+                 Sanctioned Load &nbsp;&nbsp;<label class="billA">8 Kva</label>
+                 MDI &nbsp;&nbsp;<label class="billA">1</label>
+                 Supply Type&nbsp;&nbsp;<label class="billA">LT</label>
+                 </h5>
+
+                    </td>
+                <td style="vertical-align:top;">
+                    <h5><br />
+                 Meter Status &nbsp;&nbsp;<label class="billA">OK</label>
+                 Meter Type &nbsp;&nbsp;<label class="billA">Permanent</label>
+                 Enerzisation Date &nbsp;&nbsp;<label class="billA"></label>
+                 </h5>
+                    
+                   </td>
+            
+            </tr>
+            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
                 <td colspan="3">
                  
                     <table>

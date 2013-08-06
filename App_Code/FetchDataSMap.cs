@@ -29,7 +29,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Extra/FlatNumber ='" + flat + "' and Properties/UnitofMeasure='Watts' and Metadata/Extra/Type='" + type + "'";
+                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/Type='" + type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -101,7 +101,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data in ('" + fromTimeArray[j] + "' , '" + toTimeArray[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Properties/UnitofMeasure='Watt-Hours' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data in ('" + fromTimeArray[j] + "' , '" + toTimeArray[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);
@@ -173,7 +173,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data in ('" + fromArr[j] + "' , '" + toArr[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Properties/UnitofMeasure='Watt-Hours' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data in ('" + fromArr[j] + "' , '" + toArr[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);
@@ -235,7 +235,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data in ('" + fromTimeArray[j] + "' , '" + toTimeArray[j] + "') limit 1 where Metadata/Location/Building ='" + location + "' and Properties/UnitofMeasure='Watt-Hours' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data in ('" + fromTimeArray[j] + "' , '" + toTimeArray[j] + "') limit 1 where Metadata/Location/Building ='" + location + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);
@@ -304,7 +304,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Location/Building ='" + building + "' and Properties/UnitofMeasure='"+criteria+"' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -366,7 +366,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Location/Building ='" + building + "' and Properties/UnitofMeasure='" + criteria +"' and Metadata/Extra/Block = '"+block+ "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
