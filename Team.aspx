@@ -184,7 +184,7 @@
     <li><a  onclick="scrollTo('btech')">B.Tech</a></li>
     
     </ul>
-    <a>Collabrators</a><br />
+    <a>Collaborators</a><br />
      <ul >
     <li><a onclick="scrollTo('ucla')">UCLA</a></li>
     <li><a onclick="scrollTo('ibm')">IBM Research</a></li>

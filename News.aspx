@@ -63,8 +63,9 @@
     <ul>
     <li>More than 120 smart meters installed on IIIT Delhi campus with data being collected from them every 30 seconds.
 </li>
-<li> Recently completed an extensive home deployment - take some pictures and description from Nipun 
+<li> Recently completed an extensive home deployment.
 </li>    
+<li>Surveyed more than 1500 households in Delhi for energy consumption behavior in summer 2013.</li>
     </ul>
     <br />
     <hr />

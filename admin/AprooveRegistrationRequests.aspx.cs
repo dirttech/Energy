@@ -18,9 +18,9 @@ public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 
     protected void SendMail(UserLogin confirmObj)
     {
-        var fromaddr = "inderpals@iiitd.ac.in";
+        var fromaddr = "energy.iiitd.gmail.com";
         var toaddr = confirmObj.EMail;
-        const string fromPassword = "iambacknow";
+        const string fromPassword = "iamback@IIITD";
         string subject = "Confirmation of your apartment registration for energy dashboard";
         string body = "Congratulations! We have confirmed your apartment registration for our energy dashboard." + "\n";
         body += "Username: " + confirmObj.UserName + "\n";
