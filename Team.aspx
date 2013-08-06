@@ -178,7 +178,7 @@
     <a>Our Team</a><br />
       <ul >
     <li><a  onclick="scrollTo('prof')">Faculty</a></li>
-    <li><a  onclick="scrollTo('Ph.D')">Ph.D</a></li>
+    <li><a  onclick="scrollTo('phd')">Ph.D</a></li>
     <li><a  onclick="scrollTo('ra')">Software Engineer / RA</a></li>
     <li><a  onclick="scrollTo('mtech')">M.Tech</a></li>
     <li><a  onclick="scrollTo('btech')">B.Tech</a></li>
@@ -276,9 +276,9 @@
        </div>
     </td></tr>
     <tr><td>
-    <h4 id="Ph.D">Ph.D</h4>
+    <h4 id="phd">Ph.D</h4>
     <hr />
-     <div id="Ph.DDiv" class="teamWrapper">
+     <div id="phdDiv" class="teamWrapper">
 
           <div class="personal-wrapper"  id="Div4">
             <table>
@@ -333,7 +333,7 @@ Internet of Things.
                     <label class="nameWrapper">Nipun Batra</label><br /><br />
                     <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
-                    TCS Ph.D Fellowship<br />
+                    TCS PhD Fellowship<br />
                     <a href="http://nipunbatra.wordpress.com/" target="_blank">nipunbatra.wordpress.com</a>
                     </label>
                     </td>
