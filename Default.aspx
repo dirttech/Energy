@@ -4,22 +4,27 @@
 <style type="text/css">
 .floatingDivs
 {
-   margin:5px 0px 5px 5px;
    display:inline-block;
    position:relative;
     background-color:transparent;
-   width:390px;
-   
+   width:21.7em;
+  
    cursor:pointer;
-    margin-right:10px;
+   
     
+}
+.floatContainer
+{
+    margin:0 auto;
+    text-align:center;
+  
 }
 .cutDiv1:before {
     content: '';
     position: absolute;
     top: 0; left: 0;
     border-top: 40px solid transparent;
-    border-right: 40px solid #008080;
+    border-right: 40px solid transparent;
     width: 0;
 }
 .cutDiv2:before {
@@ -27,7 +32,7 @@
     position: absolute;
     top: 0; left: 0;
     border-top: 40px solid transparent;
-    border-right: 40px solid #DC143C;
+    border-right: 40px solid transparent;
     width: 0;
 }
 .cutDiv3:before {
@@ -35,7 +40,7 @@
     position: absolute;
     top: 0; left: 0;
     border-top: 40px solid transparent;
-    border-right: 40px solid #8A2BE2;
+    border-right: 40px solid transparent;
     width: 0;
 }
 .sideA
@@ -62,6 +67,7 @@ h3
   margin:-0px;
   border-radius:12px 12px 0px 0px;  
   padding:5px; 
+  font-weight:normal;
 }
 p
 {
@@ -80,23 +86,23 @@ h2
 </style>
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
-        $('.floatingDivs').click(function () {
+        $('.floatingDivs').mouseenter(function () {
 
-            $('.floatingDivs').animate({
+//            $(this).animate({
 
-                bottom: '-0px'
+//                bottom: '-0px'
 
-            }, 300);
+//            }, 300);
 
             $(this).animate({
 
-                bottom: '90px'
+                bottom: '60px'
 
             }, 300);
         });
-        $('.floatingDivs').mouseout(function () {
+        $('.floatingDivs').mouseleave(function () {
 
-            $('.floatingDivs').animate({
+            $(this).animate({
 
                 bottom: '-0px'
 
@@ -125,21 +131,22 @@ h2
             <img src="images/homeLogoAll.png" height="220px" style="png-shadow: 5px 5px 5px #222;"/></td>
               <td style="font-family:@Batang;color:Black; text-transform:none; vertical-align:top; padding-top:10px; padding-left:10px;">
 
-              <div style="background-color:transparent; width:160px; height:40px; position:absolute; right:0px;" class="cutDiv1"></div>
-              <div style="background-color:#008080; width:120px; height:40px; position:absolute; right:0px; text-align:left;"  >
-              <a href="admin/adminLogin.aspx" class="sideA">Admin</a>
-              </div>
+             
 
-              <div style="background-color:transparent; width:210px; height:40px; position:absolute; right:0px; top:130px;" class="cutDiv2"></div>
-              <div style="background-color:#DC143C; width:170px; height:40px; position:absolute; right:0px; top:130px;" >
+              <div style="background-color:transparent; width:210px; height:40px; position:absolute; right:0px; " class="cutDiv2"></div>
+              <div style="background-color:#8B4513; width:170px; height:40px; position:absolute; right:0px; " >
               &nbsp;&nbsp;<a href="Register.aspx" class="sideA">Register</a>
               </div>
 
-              <div style="background-color:transparent; width:260px; height:40px; position:absolute; right:0px; top:185px;" class="cutDiv3"></div>
-              <div style="background-color:#8A2BE2; width:220px; height:40px; position:absolute; right:0px; top:185px;" >
+              <div style="background-color:transparent; width:260px; height:40px; position:absolute; right:0px; top:130px;" class="cutDiv3"></div>
+              <div style="background-color:#D2B48C; width:220px; height:40px; position:absolute; right:0px; top:130px;" >
               <a href="Tips.aspx" class="sideA">Energy Saving Tips</a>
               </div>
 
+               <div style="background-color:transparent; width:160px; height:40px; position:absolute; right:0px; top:185px;" class="cutDiv1"></div>
+              <div style="background-color:#F0E68C; width:170px; height:40px; position:absolute; right:0px; text-align:left; top:185px;"  >
+              <a href="admin/adminLogin.aspx" class="sideA">Admin</a>
+              </div>
 
           </td>
            
@@ -148,6 +155,7 @@ h2
 			</div>
         <br /> 
         <br /><br />
+        <div class="floatContainer">
         <div class="floatingDivs" style="margin-left:15px; bottom:-0px;" >
         
         <h3>SensorAct - Sense, Interact, Actuate</h3>
@@ -158,9 +166,9 @@ h2
         applications. It also supports participation from stakeholders such as occupants to set policies for management of sensor data and control of 
         electrical/electronic systems.
         </p>
-        <span style="background-color:Black; width:400px;">
+       <%-- <span style="background-color:Black; width:400px;">
         <a href="#" style="color:white; text-decoration:none; font-size:medium; padding:0px;">read more >></a>
-        </span>
+        </span>--%>
         </div></div>
      
        
@@ -175,9 +183,9 @@ h2
          insights from behavioral science to design optimal interventions for changing energy use behavior. 
          We also do billing practices using this data.
         </p>
-         <span style="background-color:Black; width:400px;">
+        <%-- <span style="background-color:Black; width:400px;">
         <a href="#" style="color:white; text-decoration:none; font-size:medium; padding:0px;">read more >></a>
-        </span>
+        </span>--%>
         </div>
         </div>
 
@@ -192,13 +200,13 @@ h2
               Each appliance has a unique power signature and we use these features for NILM.
              
              </p>
-             <span style="background-color:Black; width:400px;">
+             <%--<span style="background-color:Black; width:400px;">
         <a href="#" style="color:white; text-decoration:none; font-size:medium; padding:0px;">read more >></a>
-        </span>
+        </span>--%>
              </div></div>
 
 
-     
+     </div>
 
         </div>
 		
