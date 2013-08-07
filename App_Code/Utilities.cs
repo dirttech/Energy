@@ -434,10 +434,10 @@ namespace App_Code.Utility
             //Also remove duplicate items
 
 
-            for (int i = 1; i < epochs.Length; i++)
+            for (int i = epochs.Length-1; i > 1; i=i-1)
             {
                 if (epochs[i] == epochs[i-1])
-                {
+                {//changed for loop direction
                     epochs[i] = 0;
                     values[i] = 0;
                 }
@@ -471,6 +471,76 @@ namespace App_Code.Utility
 
             
         }
+
+        public static DateTime StartOfDay(DateTime now)
+        {
+            int day = now.Day;
+            int month = now.Month;
+            int year = now.Year;
+
+            DateTime dated = new DateTime(year, month, day, 0, 0, 1);
+            return dated;
+        }
+
+        public static void ZeroAverageArrayRefiner(int[] epochs, double[] values, out int[] refinedEpochs, out double[] refinedValues)
+        {
+            //It will remove zero values from arrays. it checks for if epoch is zero then remove it from array and it corresponding value from other array
+            //Both arrays should be of same length.
+            //Also remove duplicate items
+
+
+            for (int i = epochs.Length - 1; i > 1; i = i - 1)
+            {
+                Utilities ut = Utilitie_S.EpochToDateTime(epochs[i]);
+                
+                    if ((epochs[i] == epochs[i - 1]))
+                    {//changed for loop direction
+                        if (StartOfDay(ut.Date) >= StartOfDay(DateTime.Now.AddDays(-1)))
+                        {
+                            epochs[i] = 0;
+                            values[i] = 0;
+                        }
+                    }
+                
+            }
+
+            int ct = 0;
+            for (int i = 0; i < epochs.Length; i++)
+            {
+                if (epochs[i] > 1)
+                {
+                    ct++;
+                }
+            }
+
+            if (StartOfDay(Utilitie_S.EpochToDateTime(epochs[ct - 1]).Date) == StartOfDay(DateTime.Today))
+            {
+                ct = ct - 1;
+            }
+
+            refinedEpochs = new int[ct];
+            refinedValues = new double[ct];
+
+            ct = 0;
+            for (int i = 0; i < epochs.Length; i++)
+            {
+                if (epochs[i] > 1)
+                {
+
+                    refinedEpochs[ct] = epochs[i];
+                    refinedValues[ct] = values[i];
+                    ct++;
+                }
+            }
+
+
+
+
+
+
+
+        }
+
 
         public static void MeterReadingsMerger(int[] epochs1, int[] epochs2, double[] values1, double[] values2, out int[] mergedEpochs, out double[] mergedValues)
         {

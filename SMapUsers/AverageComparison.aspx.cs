@@ -97,7 +97,7 @@ public partial class AverageComparison : System.Web.UI.Page
             timeSeries = Utilitie_S.TimeFormatter(timeStamps);
 
             FetchEnergyDataS_Map.FetchAvgConsumption(fromTimeArray, toTimeArray, building, meter_type, out avgTimeStamps, out avgValues);
-            Utilitie_S.ZeroArrayRefiner(avgTimeStamps, avgValues, out avgTimeStamps, out avgValues);
+            Utilitie_S.ZeroAverageArrayRefiner(avgTimeStamps, avgValues, out avgTimeStamps, out avgValues);
 
             avgTimeSeries = Utilitie_S.TimeFormatter(avgTimeStamps);
 
