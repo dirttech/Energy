@@ -15,10 +15,14 @@
              left:0px;
              position:fixed;
              width:170px;
-             background-color:Silver;
+             background-color:offwhite;
+             
              height:180px;
              margin-top:5px;
              padding:10px;
+             border-radius:0px 12px 12px 0px;  
+             box-shadow:  0px 2px  2px 2px #888, 2px 3px 5px 0px #888;
+             
         }
         .sideLine>ul>li>a
         {

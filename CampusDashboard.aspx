@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br /><center>
 <h3>Click on specific buliding to see its energy consumption data.</h3>
-<p>Buildings in sky-blue are clickable.</p>
+<p>Labeled buildings  are clickable.</p>
  <asp:ImageMap ID="ImageMap1" runat="server" 
         ImageUrl="~/images/sitemapfinal.png" HotSpotMode="PostBack" 
         onclick="ImageMap1_Click" >
