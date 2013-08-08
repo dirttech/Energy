@@ -17,7 +17,7 @@ public partial class ContactUs : System.Web.UI.Page
     {
         try
         {
-            SendingMails.SendMail("energy.iiitd.gmail.com", "Contact us form filled by " + names.Text + " (" + contact.Text + ") ", message.Text);
+            SendingMails.SendMail("energy@iiitd.gmail.com", "Contact us form filled by " + names.Text + " (" + contact.Text + ") ", message.Text);
 
             SqlDataSource1.InsertCommand = "Insert into suggestions (Name, Contact, Message) values ('" + names.Text + "','" + contact.Text + "','" + message.Text + "')";
             SqlDataSource1.Insert();

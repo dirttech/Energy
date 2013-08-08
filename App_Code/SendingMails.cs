@@ -11,7 +11,7 @@ public static class SendingMails
 {
     public static void SendRegistrationMail(UserLogin confirmObj)
     {
-        var fromaddr = "energy.iiitd.gmail.com";
+        var fromaddr = "energy.iiitd@gmail.com";
         var toaddr = confirmObj.EMail;
         const string fromPassword = "iamback@IIITD";
         string  subject = "Confirmation of your apartment registration for energy dashboard";
@@ -38,7 +38,7 @@ public static class SendingMails
         }
     public static void SendMail(string to, string subject, string body)
     {
-        var fromaddr = "energy.iiitd.gmail.com";
+        var fromaddr = "energy.iiitd@gmail.com";
         var toaddr = to;
         const string fromPassword = "iamback@IIITD";
       
