@@ -117,7 +117,7 @@
 <tr><td>
 <div class="img2Container" style="border: 1px solid gray;">
 <p class="desc2">Description - Add your description here</p>
-        <img class="c2img" src="images/deployments/overall_deployment.png"/>
+        <img class="c2img" src="images/deployments/overall_deployment1.png"/>
         
 </div>
 </td>
