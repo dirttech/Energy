@@ -39,6 +39,7 @@
     var startDate=sD*1000;
 
     var intervals = <%= new JavaScriptSerializer().Serialize(interval) %> ;
+    var build = <%= new JavaScriptSerializer().Serialize(building) %> ;
     intervals=intervals*0.55;
 
     
@@ -58,16 +59,16 @@
 });
             $('#container').highcharts({
             chart: {
-                type: 'area',
+                type: 'line',
                  zoomType: 'x',
                 spacingRight: 20
             },
             title: {
-                text: 'Click and Drag to Zoom in',
+                text: build,
                
             },
             subtitle: {
-                text: ''
+                text: 'Click and Drag to Zoom in'
               
             },
             xAxis: {
@@ -120,7 +121,7 @@
 <table style=" margin-left:70px;">
 
 
-<tr><td style="padding-left:30px;">
+<tr><td style="padding-left:30px;" colspan="2">
            <table>
            <tr>         
            <td style="line-height:normal;">
@@ -179,13 +180,17 @@
             </td></tr>
             
             
-<tr><td align="right" style="padding-right:120px;">
-    <asp:LinkButton ID="wing1" runat="server" onclick="wing1_Click">Hostel A  |</asp:LinkButton>&nbsp;&nbsp;
+<tr><td>
+
+<p style="text-align: left;  font-weight:normal; font-size:small; line-height:13px; padding:1px; margin:1px; padding-left:40px;">Select date after 1 August only.
+  </p>
+            </td><td align="right" style="padding-right:120px;">
+              <asp:LinkButton ID="wing1" runat="server" onclick="wing1_Click" >Hostel A  |</asp:LinkButton>&nbsp;&nbsp;
     <asp:LinkButton ID="wing2" runat="server" onclick="wing2_Click">Hostel BC  |</asp:LinkButton>&nbsp;&nbsp;
     
-<a href="CampusDashboard.aspx">Back</a>
-            </td></tr>
-            <tr><td>
+<a href="CampusDashboard.aspx" style="">Back</a>
+        </td></tr>
+            <tr><td colspan="2">
             
         
 <div id="container" style="width: 1100px; height: 550px; max-width:1100px;"></div>

@@ -1,14 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Team.aspx.cs" Inherits="Team" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Team1.aspx.cs" Inherits="Team" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
-        .reHead
-        {
-           color:#4682B4;
-           line-height:normal;
-           margin:0px;
-           font-size:medium;
-        }
         hr
         {
             display:block;
@@ -197,7 +190,7 @@
      <ul >
     <li><a onclick="scrollTo('ucla')">UCLA</a></li>
     <li><a onclick="scrollTo('ibm')">IBM Research</a></li>
-    <li><a onclick="scrollTo('ccls')">CCLS Columbia</a></li>
+    <li><a onclick="scrollTo('ccls')">IIITD-CCLS Joint</a></li>
     <li><a onclick="scrollTo('cmu')">CMU</a></li>
     </ul>
     </div>
@@ -211,26 +204,36 @@
             <table>
          
          <tr>
-                 
+               
+                    <td>
+                        <img src="images/team-images/amarjeet.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" class="nameWrapper"  href="http://www.iiitd.edu.in/~amarjeet/">Amarjeet Singh</a><br />
+                    <label class="nameWrapper">Amarjeet Singh<label><br /><br />
                     <label class="namePosition">Assistant Professor</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                   
-                  <br />
+                    <a href="http://www.iiitd.edu.in/~amarjeet/" target="_blank">iiitd.edu.in/~amarjeet</a>
                     </label>
-                    
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr7">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                Mobile Sensing, Approximation Algorithms, Environmental Monitoring, Low Cost Technologies <br /><br />
                 
                 </label>
                 <label class="below-info">
-                Email -  amarjeet [at] iiitd [dot] ac [dot] in
+                Email -  amarjeet@iiitd.ac.in<br />
 
-              
+               <br /><br />
+                <br />  
+                </label>
+                
                 </td>
                 </tr>
-                  
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -240,25 +243,34 @@
          
          <tr>
                
-                    
+                    <td>
+                        <img src="images/team-images/psingh.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" href="http://www.iiitd.edu.in/~pushpendra/" class="nameWrapper">Pushpendra Singh</a><br />
-                    <label class="namePosition">Assistant Professor</label>    <br />
-                    <label class="below-info">MUC - IIIT Delhi<br /><br />
+                    <label class="nameWrapper">Pushpendra Singh<label><br /><br />
+                    <label class="namePosition">Assistant Professor</label><br />    
+                    <label class="below-info">MUC - IIIT Delhi<br />
                   
+                    <a href="http://www.iiitd.edu.in/~pushpendra/" target="_blank">iiitd.edu.in/~pushpendra</a>
                     </label>
-                   
-                <label class="description"><p class="reHead">Research Interests -</p>
-              Middleware, Mobile Computing<br />
-                </label><br />
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr8">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
+              Middleware, Mobile Computing<br /><br />
+                </label>
                 <label class="below-info">
-                Email -  psingh[at] iiitd [dot] ac [dot] in
+                Email -  psingh@iiitd.ac.in<br />
 
+               <br /><br />
+                <br /><br />
                 </label>
                 
                 </td>
                 </tr>
-                
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -275,29 +287,39 @@
          
          <tr>
                
-                  
+                    <td>
+                        <img src="images/team-images/samy.png" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" class="nameWrapper" href="http://www.iiitd.edu.in/~samy/">Pandarasamy Arjunan</a><br />
+                    <label class="nameWrapper">Pandarasamy Arjunan</label><br /><br />
                     <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    
-                    </label><br />
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <a href="http://www.iiitd.edu.in/~samy/" target="_blank">iiitd.edu.in/~samy</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr4">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Energy management in buildings,
 Embedded sensing networks,
 Cyber-Physical Systems,
 Internet of Things.
-                <br />
+                <br /><br />
                 
                 </label>
                 <label class="below-info">
-                Email -  pandarasamya[at] iiitd [dot] ac [dot] in
+                Email -  pandarasamya@iiitd.ac.in<br />
 
+               <br /><br />
+                
                 </label>
                 
                 </td>
                 </tr>
-                  
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -306,23 +328,36 @@ Internet of Things.
          
          <tr>
                
+                    <td>
+                        <img src="images/team-images/nipun-img.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                      <a target="_blank" href="http://nipunbatra.wordpress.com/"class="nameWrapper">Nipun Batra</a><br />
+                    <label class="nameWrapper">Nipun Batra</label><br /><br />
                     <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
-                   
-                    </label><br />
-                 <label class="description"><p class="reHead">Research Interests -</p>
+                    TCS PhD Fellowship<br />
+                    <a href="http://nipunbatra.wordpress.com/" target="_blank">nipunbatra.wordpress.com</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr3">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Machine Learning, Data Analytics, Algorithms, Computational Sustainability & Information Processing in Sensor Systems
+                <br /><br />
                 
-                </label><br />
-                                <label class="below-info">
-                Email -  nipunb[at] iiitd [dot] ac [dot] in
- </label>
+                </label>
+                <label class="below-info">
+                Email -  nipunb@iiitd.ac.in<br />
+
+               <br /><br />
+                
+                </label>
                 
                 </td>
                 </tr>
-                
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -331,26 +366,35 @@ Internet of Things.
          
          <tr>
                
-                   <td class="infoWrapper">
-                <a target="_blank" href="http://manojgulati.wordpress.com/" class="nameWrapper">Manoj Gulati</a><br />
+                    <td>
+                        <img src="images/team-images/manoj.jpg" class="personalImage" />
+                    </td>   
+                    <td class="infoWrapper">
+                    <label class="nameWrapper">Manoj Gulati</label><br /><br />
                     <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">ECE - IIIT Delhi<br />
                    
-                    </label><br />
-                   <label class="description"><p class="reHead">Research Interests -</p>
+                    <a href="http://manojgulati.wordpress.com/" target="_blank">manojgulati.wordpress.com</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr5">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                Embedded Systems, Sensor networks, Signal processing, Electromagnetics.
                 <br /><br />
                 
                 </label>
                 <label class="below-info">
-                Email -  manojg[at] iiitd [dot] ac [dot] in
+                Email -  manojg@iiitd.ac.in<br />
 
+               <br /><br /><br />
                 
                 </label>
                 
                 </td>
                 </tr>
-                 
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
               
                 </table>
                 </div>
@@ -366,27 +410,36 @@ Internet of Things.
          
          <tr>
                
-                    
+                    <td>
+                        <img src="images/team-images/manaswi.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" href="http://manaswisaha.wordpress.com/" class="nameWrapper">Manaswi Saha</a><br />
+                    <label class="nameWrapper">Manaswi Saha</label><br /><br />
                     <label class="namePosition">Research Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
-                   </label><br />
-                  
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <a href="http://manaswisaha.wordpress.com/" target="_blank">manaswisaha.wordpress.com</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr2">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Ubiquitous Computing, Applied Machine Learning, ICTD
                 <br />
-               <br />
+              <br />
+                
                 </label>
                 <label class="below-info">
-                Email -  manaswis[at] iiitd [dot] ac [dot] in
+                Email -  manaswis@iiitd.ac.in<br />
 
+               <br /><br /><br />
                 
                 </label>
                 
                 </td>
                 </tr>
-               
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -395,27 +448,37 @@ Internet of Things.
          
          <tr>
                
-                   
+                    <td>
+                        <img src="images/team-images/inderpal.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                <a target="_blank" href="http://en.gravatar.com/inderpalsinghs" class="nameWrapper">Inderpal Singh</a><br />
+                    <label class="nameWrapper">Inderpal Singh</label><br /><br />
                     <label class="namePosition">Software Engineer</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    
-                    </label><br />
-               <label class="description"><p class="reHead">Technical Interests -</p>
+                    <a href="http://en.gravatar.com/inderpalsinghs" target="_blank">gravatar.com/inderpalsinghs</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr6">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Web Development, Web Interfaces, System Programming.
                 <br /><br />
                 
                 </label>
                 <label class="below-info">
-                Email -  inderpals [at] iiitd [dot] ac [dot] in
-               
+                Email -  inderpals@iiitd.ac.in<br />
+                Mobile - +91 - 7503225406
+
+               <br /><br /><br />
                 
                 </label>
                 
                 </td>
                 </tr>
-                  
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -430,25 +493,34 @@ Internet of Things.
             
                 <tr>
                
-                   
+                    <td>
+                        <img src="images/team-images/milan.png" class="personalImage" />
+                    </td>
                     <td class="infoWrapper">
-                    <a target="_blank" href=" http://milanjainblog.wordpress.com/" class="nameWrapper">Milan Jain</a><br />
+                    <label class="nameWrapper">Milan Jain</label><br /><br />
                     <label class="namePosition">M.Tech</label><br />    
-                    <label class="below-info">CSE(MUC), IIIT Delhi
-                    </label><br /><br />
-                  <label class="description"><p class="reHead">Research Interests -</p>
+                    <label class="below-info">CSE(MUC),<br />IIIT Delhi
+                    <br /><a href=" http://milanjainblog.wordpress.com/" target="_blank">milanjainblog.wordpress.com</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="milan-hide">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                  Home Automation based on Z-Wave,
                 Wireless Communication, Algorithms, Web Interfaces<br /><br />
                 
                 </label>
                 <label class="below-info">
-                Email - milan1267 [at] iiitd [dot] ac [dot] in
-               
+                Email - milanjain81@gmail.com<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                milan1267@iiitd.ac.in<br />
+                Mobile - +91 - 9999663099<br /><br />
+                
                 </label>
                 
                 </td>
                 </tr>
-              
+                <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
                 
                 
             </table>
@@ -459,25 +531,35 @@ Internet of Things.
          
          <tr>
                
-                    
+                    <td>
+                        <img src="images/team-images/shailja-fn.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" href="http://shailjathakur.wordpress.com/" class="nameWrapper">Shailja Thakur</a><br />
+                    <label class="nameWrapper">Shailja Thakur</label><br /><br />
                     <label class="namePosition">M.Tech</label><br />    
-                    <label class="below-info">CSE(MUC),IIIT Delhi
-                    </label><br /><br />
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <label class="below-info">CSE(MUC),<br />IIIT Delhi
+                     <br /><a href="http://shailjathakur.wordpress.com/" target="_blank">ShailjaThakur.wordpress.com</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr1">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Indoor Occupancy,
-                Java Applications, Data Analysis <br />
-                <br />
+                Java Applications, Data Analysis <br /><br />
+                
                 </label>
                 <label class="below-info">
-                Email - shailja1275 [at] iiitd [dot] ac [dot] in
+                Email - shailja.thakur90@gmail.com<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               shailja1275@iiitd.ac.in<br /><br />
+               <br />
                 
                 </label>
                 
                 </td>
                 </tr>
-                   
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -492,25 +574,35 @@ Internet of Things.
          
          <tr>
                
+                    <td>
+                        <img src="images/team-images/prateek.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Prateek Malhotra</label><br />
+                    <label class="nameWrapper">Prateek Malhotra</label><br /><br />
                     <label class="namePosition">B.Tech</label><br />    
                     <label class="below-info">CSE - IIIT Delhi<br />
-                    </label><br />
-                 <label class="description"><p class="reHead">Research Interests -</p>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr9">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                  Backend Development and Deployment
-                <br /><br />
+                <br />
+              <br />
                 
                 </label>
                 <label class="below-info">
-                Email -  prateek11077 [at] iiitd [dot] ac [dot] in
+                Email -  prateek11077@iiitd.ac.in<br />
 
-              
+               <br /><br /><br /><br />
+                
                 </label>
                 
                 </td>
                 </tr>
-                 
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -519,25 +611,35 @@ Internet of Things.
          
          <tr>
                
+                    <td>
+                        <img src="images/team-images/vinayak.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Vinayak Shukl</label><br />
+                    <label class="nameWrapper">Vinayak Shukl</label><br /><br />
                     <label class="namePosition">B.Tech</label><br />    
                     <label class="below-info">CSE - IIIT Delhi<br />
-                    </label><br />
-               <label class="description"><p class="reHead">Research Interests -</p>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr10">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                  Backend Development and Deployment
                 <br />
               <br />
                 
                 </label>
                 <label class="below-info">
-                Email -  vinayak11118 [at] iiitd [dot] ac [dot] in
+                Email -  vinayak11118@iiitd.ac.in<br />
 
-   
+               <br /><br /><br /><br />
+                
                 </label>
                 
                 </td>
                 </tr>
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -545,25 +647,36 @@ Internet of Things.
             <table>
          
          <tr>
-                
+               
+                    <td>
+                        <img src="images/team-images/romil.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Romil Bhardwaj</label><br />
+                    <label class="nameWrapper">Romil Bhardwaj</label><br /><br />
                     <label class="namePosition">B.Tech</label><br />    
-                    <label class="below-info">CSE - IIIT Delhi<br /><br />
+                    <label class="below-info">CSE - IIIT Delhi<br />
                     </label>
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr11">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                  Backend Development and Deployment
                 <br />
+              <br />
                 
-                </label><br />
+                </label>
                 <label class="below-info">
-                Email -  romil11092 [at] iiitd [dot] ac [dot] in
+                Email -  romil11092@iiitd.ac.in<br />
 
+               <br /><br /><br /><br />
+                
                 </label>
                 
                 </td>
                 </tr>
-               
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
                 </div>
@@ -575,26 +688,40 @@ Internet of Things.
                   <div class="personal-wrapper"  id="Div13">
             <table>
          
-         <tr>   
+         <tr>
+               
+                    <td>
+                        <img src="images/team-images/mani-srivastava.gif" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                     <a target="_blank" href="http://nesl.ee.ucla.edu/people/mbs/" class="nameWrapper">Mani B Srivastava</a><br />
+                    <label class="nameWrapper">Mani B Srivastava</label><br /><br />
                     <label class="namePosition">Professor and Area Director</label><br />    
                     <label class="below-info">EE Department, UCLA<br />
-                    </label><br />
-                  <label class="description"><p class="reHead">Research Interests -</p>
-                Low-power & energy-aware embedded systems, 
-Wireless sensor & actuator networks, 
-Mobile & wireless computing, Pervasive computing
-              
-                </label><br />
+                    <a href="http://nesl.ee.ucla.edu/people/mbs/" target="_blank">nesl.ee.ucla.edu/people/mbs</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr12">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
+                Low-power and energy-aware embedded systems, 
+Wireless sensor and actuator networks, 
+Mobile and wireless computing and networking, Pervasive computing
+                <br />
+              <br />
+                
+                </label>
                 <label class="below-info">
-                Email - mbs [at] ucla [dot] edu
+                Email - mbs@ucla.edu<br />
 
+               <br />
+                
                 </label>
                 
                 </td>
                 </tr>
-                 
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
   
@@ -603,27 +730,37 @@ Mobile & wireless computing, Pervasive computing
          
          <tr>
                
-                    
+                    <td>
+                        <img src="images/team-images/magali_delmas.gif" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                       <a target="_blank" href="http://www.ioe.ucla.edu/delmas" class="nameWrapper">Magali Delmas</a><br />
+                    <label class="nameWrapper">Magali Delmas</label><br /><br />
                     <label class="namePosition">Professor of Management</label><br />    
                     <label class="below-info">UCLA<br />
-                    </label><br />
-               <label class="description"><p class="reHead">Research Interests -</p>
+                    <a href="http://www.ioe.ucla.edu/delmas" target="_blank">ioe.ucla.edu/delmas</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr15">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Energy Conservation and Efficiency, Eco-labels, Environmental and Corporate Performance
 Socially Responsible Investing
                 <br />
+              <br />
                 
                 </label>
                 <label class="below-info">
-                Email - delmas [at] ioe [dot] ucla [dot] edu
-               
+                Email - delmas(at)ioe.ucla.edu<br />
+                <br />
+               <br />
                 
                 </label>
                 
                 </td>
                 </tr>
-                
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -631,25 +768,37 @@ Socially Responsible Investing
             <table>
          
          <tr>
+               
+                    <td>
+                        <img src="images/team-images/Haksoo_Choi.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                  <a target="_blank" href="http://nesl.ee.ucla.edu/person/show/264"  class="nameWrapper">Haksoo Choi</a><br />
+                    <label class="nameWrapper">Haksoo Choi</label><br /><br />
                     <label class="namePosition">Graduate Student Researcher</label><br />    
                     <label class="below-info">Networked Embedded Systems Lab, UCLA<br />
-                   </label><br />
-                     <label class="description"><p class="reHead">Research Interests -</p>
+                    <a href="http://nesl.ee.ucla.edu/person/show/264" target="_blank">nesl.ee.ucla.edu/person/264</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr13">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                 Networked Embedded Systems, Sensor Data Privacy, Operating Systems, Database Systems, Machine Learning
                 <br />
-             
+              <br />
                 
                 </label>
                 <label class="below-info">
-                Email - haksoo [at] cs [dot] ucla [dot] edu
-             
+                Email - haksoo@cs.ucla.edu<br />
+                <br />
+               <br />
+                
                 </label>
                 
                 </td>
                 </tr>
-                
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -659,21 +808,35 @@ Socially Responsible Investing
          
          <tr>
                
+                    <td>
+                        <img src="images/team-images/victor_chen.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Victor Chen</label><br />
+                    <label class="nameWrapper">Victor Chen</label><br /><br />
                     <label class="namePosition">Ph.D Student </label><br />    
                     <label class="below-info">EE Department, UCLA<br />
                    </label>
-               <label class="description"><br />
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr14">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
               
+                <br />
+              <br />
+                
                 </label>
                 <label class="below-info">
-             Email - victor.l.chen [at] gmail [dot] com
+               <br /><br />
+                <br />
+               <br />
+                
                 </label>
                 
                 </td>
                 </tr>
-               
+                   <tr><td colspan="2" class="toHideWrapper"></td></tr>
+              
                 </table>
                 </div>
                 </div>
@@ -689,26 +852,38 @@ Socially Responsible Investing
          
          <tr>
                
-                    
+                    <td>
+                        <img src="images/team-images/zainul.jpg" class="personalImage" />
+                      </td>   
                     <td class="infoWrapper">
-                    <a target="_blank" href="http://researcher.watson.ibm.com/researcher/view.php?person=in-zainulcharbiwala"  class="nameWrapper">Zainul M Charbiwala</a><br />
+                    <label class="nameWrapper">Zainul M Charbiwala</label><br /><br />
                     <label class="namePosition">Researcher</label><br />    
                     <label class="below-info">IBM Research, India<br />
-                    </label><br />
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <a style="" href="http://researcher.watson.ibm.com/researcher/view.php?person=in-zainulcharbiwala" target="_blank">researcher.ibm.com/zainul</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr16">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
                Electrical Engineering, 
 Communications & Networking, 
 Mobile Computing, 
 Signal Processing
-            <br />
+                <br />
+              <br />
+                
                 </label>
                 <label class="below-info">
-                Email - zainulcharbiwalaat [at] in [dot] ibm [dot] com
+                Email - zainulcharbiwalaat[at]in.ibm.com<br />
 
+               <br />
+                <br /><br />
                 </label>
                 
                 </td>
                 </tr>
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
               
                 </table>
                 </div>
@@ -718,25 +893,36 @@ Signal Processing
          
          <tr>
                
-                   
+                    <td>
+                        <img src="images/team-images/deva.jpg" class="personalImage" />
+                    </td>   
                     <td class="infoWrapper">
-                    <a  href="http://alumni.media.mit.edu/~deva/" target="_blank" class="nameWrapper">Deva P. Seetharam</a><br />
+                    <label class="nameWrapper">Deva P. Seetharam</label><br /><br />
                     <label class="namePosition"></label><br />    
                     <label class="below-info">IBM Research<br />
-                   </label>
-                   
-               <label class="description"><br />
-          
+                    <a href="http://alumni.media.mit.edu/~deva/" target="_blank">alumni.media.mit.edu/~deva</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr17">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
+              <br /><br />
+                <br />
+              <br />
                 
                 </label>
                 <label class="below-info">
-                Email - dseetharamat[at] in [dot] ibm [dot] com
-              
+                Email - dseetharamat[at]in.ibm.com<br />
+                <br />
+               <br />
+                
                 </label>
                 
                 </td>
                 </tr>
-             
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
 
@@ -745,34 +931,47 @@ Signal Processing
     </td></tr>
 
        <tr><td>
-    <h4 id="ccls">CCLS Columbia</h4>
+    <h4 id="ccls">IIIT Delhi and CCLS Columbia Joint</h4>
     <hr />
       <div id="Div20" class="teamWrapper">
                   <div class="personal-wrapper"  id="Div21">
             <table>
          
          <tr>
+               
+                    <td>
+                        <img src="images/team-images/dutta_haimonti.png" class="personalImage" />
+                      </td>   
                     <td class="infoWrapper">
-                    <a href="http://www1.ccls.columbia.edu/~dutta/" target="_blank" class="nameWrapper">Haimonti Dutta</a><br />
+                    <label class="nameWrapper">Haimonti Dutta</label><br /><br />
                     <label class="namePosition">Associate Research Scientist</label><br />    
                     <label class="below-info">CCLS, Columbia<br />
-                   </label>
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <a style="" href="http://www1.ccls.columbia.edu/~dutta/" target="_blank">ccls.columbia.edu/~dutta</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr18">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br />
               Data Mining, Machine Learning and Pattern Recognition,
 Distributed Optimization,
 Distributed and Parallel Machine Learning,
 Mining Big Data,
 Data Intensive Computing
-             <br />
-               
+                <br />
+              <br />
+                
                 </label>
                 <label class="below-info">
-                Email - haimonti [at] ccls [dot] columbia [dot] edu
+                Email - haimonti@ccls.columbia.edu<br />
+
+               <br />
                 </label>
                 
                 </td>
                 </tr>
-                
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
+              
                 </table>
                 </div>
   
@@ -783,7 +982,7 @@ Data Intensive Computing
     </td></tr>
 
        <tr><td>
-    <h4 id="cmu">CMU</h4>
+    <h4 id="cmu">University of California, San Diego</h4>
     <hr />
       <div id="Div22" class="teamWrapper">
                   <div class="personal-wrapper"  id="Div23">
@@ -791,22 +990,34 @@ Data Intensive Computing
          
          <tr>
                
+                    <td>
+                        <img src="images/team-images/yuvraj.jpg" class="personalImage" />
+                      </td>   
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Yuvraj Agarwal</label><br />
-                    <label class="namePosition"></label><br />    
-                    <label class="below-info">CMU<br />
-                   </label>
-                  <br />
-                <label class="description"><p class="reHead">Research Interests -</p>
+                    <label class="nameWrapper">Yuvraj Agarwal</label><br /><br />
+                    <label class="namePosition">Research Scientist</label><br />    
+                    <label class="below-info">University of California, San Diego<br />
+                    <a style="" href="http://mesl.ucsd.edu/yuvraj/" target="_blank">mesl.ucsd.edu/yuvraj</a>
+                    </label>
+                    </td>
+                </tr>
+                <tr class="hidden-wrapper" id="Tr19">
+                <td colspan="2" style="border-top:1px groove gray;">
+                <label class="description"><br /><br />
           Smart Buildings, Energy Efficient and Resilient Computer Systems, Mobile Computing
-             
+                <br /><br />    
+              <br />
+                
                 </label>
-                <label class="below-info"><br />
-                Email - yuvraj [at] cs [dot] ucsd [dot] edu
+                <label class="below-info">
+                Email - yuvraj [at] cs.ucsd.edu<br />
+
+               <br />
                 </label>
                 
                 </td>
                 </tr>
+                   <tr><td colspan="2" class="toHideWrapper">More Info</td></tr>
               
                 </table>
                 </div>
