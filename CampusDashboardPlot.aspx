@@ -23,6 +23,10 @@
      color:Blue;
      padding:3px;   
  }
+ hr
+ {
+     display:block;
+ }
  </style>
 
  <script type="text/javascript">
@@ -44,13 +48,18 @@
 
     
     var readings=new Array(energyData.length);
+   
+
     for(var i=0;i<energyData.length;i++)
     {
         readings[i]=new Array(2);
         readings[i][0]=timeStamps[i]*1000;
         readings[i][1]=energyData[i];
     }
-
+     if(readings.length<=1)
+    {
+        alert("Sorry! We don't have data for your selection.");
+    }
        jQuery(document).ready(function ($) {
                 Highcharts.setOptions({
 	global: {
@@ -157,14 +166,14 @@
                MeterType<br />
 
         <asp:DropDownList ID="paramList" runat="server">
-        <asp:ListItem Value="Power">Power</asp:ListItem>
-        <asp:ListItem Value="Voltage">Voltage</asp:ListItem>
-        <asp:ListItem Value="Energy">Energy</asp:ListItem>
-            <asp:ListItem Value="Frequency">Frequency</asp:ListItem>
+        <asp:ListItem Value="Power" units="Watts">Power</asp:ListItem>
+        <asp:ListItem Value="Voltage" units="Volts">Voltage</asp:ListItem>
+        <asp:ListItem Value="Energy" units="FwdHr">Energy</asp:ListItem>
+            <asp:ListItem Value="Frequency" units="Hertz">Frequency</asp:ListItem>
     </asp:DropDownList>
     <asp:DropDownList ID="meterList" runat="server">
-        <asp:ListItem Value="Building Total Mains">Power Meter</asp:ListItem>
-        <asp:ListItem Value="Building Total Backup">Backup Meter</asp:ListItem>
+        <asp:ListItem Value="Building Total Mains">Mains</asp:ListItem>
+        <asp:ListItem Value="Building Total Backup">Light Backup</asp:ListItem>
     </asp:DropDownList>
 
            </td>                
@@ -184,9 +193,9 @@
 
 <p style="text-align: left;  font-weight:normal; font-size:small; line-height:13px; padding:1px; margin:1px; padding-left:40px;">Select date after 1 August only.
   </p>
-            </td><td align="right" style="padding-right:120px;">
-              <asp:LinkButton ID="wing1" runat="server" onclick="wing1_Click" >Hostel A  |</asp:LinkButton>&nbsp;&nbsp;
-    <asp:LinkButton ID="wing2" runat="server" onclick="wing2_Click">Hostel BC  |</asp:LinkButton>&nbsp;&nbsp;
+            </td><td align="right" style="padding-right:20px;">
+              <asp:LinkButton ID="wing1" runat="server" onclick="wing1_Click" >Wing A  |</asp:LinkButton>&nbsp;&nbsp;
+    <asp:LinkButton ID="wing2" runat="server" onclick="wing2_Click">Wing BC  |</asp:LinkButton>&nbsp;&nbsp;
     
 <a href="CampusDashboard.aspx" style="">Back</a>
         </td></tr>
@@ -196,6 +205,25 @@
 <div id="container" style="width: 1100px; height: 550px; max-width:1100px;"></div>
 
 </td></tr>
+
+<tr><td >
+
+<br />
+
+
+<table>
+<tr style="border:1px solid gray; width:1100px;"><td>
+    <asp:Image ID="buildingimg" runat="server" style="padding:5px; margin:5px;"/>
+</td>
+<td style="vertical-align:top; padding-right:10px;" runat="server" id="buildInfo">
+
+</td>
+</tr>
+</table>
+<br />
+
+</td></tr>
+
 </table>
 
 

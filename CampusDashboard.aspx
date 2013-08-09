@@ -4,14 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br /><center>
-<h3>Click on specific buliding to see its energy consumption data.</h3>
+<h3>Click on specific building to see its energy consumption data.</h3>
 <p>Labeled buildings  are clickable.</p>
  <asp:ImageMap ID="ImageMap1" runat="server" 
         ImageUrl="~/images/sitemapfinal.png" HotSpotMode="PostBack" 
         onclick="ImageMap1_Click" >
         <asp:PolygonHotSpot HotSpotMode="PostBack" PostBackValue="Boys Hostel A" Coordinates="263,106,284,44,328,52,328,92,317,92,314,67,292,62,274,110" />
         <asp:PolygonHotSpot Coordinates="350,88,350,52,398,52,404,86,394,89,388,68,361,86" 
-            HotSpotMode="PostBack" PostBackValue="Girls Hostel A" />
+            HotSpotMode="PostBack" PostBackValue="Girls Hostel AB" />
         <asp:PolygonHotSpot Coordinates="467,56,512,41,524,73,515,77,515,91,485,98,482,83,470,85" 
             HotSpotMode="PostBack" PostBackValue="Mess Building" />
         <asp:PolygonHotSpot Coordinates="716,49,733,38,754,73,763,115,749,122,739,86" 

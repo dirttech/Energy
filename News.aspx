@@ -10,6 +10,17 @@
      {
          color:skyblue;
      }
+     
+     .abstract
+     {
+         display:block;
+        font-size:small;
+        color:Gray;
+        display:none;   
+        border:1px dotted gray;
+        text-align:justify;
+     }
+     
         .sideLine
         {
              left:0px;
@@ -55,19 +66,19 @@
          border:1px solid gray;
           float:left;   
          margin:3px;
-         position:relative;
          text-align:center;
          padding-top:10px;
+         width:220px;
+         height:170px;
     }
     .img2container
     {
          
-        
     }
     .c2img
     {
         width:480px;
-        height:295px;
+        height:320px;
     }
     .cimg
     {
@@ -76,7 +87,7 @@
     }
     .desc2
     {
-      font-size:medium;
+      font-size:large;
       color:Gray;
       font-weight:normal; 
        padding-left:10px;  
@@ -88,10 +99,32 @@
       font-weight:normal;   
     }
     
+    .abstractLink
+    {
+      text-decoration:underline;
+      cursor:pointer;
+      color:#6666ff;
+    }
+     
     
     </style>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.abstractLink').click(function () {
+
+                var id = $(this).attr("val");
+                $('#'+id).toggle('slow', function() {
+   
+                    });
+            });
+
+        });
+
+</script>
+
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">;
 <br /><br />
 
     <div class="sideLine">
@@ -114,30 +147,38 @@
 <li> Recently completed an extensive home deployment.
 <div >
 <table  style="border:1px solid black;">
-<tr><td>
+<tr><td class="style1" rowspan="2">
 <div class="img2Container" style="border: 1px solid gray;">
-<p class="desc2">Description - Add your description here</p>
+<p class="desc2">Schematic showing overall home deployment.</p>
         <img class="c2img" src="images/deployments/overall_deployment1.png"/>
         
 </div>
 </td>
-<td>
+<td style="display:inline-block;" class="style1">
 
 <span class="imgContainer">
         <img class="cimg" src="images/deployments/ambient_2.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc"> Sensing environmental parameters & light, temprature, motion.
+</p>
 </span>
 <span class="imgContainer">
         <img class="cimg" src="images/deployments/cc_1.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc">Current cost CT based monitoring.<br /></p>
 </span>
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/ct_interference.png"/>
-        <p class="desc">Description - Add your description here</p>
-</span>
+
+
+</td>
+</tr>
+<tr>
+<td  class="style1">
+
 <span class="imgContainer">
         <img class="cimg" src="images/deployments/electric_meter_1.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc">EM6400 Smart Electric Meter</p>
+        </span>
+        <span class="imgContainer">
+        <img class="cimg" src="images/deployments/watermeter.png">
+        <p class="desc"> Pulse output water meter</p>
 </span>
 
 
@@ -145,20 +186,20 @@
 </tr>
 <tr><td colspan="2" style="text-align:center;"><span class="imgContainer">
         <img class="cimg" src="images/deployments/jplug_2.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc">Appliance level monitoring using jPlug.</p>
 </span>
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/led.png"/>
-        <p class="desc">Description - Add your description here</p>
+<span class="imgContainer" style="margin-left:20px;">
+        <img class="cimg" src="images/deployments/led.png" />
+        <p class="desc">Glowing LEDs in the Night.</p>
 </span>
 <span class="imgContainer" style="margin-left:20px;">
         <img class="cimg" src="images/deployments/mcb_2.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc">Split Core CT monitoring circuit level current.</p>
 </span>
 
 <span class="imgContainer">
         <img class="cimg" src="images/deployments/rpi_2.png"/>
-        <p class="desc">Description - Add your description here</p>
+        <p class="desc">Raspberry Pi collecting pulse outputs from water meter.</p>
 </span>
 </td></tr>
 
@@ -194,12 +235,74 @@
     </li>
     <li>Nipun Batra, Pandarasamy Arjunan, Amarjeet Singh, Pushpendra Singh. Experiences with Occupancy Based Building
 Management Systems. ISSNIP, Australia, 2013
+<a val="issnipAbs" class="abstractLink">[Abstract]</a>
         <asp:LinkButton ID="LinkButton1" runat="server" onclick="LinkButton1_Click" 
-            ForeColor="#6666FF">[Download Link]</asp:LinkButton>
+            ForeColor="#6666FF">[Download Link]</asp:LinkButton><br />
+            <label class="abstract" id="issnipAbs">
+Buildings are one of the largest consumers of electricity.
+Dominant electricity consumption within the buildings,
+contributed by plug loads, lighting and air conditioning, can be
+significantly improved using Occupancy-based Building Management
+Systems (Ob-BMS). In this paper, we address three critical
+aspects of Ob-BMS i.e. 1) Modular sensor node design to support
+diverse deployment scenarios; 2) Building architecture to support
+and scale fine resolution monitoring; and 3) Detailed analysis of
+the collected data for smarter actuation. We present key learning
+across these three aspects evolved over more than one year of
+design and deployment experiences.
+The sensor node design evolved over a period of time to
+address specific deployment requirements. With an opportunity
+at the host institute where two dorm buildings were getting
+constructed, we planned for the support infrastructure required
+for fine resolution monitoring embedded in the design phase
+and share our preliminary experiences and key learning thereof.
+Prototype deployment of the sensing system as per the planned
+support infrastructure was performed at two faculty offices with
+effective data collection worth 45 days. Collected data is analyzed
+accounting for efficient switching of appliances, in addition to
+energy conservation and user comfort as performed in the earlier
+occupancy based frameworks. Our analysis shows that occupancy
+prediction using simple heuristic based modeling can achieve
+similar performance as more complex Hidden Markov Models,
+thus simplifying the analytic framework.
+</label>
 </li>
     <li>Pandarasamy Arjunan, Nipun Batra, Haksoo Choi, Amarjeet Singh, Pushpendra Singh, Mani Srivastava. SensorAct: A Privacy and Security Aware Federated Middleware for Building Management. Buildsys, USA, 2012 
+       <a val="buildsys" class="abstractLink">[Abstract]</a>
         <asp:LinkButton ID="LinkButton2" runat="server" onclick="LinkButton2_Click" 
-            ForeColor="#6666FF">[Download Link]</asp:LinkButton>
+            ForeColor="#6666FF">[Download Link]</asp:LinkButton><br />
+<label class="abstract" id="buildsys">
+ 
+The archaic centralized software systems, currently used
+to manage buildings, make it hard to incorporate advances in
+sensing technology and user-level applications, and present
+hurdles for experimental validation of open research in building
+information technology. Motivated by this, we — a
+transnational collaboration of researchers engaged in development
+and deployment of technologies for sustainable
+buildings—have developed SensorAct, an open-source federated
+middleware incorporating features targeting three specific
+requirements: (i) Accommodating a richer ecosystem
+of sensors, actuators, and higher level third-party applications
+(ii) Participatory engagement of stakeholders other than
+the facilities department, such as occupants, in setting policies
+for management of sensor data and control of electrical
+systems, without compromising on the overall privacy
+and safety, and (iii) Flexible interfacing and information exchange
+with systems external to a building, such as communication
+networks, transportation system, electrical grid,
+and other buildings, for better management, by exploiting
+the teleconnections that exist across them. SensorAct is designed
+to scale from small homes to network of buildings,
+making it suitable not only for production use but to also
+seed a global-scale network of building testbeds with appropriately
+constrained and policed access. This paper describes
+SensorAct’s architecture, current implementation, and preliminary
+performance results.
+</label>
+
+
+      
         </li>
     </ul>
     <br />
