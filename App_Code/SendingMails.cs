@@ -18,7 +18,7 @@ public static class SendingMails
         string  body = "Congratulations! We have confirmed your apartment registration for our energy dashboard." + "\n";
         body += "Username: " + confirmObj.UserName + "\n";
         body += "Password: " + confirmObj.Password + "\n";
-        body += "Login @ http://14.139.56.172:420/";
+        body += "Login @ http://energy.iiitd.edu.in";
 
         //body += "Email: " + "Inderpals@iiitd.ac.in" + "\n";
         //body += "Subject: " + "Confirmation of your apartment registration for energy dashboard";

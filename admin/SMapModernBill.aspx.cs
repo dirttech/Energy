@@ -12,6 +12,7 @@ using App_Code.Login;
 using App_Code.User_Mapping;
 using App_Code.Utility;
 using System.Web.Script.Serialization;
+using App_Code.ESTip;
 
 
 public partial class SMapModernBill : System.Web.UI.Page
@@ -20,7 +21,10 @@ public partial class SMapModernBill : System.Web.UI.Page
     public static int myEnergy = 0;
     public static int avgEnergy = 0;
     public double[] energyArray;
+    public double[] energyLightingArray;
     public int[] timeArray;
+    public int[] timeArrayFinal;
+    public int[] timeLightingArray;
     public static string[] timeSeries;
     public static string meterTyped1 = "Power";
     public static string location = "Faculty Housing";
@@ -207,25 +211,26 @@ public partial class SMapModernBill : System.Web.UI.Page
                     frTim[0]=frDate.ToString("MM/dd/yyyy HH:mm");
                     frTim[1]=tDate.ToString("MM/dd/yyyy HH:mm");
 
-                    tTim[0]=frDate.AddMinutes(5).ToString("MM/dd/yyyy HH:mm");
-                    tTim[1]=tDate.AddMinutes(5).ToString("MM/dd/yyyy HH:mm");
+                    tTim[0]=frDate.AddMinutes(-5).ToString("MM/dd/yyyy HH:mm");
+                    tTim[1]=tDate.AddMinutes(-5).ToString("MM/dd/yyyy HH:mm");
 
-                    int[] avgTime;
-                    double[] avgValues;
+                    int[] avgTime,avgTime2;
+                    double[] avgValues, avgValues2;
 
                     FetchEnergyDataS_Map.FetchAvgConsumption(frTim, tTim, map.Building, meterTyped1, out avgTime, out avgValues);
-
-
                     Utilitie_S.ZeroArrayRefiner(avgTime, avgValues, out avgTime, out avgValues);
-
-                    if (avgTime.Length==2)
+                    FetchEnergyDataS_Map.FetchAvgConsumption(frTim, tTim, map.Building, meterTyped2, out avgTime2, out avgValues2);
+                    Utilitie_S.ZeroArrayRefiner(avgTime2, avgValues2, out avgTime2, out avgValues2);
+                    if (avgTime.Length==2 && avgTime2.Length==2)
                     {
-                        float avg = 0;
+                        int avg = Convert.ToInt32((avgValues2[1] - avgValues2[0]) / 1000);
                         avgEnergy = Convert.ToInt32((avgValues[1]-avgValues[0])/1000);
+                        avgEnergy = avgEnergy + avg;
                     }
+
                     
                     
-                    List<int> epochs=Utilitie_S.DashDaysEpochs(utFr.Epoch,5,7);
+                    List<int> epochs=Utilitie_S.DashDaysEpochs(utFr.Epoch,5,2);
                     List<int> toEpochs=new List<int>();
 
                     for(int s=0; s<epochs.Count;s++)
@@ -235,26 +240,34 @@ public partial class SMapModernBill : System.Web.UI.Page
                     string[] fromTimes=Utilitie_S.SMapValidDateFormatter(epochs);
                     string[] toTimes=Utilitie_S.SMapValidDateFormatter(toEpochs);
 
+                    //for power meter
                     FetchEnergyDataS_Map.FetchBarConsumption(fromTimes, toTimes, map.Apartment, meterTyped1, out timeArray, out energyArray);
-
                     Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);
-
-                    for (int ik = 1; ik < energyArray.Length; ik++)
+                    for (int ik = energyArray.Length-1; ik > 0; ik=ik-1)
                     {
                         energyArray[ik] = energyArray[ik] - energyArray[ik - 1];
                     }
-                    energyArray[0] = 0;
-                    timeArray[0] = 0;
-                    
-
-                    Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);
-                    
+                    timeArrayFinal = timeArray;
                     timeSeries = new string[energyArray.Length];
-                    if (timeSeries.Length>0)
-                    {                      
-                        timeSeries = Utilitie_S.TimeFormatterBar(timeArray);
+                    if (timeSeries.Length > 0)
+                    {
+                        timeSeries = Utilitie_S.TimeFormatter(timeArrayFinal);
                     }
 
+                    energyArray[0] = 0; timeArray[0] = 0;               
+                    Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);
+                    
+
+                    //for the lighting meter
+                    FetchEnergyDataS_Map.FetchBarConsumption(fromTimes, toTimes, map.Apartment, meterTyped2, out timeLightingArray, out energyLightingArray);
+                    Utilitie_S.ZeroArrayRefiner(timeLightingArray, energyLightingArray, out timeLightingArray, out energyLightingArray);
+                    for (int ki = energyLightingArray.Length-1; ki > 0; ki=ki-1)
+                    {
+                        energyLightingArray[ki] = energyLightingArray[ki] - energyLightingArray[ki - 1];
+                    }
+                    energyLightingArray[0]=0;timeLightingArray[0]=0;
+                    Utilitie_S.ZeroArrayRefiner(timeLightingArray,energyLightingArray, out timeLightingArray, out energyLightingArray);
+                    
 
                 }
             }
@@ -308,6 +321,22 @@ public partial class SMapModernBill : System.Web.UI.Page
     {
         CheckLogin();
 
+        if (IsPostBack == false)
+        {
+            List<EsTips> etips = ES_Tips.SelectTips();
+            if (etips != null)
+            {
+                for (int x = 0; x < etips.Count; x++)
+                {
+                    tipOfMonth.Items.Add(new ListItem(etips[x].Tips,etips[x].Id.ToString()));
+
+                    tip1.Items.Add(new ListItem(etips[x].Tips, etips[x].Id.ToString()));
+                    tip2.Items.Add(new ListItem(etips[x].Tips, etips[x].Id.ToString()));
+                    tip3.Items.Add(new ListItem(etips[x].Tips, etips[x].Id.ToString()));
+                }
+            }
+        }
+
         fullName.InnerText = "";
         address.InnerText = "";
         mobile.InnerText = "";
@@ -327,10 +356,10 @@ public partial class SMapModernBill : System.Web.UI.Page
 
     protected void DoneTipsClick(object sender, EventArgs e)
     {
-        monthTip.InnerText = tipOfMonth.Text;
-        tipp1.InnerText = tip1.Text;
-        tipp2.InnerText = tip2.Text;
-        tipp3.InnerText = tip3.Text;
+        monthTip.InnerText = tipOfMonth.SelectedItem.Text;
+        tipp1.InnerText = tip1.SelectedItem.Text;
+        tipp2.InnerText = tip2.SelectedItem.Text;
+        tipp3.InnerText = tip3.SelectedItem.Text;
     }
 
     protected UserLogin returnUserObj(string userName)

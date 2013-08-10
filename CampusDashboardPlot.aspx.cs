@@ -148,7 +148,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             {
                 FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/faculty.png";
-                buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 50 No<br />Covered area (on ground) - 559.67 sqm";
+                buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 6 No<br />Covered area (on ground) - 559.67 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6509.78 sqm<br />No of storeys - G+11<br />Height of Building - 34.30 m</p><br />";
          
             }

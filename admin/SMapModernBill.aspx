@@ -38,6 +38,7 @@
      var avgEnergyData=<%=new JavaScriptSerializer().Serialize(avgEnergy) %>;
   
      var energyArray = <%=new JavaScriptSerializer().Serialize(energyArray)%>;
+     var energyLightingArray = <%=new JavaScriptSerializer().Serialize(energyLightingArray)%>;
        var timeSeries=<%=new JavaScriptSerializer().Serialize(timeSeries) %>;
   
 
@@ -53,7 +54,7 @@
 
  $('#container1').highcharts({
                 chart: {
-                    type: 'line'
+                    type: 'column'
                 },
                  exporting:{
                     enabled:false
@@ -83,30 +84,34 @@
                     valueSuffix: ' Whr'
                 },
                 plotOptions: {
-                    line: {
+                    column: {
                         dataLabels: {
                             enabled: true
                         }
                     }
                 },
                 legend: {
-                    enabled: false,
+                    enabled: true,
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'top',
-                    x: -10,
-                    y: 100,
+                    x: 10,
+                    y: 10,
                     floating: true,
                     borderWidth: 1,
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'transparent',
                     shadow: true
                 },
                 credits: {
-                    enabled: false
+                    enabled: true
                 },
                series: [{
-                name: 'Energy Consumption',
+                name: 'Energy (Power)',
                 data: energyArray
+            },
+            {
+                name: 'Energy (Lighting & Backup)',
+                data: energyLightingArray
             }]
             });
 
@@ -280,26 +285,19 @@
     <tr>
     <td>
     <h2>Tip of month</h2>
-        <asp:DropDownList ID="tipOfMonth" runat="server" DataSourceID="SqlDataSource1" 
-            DataTextField="tips" DataValueField="tips">
+        <asp:DropDownList ID="tipOfMonth" runat="server">
         </asp:DropDownList>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>" 
-            ProviderName="<%$ ConnectionStrings:BillingAppConnectionString.ProviderName %>" 
-            SelectCommand="Select (tips) from energy_tips" ViewStateMode="Enabled"></asp:SqlDataSource>
+       
     </td>
     </tr>  
     <tr>
     <td>
     <h2>More Tips</h2>
-    <p> <asp:DropDownList ID="tip1" runat="server" DataSourceID="SqlDataSource1" 
-            DataTextField="tips" DataValueField="tips">
+    <p> <asp:DropDownList ID="tip1" runat="server">
         </asp:DropDownList></p>
-        <p> <asp:DropDownList ID="tip2" runat="server" DataSourceID="SqlDataSource1" 
-                DataTextField="tips" DataValueField="tips">
+        <p> <asp:DropDownList ID="tip2" runat="server">
         </asp:DropDownList></p>
-        <p> <asp:DropDownList ID="tip3" runat="server" DataSourceID="SqlDataSource1" 
-                DataTextField="tips" DataValueField="tips">
+        <p> <asp:DropDownList ID="tip3" runat="server">
         </asp:DropDownList></p>
      
     </td>
@@ -654,7 +652,7 @@
 
             <tr><td align="left">
                
-                    <h4>Last Month Consumption:</h4>
+                    <h4>You vs Avg Consumption:</h4>
 
 
                     <div id="container" style="width: 350px; height: 200px;">
@@ -685,7 +683,7 @@
                     
                     </div>
                     <br /><br />
-            <center>For more details visit www.EnergyDashboard.com
+            <center>For more details visit www.energy.iiitd.edu.in
             </center>
             </td></tr>
             <tr><td colspan="2">
