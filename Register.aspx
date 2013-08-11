@@ -53,6 +53,7 @@
 <div class="LoginContainer" >
   <div class="login" >
     <h1>Register</h1>
+    <p style="line-height:normal; height:10px;">Apartment no</p>
     <p>
         <asp:DropDownList ID="apartmentList" class="styled" placeholder="Apartment" runat="server" DataSourceID="SqlDataSource1"  DataTextField="Apartment" DataValueField="Apartment">
         </asp:DropDownList>

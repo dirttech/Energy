@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
 
 namespace App_Code.Login
 {

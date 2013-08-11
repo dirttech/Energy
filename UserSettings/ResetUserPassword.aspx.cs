@@ -64,13 +64,13 @@ public partial class UserSettings_ResetUserPassword : System.Web.UI.Page
     {
         Guid uid = new Guid(Session["UserID"].ToString());
 
-        UserLogin checkit = UserLogin_S.NewLoging(username.Text, oldPassword.Text);
+        UserLogin checkit = UserLogin_S.NewLoging(username.Text, psHidOld.Value);
 
         if (checkit != null)
         {
             UserLogin newPwdUser = new UserLogin();
 
-            newPwdUser.Password = newPassword.Text;
+            newPwdUser.Password = psHid.Value;
             newPwdUser.UserId = uid;
             newPwdUser.PasswordStatus = "done"; 
 

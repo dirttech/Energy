@@ -2,6 +2,21 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <link rel="Stylesheet" type="text/css" href="Scripts/LoginStyle.css" />
+
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+    function extractPass() {
+        var msg = document.getElementById('<%=pwd.ClientID%>').value;
+       
+        var hash = CryptoJS.MD5(msg);
+
+        document.getElementById('<%=psHid.ClientID%>').value = hash;
+
+       
+        
+    }
+</script>
+
     <link rel="shortcut icon" href="images/dashboard_icon.png" />
     <style type="text/css">
         a
@@ -45,11 +60,14 @@
     <h1>Login</h1>
 
     <p><input type="text" name="login" value="" placeholder="Username   " runat="server" id="usrName" /></p>
-      <p><input type="password" name="password" value="" placeholder="Password" runat="server" id="pwd" /></p>
+      <p><input type="password" name="password" value="" placeholder="Password" runat="server" id="pwd" />
+      <input runat="server" type="hidden" id="psHid" />
+      </p>
+     
      
       <p class="submit">
           <asp:Button ID="loginUser" runat="server" Text="Login" 
-              onclick="loginUser_Click" /></p>
+              onclick="loginUser_Click" OnClientClick="extractPass()" /></p>
               <p><asp:Label ID="msg" Text="" runat="server" style="color:#c4376b; font-weight:bold;"></asp:Label></p>
    
   </div>

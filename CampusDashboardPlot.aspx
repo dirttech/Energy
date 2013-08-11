@@ -127,7 +127,7 @@
     <script src="Scripts/high_charts/js/highcharts.js"></script>
 <script src="Scripts/high_charts/js/modules/exporting.js"></script>
 <br />
-<table style=" margin-left:70px;">
+<table style=" margin:0 auto;">
 
 
 <tr><td style="padding-left:30px;" colspan="2">

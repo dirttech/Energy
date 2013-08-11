@@ -124,8 +124,7 @@
 </script>
 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">;
-<br /><br />
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">&nbsp;<br /><br />
 
     <div class="sideLine">
   

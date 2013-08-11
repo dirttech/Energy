@@ -9,7 +9,7 @@ namespace App_Code.SendMail
 {
 public static class SendingMails
 {
-    public static void SendRegistrationMail(UserLogin confirmObj)
+    public static void SendRegistrationMail(UserLogin confirmObj, string pass)
     {
         var fromaddr = "energy.iiitd@gmail.com";
         var toaddr = confirmObj.EMail;
@@ -17,7 +17,7 @@ public static class SendingMails
         string  subject = "Confirmation of your apartment registration for energy dashboard";
         string  body = "Congratulations! We have confirmed your apartment registration for our energy dashboard." + "\n";
         body += "Username: " + confirmObj.UserName + "\n";
-        body += "Password: " + confirmObj.Password + "\n";
+        body += "Password: " + pass + "\n";
         body += "Login @ http://energy.iiitd.edu.in";
 
         //body += "Email: " + "Inderpals@iiitd.ac.in" + "\n";

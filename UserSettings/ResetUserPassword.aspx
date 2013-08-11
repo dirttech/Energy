@@ -1,6 +1,24 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UserSettings/SettingsMaster.master" AutoEventWireup="true" CodeFile="ResetUserPassword.aspx.cs" Inherits="UserSettings_ResetUserPassword" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+    function extractPass() {
+        var msg = document.getElementById('<%=confirmNewpassword.ClientID%>').value;
+
+        var hash = CryptoJS.MD5(msg);
+
+        document.getElementById('<%=psHid.ClientID%>').value = hash;
+
+        var msg1 = document.getElementById('<%=oldPassword.ClientID%>').value;
+
+        var hash1 = CryptoJS.MD5(msg1);
+
+        document.getElementById('<%=psHidOld.ClientID%>').value = hash1;
+
+    }
+</script>
+
     <style type="text/css">
 td
 {
@@ -65,6 +83,7 @@ td
                          ControlToValidate="oldPassword" Display="Dynamic" ErrorMessage="*Required" 
                          SetFocusOnError="True" ValidationGroup="pwd"></asp:RequiredFieldValidator>
                          <asp:Label ID="pwdCheck" runat="server" style="color:Red;"></asp:Label>
+                         <input runat="server" type="hidden" id="psHidOld" />
         </td></tr>
         <tr><td>
         New Password
@@ -82,12 +101,13 @@ td
                          ControlToCompare="newPassword" ControlToValidate="confirmNewpassword" 
                          Display="Dynamic" ErrorMessage="Password mismatch" SetFocusOnError="True" 
                          ValidationGroup="pwd"></asp:CompareValidator>
+        <input runat="server" type="hidden" id="psHid" />
         </td></tr>
         <tr><td>
          <asp:Label ID="green1" runat="server" Text="" style="color:Green;"></asp:Label>
              
                  </td><td>
-                     <asp:Button ID="resetPassword" runat="server" Text="Reset Password" 
+                     <asp:Button ID="resetPassword" runat="server" Text="Reset Password" OnClientClick="extractPass()"
                          class="customButton" ValidationGroup="pwd" onclick="resetPassword_Click"/>
         </td></tr>
         

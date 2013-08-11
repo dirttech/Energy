@@ -29,7 +29,7 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void loginUser_Click(object sender, EventArgs e)
     {
-        UserLogin usr = UserLogin_S.NewLoging(usrName.Value, pwd.Value);
+        UserLogin usr = UserLogin_S.NewLoging(usrName.Value, psHid.Value);
         if (usr != null)
         {
             Session["UserName"] = usrName.Value;

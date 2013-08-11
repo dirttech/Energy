@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Net;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using App_Code.Login;
 using App_Code.UserRegisterationProcess;
 using App_Code.User_Mapping;
 using App_Code.SendMail;
+using System.Security.Cryptography;
 
 public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 {
@@ -30,7 +32,22 @@ public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
             confirmObj.Mobile = GridView1.SelectedRow.Cells[3].Text;
         }
         confirmObj.UserName = confirmObj.Apartment + "-" + confirmObj.Building;
+
+        MD5 md5 = new MD5CryptoServiceProvider();
         confirmObj.Password = DateTime.Now.ToString("ddmmyyyyHHmm");
+        string pass = confirmObj.Password;
+
+        md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(confirmObj.Password));
+        byte[] result = md5.Hash;
+        StringBuilder strBuilder = new StringBuilder();
+        for (int i = 0; i < result.Length; i++)
+        {
+            //change it into 2 hexadecimal digits
+            //for each byte
+            strBuilder.Append(result[i].ToString("x2"));
+        }
+
+        confirmObj.Password = strBuilder.ToString();
 
 
       bool stc =  UserLogin_S.InsertUser(confirmObj);
@@ -50,7 +67,7 @@ public partial class admin_AprooveRegistrationRequests : System.Web.UI.Page
 
               if (stst == true)
               {
-                  SendingMails.SendRegistrationMail(confirmObj);
+                  SendingMails.SendRegistrationMail(confirmObj, pass);
 
                   UserRegisteration regObj = new UserRegisteration();
 
