@@ -212,7 +212,6 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     protected void plotButton_Click(object sender, EventArgs e)
     {
         Plot_Building_All("Button");
-        
 
     }
     protected void wing1_Click(object sender, EventArgs e)

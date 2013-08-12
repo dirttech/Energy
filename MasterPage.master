@@ -41,12 +41,12 @@
 	<div id="header-wrapper">
 		<div id="menu" class="container">
 			<ul>
-				<li class="current_page_item"><a href="Default.aspx">Home</a></li>
-				<li><a href="CampusDashboard.aspx">Campus Dashboard</a></li>
-				<li><a href="Loggin.aspx">Faculty Dashboard</a></li>
-                <li><a href="News.aspx">News</a></li>
-				<li><a href="Team.aspx">People</a></li>
-				<li><a href="ContactUs.aspx">Contact us</a></li>
+               <li id="def"><a href="Default.aspx">Home</a></li>
+				<li id="camp"><a href="CampusDashboard.aspx">Campus Dashboard</a></li>
+				<li id="log"><a href="Loggin.aspx">Faculty Dashboard</a></li>
+                <li id="new"><a href="News.aspx">News</a></li>
+				<li id="tem"><a href="Team.aspx">People</a></li>
+				<li id="cont"><a href="ContactUs.aspx">Contact us</a></li>
 			</ul>
 		</div>
         </div>

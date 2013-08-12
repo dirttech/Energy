@@ -304,7 +304,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "select data in (" + fromtime + ", " + toTime + ") limit 50000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();

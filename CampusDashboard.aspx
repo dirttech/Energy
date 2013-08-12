@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="CampusDashboard.aspx.cs" Inherits="CampusDashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<style type="text/css">
+
+li#camp
+        {
+          background-color:skyblue;   
+        }
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br /><center>

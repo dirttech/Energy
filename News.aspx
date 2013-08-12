@@ -10,7 +10,10 @@
      {
          color:skyblue;
      }
-     
+     li#new
+        {
+          background-color:skyblue;   
+        }
      .abstract
      {
          display:block;

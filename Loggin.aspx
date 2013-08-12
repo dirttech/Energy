@@ -2,7 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <link rel="Stylesheet" type="text/css" href="Scripts/LoginStyle.css" />
-
+<noscript>     
+<body scroll="no" style="text-align: center; overflow:hidden; z-index:1000;"><center><table border="0" style="height: 98%; top:50px; z-index:1000; width: 100%; right: 1%; left: 1%; background: #F5E391;; position: fixed">
+                                     <tr><td align="center">
+<div style="position: fixed; font-size: 18px; z-index: 2; cursor: help; background: #F5E391; width: 480px; color: black; padding: 5px 5px 5px 5px; border: 1px solid; border-color: #000000; height: auto; text-align: left; left: 15%; top:30%;">
+<span style="font: bold 20px Arial; color:#000000; background: #F5E391; vertical-align: top">NO SCRIPT ERROR:</span><br/> 
+     Sorry this site will not function properly without the use of scripts.
+     The scripts are safe and will not harm your computer in anyway. 
+     Adjust your settings to allow scripts for this site and reload the site.</div> 
+          </td></tr></table></center> </body>
+</noscript>
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
 <script>
     function extractPass() {
@@ -12,7 +21,6 @@
 
         document.getElementById('<%=psHid.ClientID%>').value = hash;
 
-       
         
     }
 </script>
@@ -24,6 +32,10 @@
             text-decoration:underline;
             color:White;
             
+        }
+        li#log
+        {
+          background-color:skyblue;   
         }
         a:hover
         {

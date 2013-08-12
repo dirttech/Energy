@@ -32,7 +32,7 @@
  <script type="text/javascript">
   
     var energyData = <%=new JavaScriptSerializer().Serialize(energyArray)%>;
-
+  
   
     var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
     var timeStamps=<%=new JavaScriptSerializer().Serialize(timeSt) %>;
@@ -60,6 +60,7 @@
     {
         alert("Sorry! We don't have data for your selection.");
     }
+    
        jQuery(document).ready(function ($) {
                 Highcharts.setOptions({
 	global: {
