@@ -13,7 +13,7 @@ public static class SendingMails
     {
         var fromaddr = "energy.iiitd@gmail.com";
         var toaddr = confirmObj.EMail;
-        const string fromPassword = "i@IIITD";
+        const string fromPassword = "iamback@IIITD";
         string  subject = "Confirmation of your apartment registration for energy dashboard";
         string  body = "Congratulations! We have confirmed your apartment registration for our energy dashboard." + "\n";
         body += "Username: " + confirmObj.UserName + "\n";
@@ -40,7 +40,7 @@ public static class SendingMails
     {
         var fromaddr = "energy.iiitd@gmail.com";
         var toaddr = to;
-        const string fromPassword = "i@IIITD";
+        const string fromPassword = "iamback@IIITD";
       
         var smtp = new System.Net.Mail.SmtpClient();
         {
