@@ -96,7 +96,7 @@
                 valueSuffix: units
             },
             plotOptions: {
-                area: {
+                line: {
                     marker: {
                         enabled: false,
                         symbol: 'circle',
@@ -109,6 +109,7 @@
                     }
                 }
             },
+            credits:false,
             series: [
             {
                 name:  dataType+"("+units+")",
