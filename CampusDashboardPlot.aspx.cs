@@ -21,6 +21,11 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     public static string plotType = "";
     public static string unit="";
 
+    public static string[] energyTimeSeries;
+    public double[] barEnergy;
+    public int[] barTime;
+    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //Response.Write(Session["Building-Selected"]);
@@ -40,6 +45,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             {
 
                 building = Session["Building-Selected"].ToString();
+                Plot_Building_Energy();
             }
             else
             {
@@ -205,14 +211,78 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
     }
 
-    protected void Plot_Building_Academia()
+    protected void Plot_Building_Energy()
     {
+        //plot return bar time with DTD comp type
+
+        DateTime selectedDate = new DateTime(Convert.ToInt32(years.SelectedValue), Convert.ToInt32(months.SelectedValue), 1);
+        List<int> selectDateList = Utilitie_S.Return_Bar_Time(selectedDate, "DTD");
+        
+        if (selectDateList != null)
+        {
+            int[] ep = new int[selectDateList.Count];
+            for (int v = 0; v < selectDateList.Count; v++)
+            {
+                ep[v] = selectDateList[v];
+            }
+            energyTimeSeries = Utilitie_S.TimeFormatterBar(ep);
+            List<int> toEpochs = new List<int>();
+            for (int i = 0; i < selectDateList.Count; i++)
+            {
+                toEpochs.Add(selectDateList[i] + (selectDateList[1] - selectDateList[0]));
+            }
+            string[] frDateArray = Utilitie_S.SMapValidDateFormatter(selectDateList);
+            string[] toDateArray = Utilitie_S.SMapValidDateFormatter(toEpochs);
+
+            if (building == "Academic")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Academic Block", "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "ClassRooms")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Lecture Block", "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Mess Building")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Library Building")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Faculty Housing")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Girls Hostel AB")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Girls Hostel", "AB", "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Girls Hostel BC")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Girls Hostel", "BC", "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Boys Hostel A")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Boys Hostel", "A", "Building Total Mains", out barTime, out barEnergy);
+            }
+            if (building == "Boys Hostel BC")
+            {
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Boys Hostel", "BC", "Building Total Mains", out barTime, out barEnergy);
+            }
+
+            Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
+            for (int p = 1; p < barTime.Length; p++)
+            {
+                barEnergy[p - 1] = barEnergy[p] - barEnergy[p - 1];
+            }
+        }
 
     }
     protected void plotButton_Click(object sender, EventArgs e)
     {
         Plot_Building_All("Button");
-
+        Plot_Building_Energy();
     }
     protected void wing1_Click(object sender, EventArgs e)
     {
@@ -240,5 +310,10 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             building = "Boys Hostel BC";
         }
         Plot_Building_All(null);
+    }
+    protected void plotBar_Click(object sender, EventArgs e)
+    {
+        Plot_Building_Energy();
+        Plot_Building_All("Button");
     }
 }

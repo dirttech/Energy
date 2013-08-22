@@ -27,11 +27,15 @@
  {
      display:block;
  }
+     .style1
+     {
+         width: 100%;
+     }
  </style>
 
  <script type="text/javascript">
   
-    var energyData = <%=new JavaScriptSerializer().Serialize(energyArray)%>;
+    var energyData = <% =new JavaScriptSerializer().Serialize(energyArray)%>;
   
   
     var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
@@ -46,7 +50,9 @@
     var build = <%= new JavaScriptSerializer().Serialize(building) %> ;
     intervals=intervals*0.55;
 
-    
+    var barTime=<%=new JavaScriptSerializer().Serialize(energyTimeSeries)%>;
+    var barEnergy=<%=new JavaScriptSerializer().Serialize(barEnergy)%>;
+
     var readings=new Array(energyData.length);
    
 
@@ -119,6 +125,50 @@
             ]
         });
 
+         $('#container2').highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Energy Consumption'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                     type: 'datetime',
+                     categories: barTime
+                
+                },
+                yAxis: {
+                    
+                    title: {
+                        text: 'Energy(Watt Hrs)',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' Whr'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                
+                credits: {
+                    enabled: false
+                },
+               series: [{
+                name: 'Energy Consumption',
+                data: barEnergy
+            }]
+            });
     });
    
    
@@ -207,6 +257,50 @@
 <div id="container" style="width: 1100px; height: 550px; max-width:1100px;"></div>
 
 </td></tr>
+
+            <tr><td colspan="2">
+            
+        <hr />
+                <table >
+                    <tr>
+                        <td align="right">
+                            <asp:DropDownList ID="months" runat="server">
+                                <asp:ListItem Value="1">Jan</asp:ListItem>
+                                <asp:ListItem Value="2">Feb</asp:ListItem>
+                                <asp:ListItem Value="3">Mar</asp:ListItem>
+                                <asp:ListItem Value="4">Apr</asp:ListItem>
+                                <asp:ListItem Value="5">May</asp:ListItem>
+                                <asp:ListItem Value="6">Jun</asp:ListItem>
+                                <asp:ListItem Value="7">Jul</asp:ListItem>
+                                <asp:ListItem Value="8">Aug</asp:ListItem>
+                                <asp:ListItem Value="9">Sep</asp:ListItem>
+                                <asp:ListItem Value="10">Oct</asp:ListItem>
+                                <asp:ListItem Value="11">Nov</asp:ListItem>
+                                <asp:ListItem Value="12">Dec</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:DropDownList ID="years" runat="server">
+                                <asp:ListItem>2013</asp:ListItem>
+                                <asp:ListItem>2014</asp:ListItem>
+                                <asp:ListItem>2015</asp:ListItem>
+                                <asp:ListItem>2016</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Button ID="plotBar" runat="server" Text="Plot" class="customButton" 
+                                onclick="plotBar_Click" />
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           
+<div id="container2" style="width: 1100px; height: 550px; max-width:1100px;"></div>
+</td>
+                    </tr>
+                </table>
+
+</td></tr>
+
+<tr><td >
+
+    &nbsp;</td></tr>
 
 <tr><td >
 

@@ -1,0 +1,7 @@
+CREATE TABLE `suggestions` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `Contact` varchar(45) DEFAULT NULL,
+  `Message` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8

@@ -3,13 +3,53 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 <style type="text/css">
 
+.updt
+{
+  position:fixed;
+  bottom:0px;
+  left:0px;   
+}
 li#camp
+
         {
           background-color:skyblue;   
+        }
+        .sideDiv
+        {
+          background-color:Silver;
+        }
+        .divHeader
+        {
+            padding:5px;
+            padding-bottom:0px;
+        }
+        .buildingTable
+        {
+            width:100%;
+            line-height:30px;
+            padding:10px;
+        }
+        .buildingTable > tbody > tr > td
+        {
+             background-color:White;
+             border-bottom:1px solid gray;
+        }
+        .buildingTable > tbody > tr > td:hover
+        {
+          background-color:Gray;   
+          cursor:pointer;
+        }
+        .buildingTable
+        {
+          background-color:White;
+          border:none;   
         }
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<table style="margin:0 auto;">
+<tr>
+<td>
 <br /><center>
 <h3>Click on specific building to see its energy consumption data.</h3>
 <p>Labeled buildings  are clickable.</p>
@@ -31,5 +71,32 @@ li#camp
             HotSpotMode="PostBack" PostBackValue="Faculty Housing" />
     </asp:ImageMap>
     </center>
+
+
+</td>
+
+</tr>
+</table>
+
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" class="updt">
+        <ContentTemplate>
+            <div id="updt" runat="server">
+               
+            </div>
+                <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    
+                </asp:ScriptManager>
+                <asp:Timer runat="server" ID="Timer1" OnTick="Button1_Click" Interval="10" Enabled="true"></asp:Timer>
+                
+<%--
+            <asp:LinkButton ID="updatePanel" runat="server" onclick="Button1_Click"  style="text-align:right;"
+                Text="Refresh" />--%>
+        </ContentTemplate>
+        <Triggers>
+         <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+        </Triggers>
+    </asp:UpdatePanel>
+   
+
 </asp:Content>
 

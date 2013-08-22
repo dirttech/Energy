@@ -541,7 +541,6 @@ namespace App_Code.Utility
 
         }
 
-
         public static void MeterReadingsMerger(int[] epochs1, int[] epochs2, double[] values1, double[] values2, out int[] mergedEpochs, out double[] mergedValues)
         {
             int max = Math.Max(epochs1.Length, epochs2.Length);
