@@ -288,7 +288,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             if (barTime != null)
             {
                 Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
-                if (barTime != null)
+                if (barTime.Length>1)
                 {
                     for (int p = 1; p < barTime.Length; p++)
                     {
