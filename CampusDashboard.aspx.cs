@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
@@ -71,7 +70,7 @@ public partial class CampusDashboard : System.Web.UI.Page
 
         }
 
-        FetchEnergyDataS_Map.FetchBuildingTotal( endTime, "now", "Academic Building", "Lecture Block", "Energy", "Building Total Mains", out time1, out value1);
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Academic Building", "Lecture Block", "Energy", "Building Total Mains", out time1, out value1);
         FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Academic Building", "Lecture Block", "Energy", "Building Total Mains", out time2, out value2);
 
         HtmlTableRow row2 = new HtmlTableRow();
