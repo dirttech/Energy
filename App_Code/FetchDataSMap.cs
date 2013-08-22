@@ -634,15 +634,15 @@ namespace App_Code.FetchingEnergySmap
 
                     if (building == "Academic Building")
                     {
-                        stringData = "select data in (" + frtime[j] + ", " + totime[j] + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                        stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
                     if (building == "Mess Building" || building == "Library Building" || building == "Faculty Housing")
                     {
-                        stringData = "select data in (" + frtime[j] + ", " + totime[j] + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
+                        stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
                     if (building == "Girls Hostel" || building == "Boys Hostel")
                     {
-                        stringData = "select data in (" + frtime[j] + ", " + totime[j] + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                        stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
 
                     ASCIIEncoding encoding = new ASCIIEncoding();

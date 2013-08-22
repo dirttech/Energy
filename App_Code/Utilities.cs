@@ -422,6 +422,7 @@ namespace App_Code.Utility
             {
                 Utilities ut = Utilitie_S.EpochToDateTime(epochs[i]);
                 dateArray[i] = ut.Date.ToString("MM/dd/yyyy HH:mm");
+                //dateArray[i] = ut.Date.ToString("yyyy-MM-dd HH:mm:ss");
             }
 
             return dateArray;

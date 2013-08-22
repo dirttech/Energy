@@ -54,8 +54,6 @@
     var barEnergy=<%=new JavaScriptSerializer().Serialize(barEnergy)%>;
 
     
-alert(barEnergy);
-alert(barTime);
 barEnergy.splice(barEnergy.length-1,1);
 barTime.splice(barTime.length-1,1);
 
@@ -133,7 +131,7 @@ barTime.splice(barTime.length-1,1);
 
          $('#container2').highcharts({
                 chart: {
-                    type: 'bar'
+                    type: 'column'
                 },
                 title: {
                     text: 'Energy Consumption'
@@ -160,7 +158,7 @@ barTime.splice(barTime.length-1,1);
                     valueSuffix: ' KWh'
                 },
                 plotOptions: {
-                    bar: {
+                    column: {
                         dataLabels: {
                             enabled: true
                         }
@@ -278,7 +276,7 @@ barTime.splice(barTime.length-1,1);
                                 <asp:ListItem Value="5">May</asp:ListItem>
                                 <asp:ListItem Value="6">Jun</asp:ListItem>
                                 <asp:ListItem Value="7">Jul</asp:ListItem>
-                                <asp:ListItem Value="8">Aug</asp:ListItem>
+                                <asp:ListItem Value="8" Selected="True">Aug</asp:ListItem>
                                 <asp:ListItem Value="9">Sep</asp:ListItem>
                                 <asp:ListItem Value="10">Oct</asp:ListItem>
                                 <asp:ListItem Value="11">Nov</asp:ListItem>
@@ -290,7 +288,7 @@ barTime.splice(barTime.length-1,1);
                                 <asp:ListItem>2015</asp:ListItem>
                                 <asp:ListItem>2016</asp:ListItem>
                             </asp:DropDownList>
-                            <asp:Button ID="plotBar" runat="server" Text="Plot" class="customButton" 
+                            <asp:Button ID="plotBar" runat="server" style="margin-bottom:13px;" Text="Plot" class="customButton" 
                                 onclick="plotBar_Click" />
                             </td>
                     </tr>
