@@ -234,6 +234,21 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             string[] frDateArray = Utilitie_S.SMapValidDateFormatter(selectDateList);
             string[] toDateArray = Utilitie_S.SMapValidDateFormatter(toEpochs);
 
+            //frDateArray = new string[3];
+            //toDateArray = new string[3];
+
+            //frDateArray[0] = "now -15000minutes";
+            //toDateArray[0] = "now -10000minutes";
+
+            //frDateArray[1] = "now -10000minutes";
+            //toDateArray[1] = "now -50000minutes";
+
+            //frDateArray[2] = "now -5000minutes";
+            //toDateArray[2] = "now";
+
+
+
+
             if (building == "Academic")
             {
                 FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Academic Block", "Building Total Mains", out barTime, out barEnergy);
@@ -270,11 +285,16 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             {
                 FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Boys Hostel", "BC", "Building Total Mains", out barTime, out barEnergy);
             }
-
-            Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
-            for (int p = 1; p < barTime.Length; p++)
+            if (barTime != null)
             {
-                barEnergy[p - 1] = barEnergy[p] - barEnergy[p - 1];
+                Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
+
+                for (int p = 1; p < barTime.Length; p++)
+                {
+                    barEnergy[p - 1] = (barEnergy[p] - barEnergy[p - 1])/1000;
+                }
+                barEnergy[barEnergy.Length - 1] = 0;
+                energyTimeSeries = Utilitie_S.TimeFormatterBar(barTime);
             }
         }
 
@@ -314,6 +334,6 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     protected void plotBar_Click(object sender, EventArgs e)
     {
         Plot_Building_Energy();
-        Plot_Building_All("Button");
+       // Plot_Building_All("Button");
     }
 }

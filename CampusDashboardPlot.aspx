@@ -53,6 +53,12 @@
     var barTime=<%=new JavaScriptSerializer().Serialize(energyTimeSeries)%>;
     var barEnergy=<%=new JavaScriptSerializer().Serialize(barEnergy)%>;
 
+    
+alert(barEnergy);
+alert(barTime);
+barEnergy.splice(barEnergy.length-1,1);
+barTime.splice(barTime.length-1,1);
+
     var readings=new Array(energyData.length);
    
 
@@ -143,7 +149,7 @@
                 yAxis: {
                     
                     title: {
-                        text: 'Energy(Watt Hrs)',
+                        text: 'Energy(Kilowatt Hrs)',
                         align: 'high'
                     },
                     labels: {
@@ -151,7 +157,7 @@
                     }
                 },
                 tooltip: {
-                    valueSuffix: ' Whr'
+                    valueSuffix: ' KWh'
                 },
                 plotOptions: {
                     bar: {
