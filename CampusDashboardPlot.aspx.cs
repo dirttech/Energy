@@ -234,21 +234,6 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             string[] frDateArray = Utilitie_S.SMapValidDateFormatter(selectDateList);
             string[] toDateArray = Utilitie_S.SMapValidDateFormatter(toEpochs);
 
-            //frDateArray = new string[3];
-            //toDateArray = new string[3];
-
-            //frDateArray[0] = "now -15000minutes";
-            //toDateArray[0] = "now -10000minutes";
-
-            //frDateArray[1] = "now -10000minutes";
-            //toDateArray[1] = "now -50000minutes";
-
-            //frDateArray[2] = "now -5000minutes";
-            //toDateArray[2] = "now";
-
-
-
-
             if (building == "Academic")
             {
                 FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Academic Block", "Building Total Mains", out barTime, out barEnergy);
@@ -318,6 +303,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             building = "Boys Hostel A";
         }
         Plot_Building_All(null);
+        Plot_Building_Energy();
        
     }
     protected void wing2_Click(object sender, EventArgs e)
@@ -332,6 +318,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             building = "Boys Hostel BC";
         }
         Plot_Building_All(null);
+        Plot_Building_Energy();
     }
     protected void plotBar_Click(object sender, EventArgs e)
     {
