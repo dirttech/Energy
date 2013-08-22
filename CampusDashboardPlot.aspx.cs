@@ -288,13 +288,15 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             if (barTime != null)
             {
                 Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
-
-                for (int p = 1; p < barTime.Length; p++)
+                if (barTime != null)
                 {
-                    barEnergy[p - 1] = (barEnergy[p] - barEnergy[p - 1])/1000;
+                    for (int p = 1; p < barTime.Length; p++)
+                    {
+                        barEnergy[p - 1] = (barEnergy[p] - barEnergy[p - 1]) / 1000;
+                    }
+                    barEnergy[barEnergy.Length - 1] = 0;
+                    energyTimeSeries = Utilitie_S.TimeFormatterBar(barTime);
                 }
-                barEnergy[barEnergy.Length - 1] = 0;
-                energyTimeSeries = Utilitie_S.TimeFormatterBar(barTime);
             }
         }
 
@@ -334,6 +336,6 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     protected void plotBar_Click(object sender, EventArgs e)
     {
         Plot_Building_Energy();
-       // Plot_Building_All("Button");
+        Plot_Building_All("Button");
     }
 }
