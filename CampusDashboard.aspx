@@ -87,7 +87,7 @@ li#camp
                
             </div>
                
-                <asp:Timer runat="server" ID="Timer1" OnTick="Button1_Click" Interval="100000" Enabled="true"></asp:Timer>
+                <asp:Timer runat="server" ID="Timer1" OnTick="Button1_Click" Interval="10" Enabled="true"></asp:Timer>
                
 <%--
             <asp:LinkButton ID="updatePanel" runat="server" onclick="Button1_Click"  style="text-align:right;"
