@@ -77,24 +77,24 @@ li#camp
 
 </tr>
 </table>
-
+ <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    
+                </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" class="updt">
+    
         <ContentTemplate>
             <div id="updt" runat="server">
                
             </div>
-                <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    
-                </asp:ScriptManager>
-                <asp:Timer runat="server" ID="Timer1" OnTick="Button1_Click" Interval="1000" Enabled="true"></asp:Timer>
-                
+               
+                <asp:Timer runat="server" ID="Timer1" OnTick="Button1_Click" Interval="10000" Enabled="true"></asp:Timer>
+               
 <%--
             <asp:LinkButton ID="updatePanel" runat="server" onclick="Button1_Click"  style="text-align:right;"
                 Text="Refresh" />--%>
         </ContentTemplate>
-        <Triggers>
-         <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
-        </Triggers>
+        
+       
     </asp:UpdatePanel>
    
 
