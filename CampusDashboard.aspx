@@ -81,13 +81,13 @@ li#camp
                     
                 </asp:ScriptManager>
                  
-                <asp:Timer runat="server" ID="Timer1"  Interval="10000" Enabled="true" 
-        ontick="Button1_Click"></asp:Timer>
+                <%--<asp:Timer runat="server" ID="Timer1"  Interval="100000" Enabled="true" 
+        ontick="Button1_Click"></asp:Timer>--%>
     <asp:UpdatePanel  ID="UpdatePanel1" runat="server" class="updt">
-    <Triggers>
+   <%-- <Triggers>
         <asp:AsyncPostBackTrigger ControlID="Timer1" />
     </Triggers>
-       
+      --%> 
         <ContentTemplate>
             <div id="updt" runat="server">
                

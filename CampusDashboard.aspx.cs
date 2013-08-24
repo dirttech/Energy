@@ -47,10 +47,17 @@ public partial class CampusDashboard : System.Web.UI.Page
         sideDiv.ID = "sideDiv";
         sideDiv.Attributes.Add("class", "sideDiv");
 
-        HtmlGenericControl divHeader = new HtmlGenericControl("h3");
+        HtmlGenericControl divHeader = new HtmlGenericControl("span");
         divHeader.ID = "divHeader";
         divHeader.Attributes.Add("class", "divHeader");
         divHeader.InnerText = "Today's Consumption";
+
+        Button refresher = new Button();
+        refresher.ID = "refresher";
+        refresher.Text = "Refresh";
+        refresher.Click += new EventHandler(Button1_Click);
+        refresher.Style.Add("margin-left","100px");
+        divHeader.Controls.Add(refresher);
 
         HtmlTable buildingTable = new HtmlTable();
         buildingTable.ID = "buildingTable";
@@ -66,8 +73,8 @@ public partial class CampusDashboard : System.Web.UI.Page
         HtmlTableCell cell1 = new HtmlTableCell();
         if (time1 > 0 && time2 > 0)
         {           
-            row1.Cells.Add(cell1);
-            buildingTable.Rows.Add(row1);
+            //row1.Cells.Add(cell1);
+            //buildingTable.Rows.Add(row1);
 
         }
 
@@ -152,11 +159,12 @@ public partial class CampusDashboard : System.Web.UI.Page
             buildingTable.Rows.Add(row7);
         }
 
-        diff[0] = (value1[0] - value2[0])/1000; diff[1] = (value1[1] - value2[1])/1000; diff[2] = (value1[2] - value2[2])/1000; 
+        //diff[0] = (value1[0] - value2[0])/1000;
+        diff[1] = (value1[1] - value2[1])/1000; diff[2] = (value1[2] - value2[2])/1000; 
         diff[3] = (value1[3] - value2[3])/1000; diff[6] = (value1[6] - value2[6])/1000; 
         diff[4] = ((value1[4] - value2[4])+(value3[4]-value4[4]))/1000; 
         diff[5] = ((value1[5] - value2[5])+(value3[5]-value4[5]))/1000;
-        Total = diff[0] + diff[1] + diff[2] + diff[3] + diff[4] + diff[5] + diff[6];
+        Total =  diff[1] + diff[2] + diff[3] + diff[4] + diff[5] + diff[6];
         //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Projects\Energy\App_Data\WriteLine7.txt",true))
         //{
         //    for (int a = 0; a < 1; a++)
