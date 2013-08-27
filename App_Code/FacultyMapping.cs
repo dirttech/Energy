@@ -279,6 +279,93 @@ namespace App_Code.User_Mapping
 
         }
 
+        public static List<UserMapping> ListAllBuildingMeters(string building)
+        {
+            List<UserMapping> allMeters = new List<UserMapping>();
+
+            try
+            {
+                using (DbConnection conn = provider.CreateConnection())
+                {
+                    conn.ConnectionString = connString;
+
+                    using (DbCommand cmd = conn.CreateCommand())
+                    {
+                        string sqlQuery = "SELECT UserID,Apartment, MeterNo, FloorNo, Building, MeterType" +
+                                         " FROM meter_map WHERE Building=@build";
+
+                        if (parmPrefix != "@")
+                        {
+                            sqlQuery = sqlQuery.Replace("@", parmPrefix);
+                        }
+                        cmd.CommandText = sqlQuery;
+                        cmd.CommandType = CommandType.Text;
+
+                        DbParameter dpID = provider.CreateParameter();
+                        dpID.ParameterName = parmPrefix + "build";
+                        dpID.Value = building;
+                        cmd.Parameters.Add(dpID);
+
+                       
+                        conn.Open();
+
+                        using (DbDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    UserMapping meter = new UserMapping();
+
+                                    if (!rdr.IsDBNull(0))
+                                    {
+                                        meter.UserId = rdr.GetGuid(0);
+                                    }
+                                    if (!rdr.IsDBNull(1))
+                                    {
+                                        meter.Apartment = rdr.GetString(1);
+                                    }
+                                    if (!rdr.IsDBNull(2))
+                                    {
+                                        meter.MeterId = rdr.GetInt32(2);
+                                    }
+                                    if (!rdr.IsDBNull(3))
+                                    {
+                                        meter.Floor = rdr.GetInt32(3);
+                                    }
+                                    if (!rdr.IsDBNull(4))
+                                    {
+                                        meter.Building = rdr.GetString(4);
+                                    }
+                                    if (!rdr.IsDBNull(1))
+                                    {
+                                        meter.MeterType = rdr.GetString(5);
+                                    }
+
+                                    allMeters.Add(meter);
+
+                                }
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+
+
+
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+                return null;
+            }
+            return allMeters;
+
+        }
+
 
         public static UserMapping UserMapWithMeterBuilding(string building, int meterId)
         {

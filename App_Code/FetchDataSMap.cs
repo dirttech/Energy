@@ -685,6 +685,131 @@ namespace App_Code.FetchingEnergySmap
 
             }
         }
-    
+
+        public static void PingingFacultyMeter(string building, string meter_id, out bool status)
+        {
+
+          int[]  timeSt = new int[1];
+          double[]  values = new double[1];
+          status = false;
+
+            try
+            {
+                stringData = "select data in (now -5minutes, now) limit 1 where Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/MeterID='" + meter_id + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f21 = f1[0];
+                var f2 = f21["uuid"];
+                var f3 = f21["Readings"];
+
+                timeSt = new int[f3.Length];
+                values = new double[f3.Length];
+
+                for (int i = 0; i < f3.Length; i++)
+                {
+                    var f4 = f3[i];
+                    timeSt[i] = Convert.ToInt32(f4[0] / 1000);
+                    values[i] = Convert.ToDouble(f4[1]);
+                }
+
+                if (values.Length >= 1)
+                {
+                    status = true;
+                }
+                
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        public static void ListingMeter(out string[] meterIDs)
+        {
+
+            meterIDs = new string[1];
+
+            try
+            {
+                stringData = "select distinct Metadata/Extra/MeterID";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+                
+                meterIDs = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+                   
+                    meterIDs[i] = f1[i];
+                }
+                
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+
     }
 }
