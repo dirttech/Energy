@@ -686,7 +686,7 @@ namespace App_Code.FetchingEnergySmap
             }
         }
 
-        public static void PingingFacultyMeter(string building, string meter_id, out bool status)
+        public static void PingingMeter(string building, string meter_id, out bool status)
         {
 
           int[]  timeSt = new int[1];
@@ -755,14 +755,14 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void ListingMeter(out string[] meterIDs)
+        public static void ListingMeter(string building, out string[] meterIDs)
         {
 
             meterIDs = new string[1];
 
             try
             {
-                stringData = "select distinct Metadata/Extra/MeterID";
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
