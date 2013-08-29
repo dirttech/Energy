@@ -117,10 +117,16 @@ public partial class MeterStatus : System.Web.UI.Page
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTickGH" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
 
                 if (status == true)
                 {
@@ -168,10 +174,16 @@ public partial class MeterStatus : System.Web.UI.Page
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTickBH" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
 
                 if (status == true)
                 {
@@ -219,10 +231,16 @@ public partial class MeterStatus : System.Web.UI.Page
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTickAC" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
 
                 if (status == true)
                 {
@@ -270,11 +288,16 @@ public partial class MeterStatus : System.Web.UI.Page
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTickLB" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
-
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
                 if (status == true)
                 {
                     meterIdLabel.Style.Add("background-color", "green");
@@ -321,10 +344,16 @@ public partial class MeterStatus : System.Web.UI.Page
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTickMS" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
 
                 if (status == true)
                 {
@@ -344,32 +373,58 @@ public partial class MeterStatus : System.Web.UI.Page
     protected void LastSeenAt(object sender, EventArgs e)
     {
         double val = 0;
+        double val2 = 0;
         int time = 0;
         string building = ""; string wing = ""; string floor = "";
+        string type = ""; string block = ""; string flat = "";
         popup.Controls.Clear();
         popup.Attributes.Add("class", "abstractH");
 
         Button btn = (Button)sender;
         string metId = btn.Text;
 
-        FetchEnergyDataS_Map.GetMeterByID(metId, out val, out time);
+       
+
+        FetchEnergyDataS_Map.GetMeterLocationByID(metId, out building, out floor, out wing, out flat, out block, out type);
+
+        HtmlGenericControl metertype = new HtmlGenericControl("p");
+        metertype.InnerHtml = "<p><font style='background-color:skyblue;line-height:20px;width:35px;padding:5px;text-align:center'>" + btn.Text + "</font>&nbsp;&nbsp;" + type + "&nbsp;<img src='images/closeButton.png' alt='close' width='20px' align='right'style='padding-right:10px;cursor:pointer;' class='clos'/></p></br>";
+        popup.Controls.Add(metertype);
+
+        FetchEnergyDataS_Map.GetMeterByID(metId,"Energy", out val, out time);
         if (time > 0)
         {
             Utilities ut = Utilitie_S.EpochToDateTime(time);
 
-
             HtmlGenericControl lastseen = new HtmlGenericControl("span");
-            lastseen.InnerHtml ="<p style='background-color:skyblue;line-height:20px;width:35px;padding:5px;text-align:center'>"+btn.Text + "</p><br />  Last seen: " + ut.Date.ToString("HH:mm");
+            lastseen.InnerHtml = "Last seen: " + ut.Date.ToString("HH:mm dd MMM");
+
+            FetchEnergyDataS_Map.GetMeterByID(metId, "Power", out val2, out time);
+
+            HtmlGenericControl readings = new HtmlGenericControl("span");
+            readings.InnerHtml = "<font style='font-size:small; line-height:25px;color:gray;font-weight:bolder;'><br />" + Math.Round(val/1000,2).ToString() + " KWh, "+Math.Round(val2,2).ToString()+"W</font>";
 
             popup.Controls.Add(lastseen);
+            popup.Controls.Add(readings);
         }
 
-        FetchEnergyDataS_Map.GetMeterLocationByID(metId, out building, out floor, out wing);
         if (building == "Boys Hostel" || building == "Girls Hostel")
         {
             HtmlGenericControl winger = new HtmlGenericControl("p");
             winger.InnerHtml = "Wing: " + wing;
             popup.Controls.Add(winger);
+        }
+        if (building == "Faculty Housing")
+        {
+            HtmlGenericControl flatter = new HtmlGenericControl("p");
+            flatter.InnerHtml = "Apartment: " + flat;
+            popup.Controls.Add(flatter);
+        }
+        if (building == "Academic Building")
+        {
+            HtmlGenericControl blocker = new HtmlGenericControl("p");
+            blocker.InnerHtml = "Block: " + block;
+            popup.Controls.Add(blocker);   
         }
         HtmlGenericControl floorer = new HtmlGenericControl("p");
         floorer.InnerHtml = "Floor: " + floor;
@@ -378,6 +433,8 @@ public partial class MeterStatus : System.Web.UI.Page
         HtmlGenericControl builder = new HtmlGenericControl("p");
         builder.InnerHtml = "Building: " + building;
         popup.Controls.Add(builder);
+
+       
 
     }
 

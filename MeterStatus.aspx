@@ -7,7 +7,14 @@
 
         $('.meterLabel').click(function () {
             $('.abstractH').hide();
-            $('.duplicate').toggle('slow', function () {
+            $('.duplicate').fadeIn('slow', function () {
+                // Animation complete.
+            });
+
+        });
+        $('.clos').click(function () {
+          
+            $('.abstractH').fadeOut('slow', function () {
                 // Animation complete.
             });
 
@@ -48,8 +55,10 @@
      .abstractH
     {
         padding:10px;
-         height:160px;
+         height:155px;
          width:250px;
+         overflow: hidden;
+         padding-right: 0px;
          line-height: 17px;
          position:fixed;
          left:400px;
@@ -133,7 +142,7 @@
     <li><a  onclick="scrollTo('<%=fac.ClientID %>')">Faculty Housing</a></li>
     <li><a  onclick="scrollTo('<%=grl.ClientID %>')">Girls Hostel</a></li>
     <li><a  onclick="scrollTo('<%=boy.ClientID %>')">Boys Hostel</a></li>
-    <li><a  onclick="scrollTo('<%=acd.ClientID %>')">Academic Block</a></li>
+    <li><a  onclick="scrollTo('<%=acd.ClientID %>')">Academic Building</a></li>
      <li><a  onclick="scrollTo('<%=lib.ClientID %>')">Library</a></li>
      <li><a  onclick="scrollTo('<%=mess.ClientID %>')">Mess Building</a></li>
     

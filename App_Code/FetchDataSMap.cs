@@ -810,13 +810,13 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void GetMeterByID(string meterID, out double value, out int time)
+        public static void GetMeterByID(string meterID,string param, out double value, out int time)
         {
             value = 0; time = 0;            
 
             try
             {
-                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='Energy'";
+                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='"+param+"'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -866,13 +866,14 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void GetMeterLocationByID(string meterID, out string building, out string floor, out string wing)
+        public static void GetMeterLocationByID(string meterID, out string building, out string floor, out string wing, out string flat, out string block, out string type)
         {
             building = ""; floor = ""; wing = "";
+            flat = ""; block = ""; type = "";
 
             try
             {
-                stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing where Metadata/Extra/MeterID = '" + meterID + "'";
+                stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing, Metadata/Extra/FlatNumber, Metadata/Extra/Block, Metadata/Extra/Type where Metadata/Extra/MeterID = '" + meterID + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -907,10 +908,10 @@ namespace App_Code.FetchingEnergySmap
                 var f12 = f11["Metadata"];
                 var f2 = f12["Location"]; var f3 = f12["Extra"];
                 var f21 = f2["Building"]; var f31 = f3["Wing"];
-                var f22 = f2["Floor"];
+                var f22 = f2["Floor"]; var f32 = f3["FlatNumber"]; var f33 = f3["Block"];var f34 = f3["Type"];
 
                 building = f21; floor = f22; wing = f31;
-
+                block = f33; flat = f32; type = f34;
                 response.Close();
             }
             catch (Exception exp)
