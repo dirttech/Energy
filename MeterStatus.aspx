@@ -1,6 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MeterStatus.aspx.cs" Inherits="MeterStatus" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+
+<script type="text/javascript">
+  function  pageLoad() {
+
+        $('.meterLabel').click(function () {
+            $('.abstractH').hide();
+            $('.duplicate').toggle('slow', function () {
+                // Animation complete.
+            });
+
+        });
+    }
+    </script>
+
   <script type="text/jscript">
 
       function scrollTo(hash) {
@@ -9,6 +23,59 @@
       }
     </script>
 <style type="text/css">
+    .abstractH>p {
+
+        line-height: 25px;
+        margin: 0px;
+    }
+    .abstract
+    {
+         height:160px;
+         width:250px;
+         position:fixed;
+         left:400px;
+         top:200px;
+         background-color:black;
+         opacity:0.97;   
+         z-index:100;   
+         color:White;
+         display:none;
+    }
+    br {
+        line-height: 10px;
+        
+    }
+     .abstractH
+    {
+        padding:10px;
+         height:160px;
+         width:250px;
+         line-height: 17px;
+         position:fixed;
+         left:400px;
+         top:200px;
+         background-color:black;
+         opacity:0.97;   
+         z-index:100;   
+         color:White;
+         display:block;
+    }
+    .duplicate
+    {
+        display:none;
+           height:70px;
+         width:250px;
+         position:fixed;
+         left:400px;
+         top:200px;
+         background-color:black;
+         opacity:0.97;   
+         z-index:101; 
+         color:White;  
+         text-align:center;
+         padding-top:50px;
+        padding-bottom: 10px;
+    }
 .sideLine
         {
             top:85px;
@@ -46,10 +113,15 @@
     width:50px;
     display:inline-block;
     margin:15px;
+    border:none;
+    color:#363636;
+    height:30px;
+    font-weight:bold;
+    font-family:Sans-Serif;
+    font-size:x-large;
     text-align:center; 
     cursor:pointer;  
 }
-
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server"><br />
@@ -74,7 +146,7 @@
                     
                 </asp:ScriptManager>
                  
-                <asp:Timer runat="server" ID="Timer1"  Interval="10000" Enabled="true" 
+                <asp:Timer runat="server" ID="Timer1"  Interval="100000" Enabled="true" 
         ontick="Button1_Click"></asp:Timer>
     <asp:UpdatePanel  ID="updt" runat="server" class="updt">
     <Triggers>
@@ -82,6 +154,11 @@
     </Triggers>
        
         <ContentTemplate>
+        <div id="popup" runat="server" class="abstract"></div>
+         <div id="duplicate" runat="server" class="duplicate"><img src="images/loader.gif" height="20px" />
+         Loading...
+         </div>
+
             <div id="statusHolder" runat="server">
                <div id="fac" runat="server">
                

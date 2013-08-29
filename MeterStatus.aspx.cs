@@ -21,6 +21,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
     protected void DrawStatus()
     {
+        popup.Attributes.Add("class", "abstract");
         DrawFaculty();
         DrawGirlsHostel();
         DrawBoysHostel();
@@ -57,13 +58,19 @@ public partial class MeterStatus : System.Web.UI.Page
                 FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
 
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
-                meterIdSpan.Attributes.Add("class", "meterSpan");                
+                meterIdSpan.Attributes.Add("class", "meterSpan");
 
-                HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
-                meterIdLabel.InnerHtml = allMeters[i];
+                Button meterIdLabel = new Button();
+                meterIdLabel.ID = "meterTick" + i;
+                meterIdLabel.Text = allMeters[i];
+
+                //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                //meterIdLabel.InnerHtml = allMeters[i];
+                meterIdLabel.Attributes.Add("val", allMeters[i]);
                 meterIdLabel.Style.Add("background-color", "red");
                 meterIdLabel.Attributes.Add("class", "meterLabel");
-
+                meterIdLabel.Click += new EventHandler(LastSeenAt);
+                
                 if (status == true)
                 {
                     meterIdLabel.Style.Add("background-color", "green");
@@ -331,6 +338,46 @@ public partial class MeterStatus : System.Web.UI.Page
 
             mess.Controls.Add(facultyDiv);
         }
+
+    }
+
+    protected void LastSeenAt(object sender, EventArgs e)
+    {
+        double val = 0;
+        int time = 0;
+        string building = ""; string wing = ""; string floor = "";
+        popup.Controls.Clear();
+        popup.Attributes.Add("class", "abstractH");
+
+        Button btn = (Button)sender;
+        string metId = btn.Text;
+
+        FetchEnergyDataS_Map.GetMeterByID(metId, out val, out time);
+        if (time > 0)
+        {
+            Utilities ut = Utilitie_S.EpochToDateTime(time);
+
+
+            HtmlGenericControl lastseen = new HtmlGenericControl("span");
+            lastseen.InnerHtml ="<p style='background-color:skyblue;line-height:20px;width:35px;padding:5px;text-align:center'>"+btn.Text + "</p><br />  Last seen: " + ut.Date.ToString("HH:mm");
+
+            popup.Controls.Add(lastseen);
+        }
+
+        FetchEnergyDataS_Map.GetMeterLocationByID(metId, out building, out floor, out wing);
+        if (building == "Boys Hostel" || building == "Girls Hostel")
+        {
+            HtmlGenericControl winger = new HtmlGenericControl("p");
+            winger.InnerHtml = "Wing: " + wing;
+            popup.Controls.Add(winger);
+        }
+        HtmlGenericControl floorer = new HtmlGenericControl("p");
+        floorer.InnerHtml = "Floor: " + floor;
+        popup.Controls.Add(floorer);
+
+        HtmlGenericControl builder = new HtmlGenericControl("p");
+        builder.InnerHtml = "Building: " + building;
+        popup.Controls.Add(builder);
 
     }
 

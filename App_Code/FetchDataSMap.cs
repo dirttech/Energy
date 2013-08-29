@@ -810,6 +810,115 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        public static void GetMeterByID(string meterID, out double value, out int time)
+        {
+            value = 0; time = 0;            
+
+            try
+            {
+                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='Energy'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f21 = f1[0];
+                var f2 = f21["uuid"];
+                var f3 = f21["Readings"];
+                if (f3.Length > 0)
+                {
+                    var f4 = f3[0];
+                    time = Convert.ToInt32(f4[0] / 1000);
+                    value = Convert.ToDouble(f4[1]);
+                }
+              
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        public static void GetMeterLocationByID(string meterID, out string building, out string floor, out string wing)
+        {
+            building = ""; floor = ""; wing = "";
+
+            try
+            {
+                stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing where Metadata/Extra/MeterID = '" + meterID + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f11 = f1[0];
+                var f12 = f11["Metadata"];
+                var f2 = f12["Location"]; var f3 = f12["Extra"];
+                var f21 = f2["Building"]; var f31 = f3["Wing"];
+                var f22 = f2["Floor"];
+
+                building = f21; floor = f22; wing = f31;
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
 
     }
 }
