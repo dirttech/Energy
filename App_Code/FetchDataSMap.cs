@@ -755,14 +755,69 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void ListingMeter(string building, out string[] meterIDs)
+        public static void ListingFloors(string building, out string[] floors)
+        {
+
+            floors = new string[1];
+
+            try
+            {
+                stringData = "select distinct Metadata/Location/Floor where Metadata/Location/Building ='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                floors = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    floors[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        public static void ListingMeter(string building, string floor, out string[] meterIDs)
         {
 
             meterIDs = new string[1];
 
             try
             {
-                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "'";
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "' and Metadata/Location/Floor ='"+floor+"'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -816,7 +871,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='"+param+"'";
+                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
