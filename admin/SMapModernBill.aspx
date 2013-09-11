@@ -73,7 +73,7 @@
                 yAxis: {
                     
                     title: {
-                        text: 'Energy(Watt Hrs)',
+                        text: 'Energy(Kilo-Watt Hrs)',
                         align: 'high'
                     },
                     labels: {
@@ -81,7 +81,7 @@
                     }
                 },
                 tooltip: {
-                    valueSuffix: ' Whr'
+                    valueSuffix: ' KWhr'
                 },
                 plotOptions: {
                     column: {
@@ -440,7 +440,7 @@
                     <h5><br />
                  Meter Status &nbsp;&nbsp;<label class="billA">OK</label>
                  Meter Type &nbsp;&nbsp;<label class="billA">Permanent</label>
-                 Enerzisation Date &nbsp;&nbsp;<label class="billA"></label>
+                 Energisation Date &nbsp;&nbsp;<label class="billA"></label>
                  </h5>
                     
                    </td>

@@ -214,7 +214,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         cell6.Controls.Add(p6);
 
         HtmlGenericControl p7 = new HtmlGenericControl("span");
-        p7.InnerHtml = "Mess Building" + "<font color='skyblue'>&nbsp;(" + Math.Round(diff[6], 2).ToString() + " KWh)</font>&nbsp;<font color='orange'>(" + Math.Round((diff[6] / Total) * 100, 2).ToString() + "%)</font>";
+        p7.InnerHtml = "Mess & Dining" + "<font color='skyblue'>&nbsp;(" + Math.Round(diff[6], 2).ToString() + " KWh)</font>&nbsp;<font color='orange'>(" + Math.Round((diff[6] / Total) * 100, 2).ToString() + "%)</font>";
         cell7.Controls.Add(p7);
 
         sideDiv.Controls.Add(divHeader);

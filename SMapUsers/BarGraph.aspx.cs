@@ -129,7 +129,7 @@ public partial class BarGraph : System.Web.UI.Page
                     {
                         if (timeArray[p]-timeArray[p-1] < 25 * 60*60)
                         {
-                            energyArray[p-1] = energyArray[p] - energyArray[p-1];
+                            energyArray[p-1] = Math.Round((energyArray[p] - energyArray[p-1])/1000,2);
                         }
                         else
                         {
@@ -139,7 +139,7 @@ public partial class BarGraph : System.Web.UI.Page
                     }                   
                     else
                     {
-                        energyArray[p - 1] = energyArray[p] - energyArray[p - 1];
+                        energyArray[p - 1] =Math.Round(( energyArray[p] - energyArray[p - 1])/1000,2);
                     }
                 }
                 Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);

@@ -80,11 +80,15 @@ box-shadow: 0px 0px 8px 0px #000000;
     </script>
     <script type="text/javascript">
     var stackid=document.getElementById('<%=hiddenPlotType.ClientID %>');
-    var stack="normal";
-    if(stackid!=null)
-    {
-        stack=document.getElementById('<%=hiddenPlotType.ClientID %>').value;
-    }
+    var stack=null;
+//    if(stackid!=null)
+//    {        
+//        stack=document.getElementById('<%=hiddenPlotType.ClientID %>').value;
+//        if(stack!="normal")
+//        {
+//          stack=null;
+//        }
+//    }
 
     var timeSeries=<%=new JavaScriptSerializer().Serialize(timeSeries) %>;
     
@@ -131,7 +135,7 @@ box-shadow: 0px 0px 8px 0px #000000;
             yAxis: {
                 title: {
                     
-                    text: 'Energy(Watt Hrs)'
+                    text: 'Energy(Kilo-Watt Hrs)'
                 },
                 plotLines: [{
                     value: 0,
@@ -140,7 +144,7 @@ box-shadow: 0px 0px 8px 0px #000000;
                 }]
             },
             tooltip: {
-                valueSuffix: 'WHr'
+                valueSuffix: 'KWHr'
             },
             legend: {
                 layout: 'vertical',
@@ -220,8 +224,9 @@ box-shadow: 0px 0px 8px 0px #000000;
  
        <asp:DropDownList ID="viewTypeList" runat="server" AutoPostBack="True" 
         class="styled" onselectedindexchanged="viewTypeList_SelectedIndexChanged">
+        <asp:ListItem Value="null" Selected="True">Normal View</asp:ListItem>
         <asp:ListItem Value="normal">Stack View</asp:ListItem>
-        <asp:ListItem Value="null">Normal View</asp:ListItem>
+        
     </asp:DropDownList>
 
            <asp:DropDownList ID="meterTypeList" runat="server" AutoPostBack="True" 
@@ -231,7 +236,7 @@ box-shadow: 0px 0px 8px 0px #000000;
     </asp:DropDownList>
 
    
-            <input type="hidden" value="normal" id="hiddenPlotType" runat="server" />
+            <input type="hidden" value="null" id="hiddenPlotType" runat="server" />
     </td><td>
     </td></tr>
     

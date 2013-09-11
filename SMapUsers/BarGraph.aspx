@@ -131,7 +131,7 @@ box-shadow: 0px 0px 8px 0px #000000;
                 yAxis: {
                     
                     title: {
-                        text: 'Energy(Watt Hrs)',
+                        text: 'Energy(Kilo-Watt Hrs)',
                         align: 'high'
                     },
                     labels: {
@@ -139,7 +139,7 @@ box-shadow: 0px 0px 8px 0px #000000;
                     }
                 },
                 tooltip: {
-                    valueSuffix: ' Whr'
+                    valueSuffix: ' KWhr'
                 },
                 plotOptions: {
                     bar: {

@@ -195,7 +195,7 @@ box-shadow: 0px 0px 8px 0px #000000;
      <a style="color:Black;  font-size:large;  position:absolute; top:10px; left:20px;" id="nameTitle" runat="server">Welcome</a>
      <br/>
  <table><tr>
- <td>
+ <td style="width:82%;">
   <div class="HeadingLeftTop">
     <label id="Heading" runat="server" style=" font-size:x-large;">Last 24 Hours</label>    
     <label id="subHeading" runat="server" style="font-size:small;" ></label>
@@ -213,14 +213,11 @@ box-shadow: 0px 0px 8px 0px #000000;
  </tr>
    
 <tr>
-<td colspan="2" style="padding:30px;"> 
 
-<div id="container" style="width: 1100px; height: 550px; max-width:1100px; margin: 0 auto"></div>
-  </td>
 </tr>
     
       </table>
-
+      <div id="container" style="width: 1100px; height: 550px; max-width:1100px; margin:0 auto"></div>
     </form>
 </body>
 </html>

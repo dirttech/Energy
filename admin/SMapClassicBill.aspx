@@ -202,7 +202,7 @@
                     <h5><br />
                  Meter Status &nbsp;&nbsp;<label class="billA">OK</label>
                  Meter Type &nbsp;&nbsp;<label class="billA">Permanent</label>
-                 Enerzisation Date &nbsp;&nbsp;<label class="billA"></label>
+                 Energisation Date &nbsp;&nbsp;<label class="billA"></label>
                  </h5>
                     
                    </td>

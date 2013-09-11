@@ -245,7 +245,7 @@ public partial class SMapModernBill : System.Web.UI.Page
                     Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);
                     for (int ik = energyArray.Length-1; ik > 0; ik=ik-1)
                     {
-                        energyArray[ik] = energyArray[ik] - energyArray[ik - 1];
+                        energyArray[ik] =Math.Round((energyArray[ik] - energyArray[ik - 1])/1000,2);
                     }
                     timeArrayFinal = timeArray;
                     timeSeries = new string[energyArray.Length];
@@ -263,7 +263,7 @@ public partial class SMapModernBill : System.Web.UI.Page
                     Utilitie_S.ZeroArrayRefiner(timeLightingArray, energyLightingArray, out timeLightingArray, out energyLightingArray);
                     for (int ki = energyLightingArray.Length-1; ki > 0; ki=ki-1)
                     {
-                        energyLightingArray[ki] = energyLightingArray[ki] - energyLightingArray[ki - 1];
+                        energyLightingArray[ki] =Math.Round((energyLightingArray[ki] - energyLightingArray[ki - 1])/1000,2);
                     }
                     energyLightingArray[0]=0;timeLightingArray[0]=0;
                     Utilitie_S.ZeroArrayRefiner(timeLightingArray,energyLightingArray, out timeLightingArray, out energyLightingArray);

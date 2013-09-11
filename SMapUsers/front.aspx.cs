@@ -106,7 +106,7 @@ public partial class Users_front : System.Web.UI.Page
         string str1 = "", str2 = "";
         if (energyValues.Length==2)
         {
-            str1 = "Previous day (" + DateTime.Now.AddDays(-1).ToString("dd MMM yyyy") + "), You! have consumed <font color='#f18221'>" + (Math.Round(energyValues[1] - energyValues[0],2)).ToString() + " Whrs </font>";
+            str1 = "Previous day (" + DateTime.Now.AddDays(-1).ToString("dd MMM yyyy") + "), You! have consumed <font color='#f18221'>" + (Math.Round(energyValues[1] - energyValues[0],2)/1000).ToString() + " KWhrs </font>";
         }
 
         double[] avgEnergyValues;
@@ -161,7 +161,7 @@ public partial class Users_front : System.Web.UI.Page
 
                     HtmlGenericControl pUnits = new HtmlGenericControl("h2");
                     pUnits.ID = "pUnits" + i;
-                    pUnits.InnerText = (Math.Round(valueSample[i] - valueSample[i - 1],2)).ToString();
+                    pUnits.InnerText = Math.Round((valueSample[i] - valueSample[i - 1])/1000,2).ToString();
 
 
                     billDiv.Controls.Add(hday);

@@ -42,6 +42,10 @@ public partial class AverageComparison : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (IsPostBack == false)
+        {
+            hiddenPlotType.Value = null;
+        }
         CheckLogin();
        
         if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
@@ -105,7 +109,7 @@ public partial class AverageComparison : System.Web.UI.Page
             {
                 if (values[i] > 0)
                 {
-                    values[i] = values[i + 1] - values[i];
+                    values[i] =Math.Round((values[i + 1] - values[i])/1000,2);
                 }
                 else
                 {
@@ -117,7 +121,7 @@ public partial class AverageComparison : System.Web.UI.Page
             {
                 if (avgValues[j] > 0)
                 {
-                    avgValues[j] = avgValues[j + 1] - avgValues[j];
+                    avgValues[j] = Math.Round((avgValues[j + 1] - avgValues[j])/1000,2);
                 }
                 else
                 {
