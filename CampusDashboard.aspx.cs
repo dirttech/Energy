@@ -159,12 +159,21 @@ public partial class CampusDashboard : System.Web.UI.Page
             buildingTable.Rows.Add(row7);
         }
 
+        
         diff[0] = (value1[0] - value2[0])/1000;
         diff[1] = (value1[1] - value2[1])/1000; diff[2] = (value1[2] - value2[2])/1000; 
         diff[3] = (value1[3] - value2[3])/1000; diff[6] = (value1[6] - value2[6])/1000; 
         diff[4] = ((value1[4] - value2[4])+(value3[4]-value4[4]))/1000; 
         diff[5] = ((value1[5] - value2[5])+(value3[5]-value4[5]))/1000;
-        Total =  diff[0]+diff[1] + diff[2] + diff[3] + diff[4] + diff[5] + diff[6];
+        for (int ff = 0; ff < 6; ff++)
+        {
+            if (diff[ff] > 0)
+            {
+                Total = Total + diff[ff];
+            }
+        }
+        
+      
         //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Projects\Energy\App_Data\WriteLine7.txt",true))
         //{
         //    for (int a = 0; a < 1; a++)
