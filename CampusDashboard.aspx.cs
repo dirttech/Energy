@@ -165,7 +165,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         diff[3] = (value1[3] - value2[3])/1000; diff[6] = (value1[6] - value2[6])/1000; 
         diff[4] = ((value1[4] - value2[4])+(value3[4]-value4[4]))/1000; 
         diff[5] = ((value1[5] - value2[5])+(value3[5]-value4[5]))/1000;
-        for (int ff = 0; ff < 6; ff++)
+        for (int ff = 0; ff <= 6; ff++)
         {
             if (diff[ff] > 0)
             {
