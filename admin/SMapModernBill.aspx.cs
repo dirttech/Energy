@@ -42,11 +42,11 @@ public partial class SMapModernBill : System.Web.UI.Page
 
         }
     }
-    protected void calculatePrint(UserLogin userData)
+    protected void calculatePrint(UserMapping userData)
     {
         try
         {
-            UserMapping map = UserMapping_S.MapUser(userData.UserId);
+            UserMapping map = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", userData.Apartment);
             if (map != null)
             {
                 DateTime frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
@@ -183,8 +183,7 @@ public partial class SMapModernBill : System.Web.UI.Page
 
                         /****888888888888888888888888888888*******************************/
                         address.InnerHtml = "Flat No: " + map.Apartment + ", " + map.Building + " (IIITD)," + " Okhla Phase III, Delhi";
-                        mobile.InnerText ="Mob - "+ userData.Mobile;
-
+                      
                         meterNo.InnerText = map.Apartment + " - " + map.MeterId.ToString();
                         billPeriod.InnerText = frDate.ToString("dd/MM/yyyy") + " to " + tDate.ToString("dd/MM/yyyy");
                         dueDate.InnerHtml = "Due Date: " + DateTime.Now.AddDays(7).ToString("dd-MMM-yyyy");
@@ -281,13 +280,13 @@ public partial class SMapModernBill : System.Web.UI.Page
     protected void generateSideBarItems()
     {
 
-        List<UserLogin> AllUsers = UserLogin_S.ListOfAllUsers();
-        if (AllUsers != null)
+        List<UserMapping> AllApartments = UserMapping_S.ListAllBuildingMeters("Faculty Housing");
+        if (AllApartments != null)
         {
             Table sideTable = new Table();
             sideTable.ID = "sideTable";
 
-            for (int i = 0; i < AllUsers.Count; i++)
+            for (int i = 0; i < AllApartments.Count; i++)
             {
 
                 TableRow wrapper = new TableRow();
@@ -301,11 +300,12 @@ public partial class SMapModernBill : System.Web.UI.Page
 
                 HtmlGenericControl nameLabel = new HtmlGenericControl("label");
                 nameLabel.ID = "nameLabel" + i;
-                nameLabel.InnerText = AllUsers[i].Apartment +" - "+ AllUsers[i].Building;
+                nameLabel.InnerText = AllApartments[i].Apartment;
                 nameLabel.Style.Add("font-size", "large");
                 nameLabel.Attributes.Add("class", "clicker");
-                nameLabel.Attributes.Add("UID", AllUsers[i].UserName);
-                ListBox1.Items.Add(AllUsers[i].UserName);
+                nameLabel.Attributes.Add("UID", AllApartments[i].UserId.ToString());
+                nameLabel.Attributes.Add("Apart", AllApartments[i].Apartment);
+                ListBox1.Items.Add(AllApartments[i].Apartment);
                 nameLabel.Attributes.Add("onclick", "JavaScript:CopyHidden(this)");
 
                 cell.Controls.Add(nameLabel);
@@ -383,8 +383,8 @@ public partial class SMapModernBill : System.Web.UI.Page
         if (listBoxCounter >= 0)
         {
             uid.Value = ListBox1.Items[listBoxCounter].Text;
-            UserLogin userObj = returnUserObj(uid.Value);
-            UNameOfPrinter.InnerText = userObj.UserName;
+            UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
+            UNameOfPrinter.InnerText = userObj.Apartment;
             calculatePrint(userObj);
         }
     }
@@ -394,16 +394,16 @@ public partial class SMapModernBill : System.Web.UI.Page
         if (listBoxCounter >= 0)
         {
             uid.Value = ListBox1.Items[listBoxCounter].Text;
-            UserLogin userObj = returnUserObj(uid.Value);
-            UNameOfPrinter.InnerText = userObj.UserName;
+            UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
+            UNameOfPrinter.InnerText = userObj.Apartment;
             calculatePrint(userObj);
         }
     }
     protected void printBill_Click(object sender, EventArgs e)
     {
-
-        UserLogin userObj = returnUserObj(uid.Value);
-        UNameOfPrinter.InnerText = userObj.UserName;
+        //uid.Value = ListBox1.Items[0].Text;
+        UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
+        UNameOfPrinter.InnerText = userObj.Apartment;
         calculatePrint(userObj);
     }
    

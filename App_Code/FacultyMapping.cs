@@ -319,7 +319,11 @@ namespace App_Code.User_Mapping
 
                                     if (!rdr.IsDBNull(0))
                                     {
-                                        meter.UserId = rdr.GetGuid(0);
+                                        string uid = rdr.GetString(0);
+                                        if (uid != "")
+                                        {
+                                            meter.UserId = new Guid(uid);
+                                        }
                                     }
                                     if (!rdr.IsDBNull(1))
                                     {
@@ -366,6 +370,93 @@ namespace App_Code.User_Mapping
 
         }
 
+        public static UserMapping UserMapWithApartmentBuilding(string building, string apartment)
+        {
+            UserMapping meter = new UserMapping();
+
+            try
+            {
+                using (DbConnection conn = provider.CreateConnection())
+                {
+                    conn.ConnectionString = connString;
+
+                    using (DbCommand cmd = conn.CreateCommand())
+                    {
+                        string sqlQuery = "SELECT UserID,Apartment,MeterNo,Building" +
+                                         " FROM meter_map WHERE building = @building AND Apartment = @apartment";
+
+                        if (parmPrefix != "@")
+                        {
+                            sqlQuery = sqlQuery.Replace("@", parmPrefix);
+                        }
+                        cmd.CommandText = sqlQuery;
+                        cmd.CommandType = CommandType.Text;
+
+                        DbParameter dpID = provider.CreateParameter();
+                        dpID.ParameterName = parmPrefix + "building";
+                        dpID.Value = building;
+                        cmd.Parameters.Add(dpID);
+
+                        DbParameter dpmID = provider.CreateParameter();
+                        dpmID.ParameterName = parmPrefix + "apartment";
+                        dpmID.Value = apartment;
+                        cmd.Parameters.Add(dpmID);
+
+
+                        conn.Open();
+
+                        using (DbDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    meter = new UserMapping();
+
+                                    if (!rdr.IsDBNull(0))
+                                    {
+                                        string uid = rdr.GetString(0);
+                                        if (uid != "")
+                                        {
+                                            meter.UserId = new Guid(uid);
+                                        }
+                                    }
+                                    if (!rdr.IsDBNull(1))
+                                    {
+                                        meter.Apartment = rdr.GetString(1); ;
+                                    }
+                                    if (!rdr.IsDBNull(2))
+                                    {
+                                        meter.MeterId = rdr.GetInt32(2); ;
+                                    }
+                                    if (!rdr.IsDBNull(3))
+                                    {
+                                        meter.Building = rdr.GetString(3); ;
+                                    }
+
+
+
+                                }
+                            }
+                            else
+                            {
+                                return null;
+                            }
+                        }
+
+
+
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+                return null;
+            }
+            return meter;
+
+        }
 
         public static UserMapping UserMapWithMeterBuilding(string building, int meterId)
         {

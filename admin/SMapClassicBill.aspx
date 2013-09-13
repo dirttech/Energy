@@ -8,7 +8,7 @@
  <script type="text/javascript">
      function CopyHidden(ths) {
 
-         var hid = ths.getAttribute("UID");
+         var hid = ths.getAttribute("Apart");
          document.getElementById('<%=uid.ClientID%>').setAttribute("value", hid);
          var tp = ths.innerText;
          document.getElementById('<%=hidName.ClientID%>').setAttribute("value", tp);
@@ -84,12 +84,12 @@
 <body>
 
     <form id="form1" runat="server">
-    <div class="SideBar">
+    <div class="SideBar" style="height:500px;">
     <div class="HeadingLeftTop" style="opacity:0.9; width:93.3%">
-     <label id="Heading" runat="server" style=" font-size:x-large;">List of Users</label>    
+     <label id="Heading" runat="server" style=" font-size:x-large;">List of Apartments</label>    
     <label id="subHeading" runat="server" style="font-size:small;" ></label>
     </div>
-      <div id="sideBar" runat="server" style="background-color:skyblue; padding-left:20px;">
+      <div id="sideBar" runat="server" style="background-color:skyblue; padding-left:20px; ">
       
     
     </div>

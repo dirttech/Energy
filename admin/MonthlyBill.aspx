@@ -35,7 +35,7 @@
 
      <a id="modern" runat="server" onserverclick="modern_Click">Modern</a>
 
-     <a id="latest" runat="server" onserverclick="latest_Click">Latest</a>
+     <a id="latest" runat="server" style="display:none;" onserverclick="latest_Click">Latest</a>
      
      </div>
     
