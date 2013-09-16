@@ -235,7 +235,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data before '" + fromTimeArray[j] + "' limit 1 where Metadata/Location/Building ='" + location + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data before '" + fromTimeArray[j] + "' limit 1 where Metadata/Location/Building ='" + location + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "' and (Metadata/Location/Floor = '2' or Metadata/Location/Floor='3'  or Metadata/Location/Floor='4'  or Metadata/Location/Floor='5'  or Metadata/Location/Floor='6'  or Metadata/Location/Floor='7'  or Metadata/Location/Floor='8'  or Metadata/Location/Floor='9' )";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);

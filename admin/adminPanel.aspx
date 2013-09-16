@@ -36,7 +36,7 @@
     <div id="navigationTop">
    <a id="userInf" runat="server" onserverclick="usrInfo_Click" >User Info</a>
 
-     <a id="dashbrd" runat="server" onserverclick="dashbrd_Click">Energy Dashboard</a>
+     <a id="dashbrd" runat="server" onserverclick="dashbrd_Click" style="display:none;">Energy Dashboard</a>
 
      <a id="mnthlyBill" runat="server" href="MonthlyBill.aspx" target="_blank">Print Bills</a>
      

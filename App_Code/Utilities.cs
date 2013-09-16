@@ -550,7 +550,7 @@ namespace App_Code.Utility
 
             for (int i = 0; i < max; i++)
             {
-                if (Math.Abs(epochs1[i] - epochs2[i]) < window)
+                if (Math.Abs(epochs1[i] - epochs2[i]) < window) // To check if both meter readings are of aproximate same time. So we should merge them.
                 {
                     mergedEpochs[i]=Math.Max(epochs1[i],epochs2[i]);
                     mergedValues[i] = values1[i] + values2[i];

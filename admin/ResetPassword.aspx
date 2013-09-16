@@ -16,6 +16,19 @@
         }
 
     </script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script>
+    function extractPass() {
+
+
+        var msg1 = document.getElementById('<%=pwd2.ClientID%>').value;
+        var hash1 = CryptoJS.MD5(msg1);
+        document.getElementById('<%=newHidPwd.ClientID%>').value = hash1;
+
+
+    }
+    </script>
+
      <style type="text/css">
 
     td
@@ -102,8 +115,9 @@ select {
                 <asp:CompareValidator ID="CompareValidator1" runat="server" 
                     ControlToCompare="pwd1" ControlToValidate="pwd2" Display="Dynamic" 
                     ErrorMessage="Password mismatch" ForeColor="White" SetFocusOnError="True"></asp:CompareValidator>
-        <asp:Button ID="store" runat="server" Text="Store" class="customButton" 
+        <asp:Button ID="store" runat="server" Text="Store" class="customButton" onClientClick="extractPass()" 
                 onclick="store_Click" />
+                    <input id="newHidPwd" type="hidden" runat="server" />
     
         </td><td>
                 &nbsp;

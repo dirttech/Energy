@@ -106,7 +106,7 @@ public partial class Users_front : System.Web.UI.Page
         string str1 = "", str2 = "";
         if (energyValues.Length==2)
         {
-            str1 = "Previous day (" + DateTime.Now.AddDays(-1).ToString("dd MMM yyyy") + "), You! have consumed <font color='#f18221'>" + (Math.Round(energyValues[1] - energyValues[0],2)/1000).ToString() + " KWhrs </font>";
+            str1 = "Previous day (" + DateTime.Now.AddDays(-1).ToString("dd MMM yyyy") + "), You! have consumed <font color='#f18221'>" + Math.Round((energyValues[1] - energyValues[0])/1000,2).ToString() + " KWhrs </font>";
         }
 
         double[] avgEnergyValues;

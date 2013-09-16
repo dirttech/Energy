@@ -46,7 +46,7 @@ public partial class ResetPassword : System.Web.UI.Page
 
         UserLogin newPwdUser = new UserLogin();
 
-        newPwdUser.Password = pwd1.Text;
+        newPwdUser.Password = newHidPwd.Value;
         newPwdUser.UserId = id;
 
         bool upd = UserLogin_S.ResetPassword(newPwdUser);
@@ -86,7 +86,7 @@ public partial class ResetPassword : System.Web.UI.Page
 
                 HtmlGenericControl nameLabel = new HtmlGenericControl("label");
                 nameLabel.ID = "nameLabel" + i;
-                nameLabel.InnerText = AllUsers[i].FullName;
+                nameLabel.InnerText = AllUsers[i].UserName;
                 nameLabel.Style.Add("font-size", "large");
                 nameLabel.Attributes.Add("class", "clicker");
                 nameLabel.Style.Add("cursor", "pointer");
