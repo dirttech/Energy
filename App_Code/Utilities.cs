@@ -177,6 +177,7 @@ namespace App_Code.Utility
                     ep = ep + 1;
                     allDays.Add(ep);
                 }
+                allDays.Add(allDays[allDays.Count - 1] + 216000);
                 return allDays;
             }
             if (comparisonType == "HBH")        // will return epochs for all hours coming between two dates for hour by hour comparisons
@@ -249,42 +250,23 @@ namespace App_Code.Utility
             List<DateTime> timeListing = new List<DateTime>();
 
             DateTime now = DateTime.Today.AddDays(-1);
-            timeListing.Add(now);
-            DateTime newTime = new DateTime();
 
             int day = now.Day;
             int month = now.Month;
             int year = now.Year;
 
-            newTime=new DateTime(year,month,1,0,0,1);
-            timeListing.Add(newTime);                   //this month is added
-
-            
-
-            for (int i = 0; i < lastMonths - 1;i++ )
+            for (int i = 1; i <= month;i++ )
             {
-                if (month == 1)
-                {
-                    month = 12;
-                    year = year - 1;
-                }
-                else
-                {
-                    month=month-1;
-                }
-                newTime = new DateTime(year, month, DateTime.DaysInMonth(year, month), 23, 59, 59);
+                DateTime newTime = new DateTime(year, i, 1, 0, 0, 1);
                 timeListing.Add(newTime);
-                newTime = new DateTime(year, month, 1, 0, 0, 1);
-                timeListing.Add(newTime);
-
             }
+            timeListing.Add(now);
 
             for (int j = 0; j < timeListing.Count; j++)
             {
                 Utilities ut = DateTimeToEpoch(timeListing[j]);
                 epochs.Add(ut.Epoch);
             }
-
             return epochs;
         }
 
@@ -527,18 +509,14 @@ namespace App_Code.Utility
             {
                 if (epochs[i] > 1)
                 {
-
                     refinedEpochs[ct] = epochs[i];
                     refinedValues[ct] = values[i];
-                    ct++;
+                    if (ct < refinedEpochs.Length - 1)
+                    {
+                        ct++;
+                    }
                 }
             }
-
-
-
-
-
-
 
         }
 

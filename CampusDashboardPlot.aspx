@@ -276,7 +276,7 @@ barTime.splice(barTime.length-1,1);
                                 <asp:ListItem Value="5">May</asp:ListItem>
                                 <asp:ListItem Value="6">Jun</asp:ListItem>
                                 <asp:ListItem Value="7">Jul</asp:ListItem>
-                                <asp:ListItem Value="8" Selected="True">Aug</asp:ListItem>
+                                <asp:ListItem Value="8">Aug</asp:ListItem>
                                 <asp:ListItem Value="9">Sep</asp:ListItem>
                                 <asp:ListItem Value="10">Oct</asp:ListItem>
                                 <asp:ListItem Value="11">Nov</asp:ListItem>

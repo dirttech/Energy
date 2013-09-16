@@ -82,7 +82,6 @@ public partial class AverageComparison : System.Web.UI.Page
     {
         try
         {
-
             string meter_type = meterTypeList.SelectedValue;
             meterTypeList.SelectedValue = meter_type;
 
@@ -99,7 +98,7 @@ public partial class AverageComparison : System.Web.UI.Page
             Utilitie_S.ZeroArrayRefiner(timeStamps, values, out timeStamps, out values);
 
             timeSeries = Utilitie_S.TimeFormatter(timeStamps);
-
+            
             FetchEnergyDataS_Map.FetchAvgConsumption(fromTimeArray, toTimeArray, building, meter_type, out avgTimeStamps, out avgValues);
             Utilitie_S.ZeroAverageArrayRefiner(avgTimeStamps, avgValues, out avgTimeStamps, out avgValues);
 
