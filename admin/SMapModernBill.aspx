@@ -258,6 +258,17 @@
         {
              width:100%;   
         }
+         input[type="checkbox"]
+        {
+              -ms-transform: scale(4); /* IE */
+  -moz-transform: scale(4); /* FF */
+  -webkit-transform: scale(4); /* Safari and Chrome */
+  -o-transform: scale(4); /* Opera */
+  padding: 10px;
+  margin-left:30px;
+  margin-right:10px;
+margin-bottom:7px;
+        }
         
         
         @media print
@@ -323,8 +334,24 @@
     </div>
     </div>
 
-    <asp:Button ID="printBill" runat="server" Text="Calculate" 
-        class="customButton" style=" position:absolute; display:none;" onclick="printBill_Click" />
+         <div id="printOptions" runat="server" style=" display:none; position:absolute; left:750px; top:200px;-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px; 
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2); width:220px; height:180px; background-color:#0d96c5; opacity:0.9; z-index:12;">
+
+                     <h4 style="color:#333 !important;">
+                         <asp:CheckBox ID="allApartments" runat="server" Checked="true" Height="20px" />&nbsp;All Apartments</h4>
+                         <hr />
+                         <h5><asp:CheckBox ID="powerCheck" runat="server" Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
+                       <h5>  <asp:CheckBox ID="lightCheck" runat="server" Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>
+                                        
+                       <asp:Button ID="printBill" runat="server" Text="Calculate" 
+        class="customButton" style=" position:relative; display:block; top: -2px; left: 89px;" 
+                         onclick="printBill_Click" />
+                     
+                        
+                     </div>
+
     <input id="hidName" type="hidden" runat="server" value="LNT"/>
 <input id="uid" type="hidden" runat="server" />
     <asp:ListBox ID="ListBox1" runat="server" Visible="false"></asp:ListBox>
@@ -385,266 +412,8 @@
 
     <div>
     
-        <table class="tabStyle" id="printingDiv">
-            <tr>
-                <td >
-                <img src="../images/iiitd_logo.png" height="50px" alt="IIITD"/>
-                                   </td>
-                <td style="font-size:x-large;">
-                    ELECTRICITY BILL</td>
-                
-                <td class="tplbl" style="width:300px;">
-                    <p id="billAmount" runat="server" class="SideUpperLabel"></p>
-                   
-                    <p id="dueDate" runat="server" class="SideUpperLabel"></p>
-                </td>
-            </tr>
-            <tr style="vertical-align: top; ">
-                
-                <td>   <label runat="server" id="fullName" class="billHead"></label>
-                   <label runat="server" id="address" class="billHead2"></label>
-                   <label runat="server" id="mobile" class="billHead2"></label>
-                        
-                    
-                    </td>
-            
-                <td colspan="2">                   
-                                                 
-               <h4>Tip of month:</h4>    
-               <p id="monthTip" runat="server"></p>                    
-               
-                   
-                   </td>
-              
-            </tr>
-            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
-                <td width="35%">
-                <h4 >Billing Details:</h4>
-                <h5>
-                  Meter No. &nbsp;&nbsp;<label runat="server" id="meterNo" class="billA"></label>
-                  Bill No.  &nbsp;&nbsp;  <label runat="server" id="billNo" class="billA"></label>
-                  Bill Period &nbsp;&nbsp;  <label runat="server" id="billPeriod" class="billA"></label>
-                  Bill Date &nbsp;&nbsp; <label runat="server" id="billDate" class="billA"></label>
-                  </h5>
-                    </td>
-                <td width="32%">
-                <h5>
-                 Power Factor &nbsp;&nbsp;<label class="billA">0.9</label>
-                 Sanctioned Load &nbsp;&nbsp;<label class="billA">8 Kva</label>
-                 MDI &nbsp;&nbsp;<label class="billA">1</label>
-                 Supply Type&nbsp;&nbsp;<label class="billA">LT</label>
-                 </h5>
+    <uc:BillBody id="bill1" runat="server" />
 
-                    </td>
-                <td style="vertical-align:top;">
-                    <h5><br />
-                 Meter Status &nbsp;&nbsp;<label class="billA">OK</label>
-                 Meter Type &nbsp;&nbsp;<label class="billA">Permanent</label>
-                 Energisation Date &nbsp;&nbsp;<label class="billA"></label>
-                 </h5>
-                    
-                   </td>
-            
-            </tr>
-            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
-                <td colspan="3" >
-                  <table style="border: thin groove #000000"  class="calculations"><tr><td class="billQ">
-                                Meter Type
-                                </td>
-                                <td class="billQ">
-                                
-                                Units Consumed
-                                </td>
-                                <td class="billQ" colspan="2">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                Readings
-                                <br />Initial &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Final
-                                
-                                </td>
-                                <td class="billQ">
-                                Total Units
-                                
-                                </td>
-                                </tr>
-                                <tr>
-                                <td class="billA">
-                                    <asp:Label ID="meterType1" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp1Units" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp1Units0" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp1Units1" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="totalUnits" runat="server"></asp:Label>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                <td class="billA">
-                                    <asp:Label ID="meterType2" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp2Units" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp2Units0" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA">
-                                    <asp:Label ID="metTyp2Units1" runat="server"></asp:Label>
-                                    </td>
-                                <td class="billA" runat="server" id="dayTd">
-                                    
-                                    </td>
-                                </tr>
-                                
-                                </table>
-
-                    <br />
-
-                  <table style="border: thin groove #000000"  class="calculations">
-                                    <tr>
-                                        <td class="billQ">
-                                            Units Consumed
-                                            </td>
-                                        <td class="billQ">
-                                            Price Cal. (Slab-wise)</td>
-                                        <td class="billQ">
-                                            
-                                            Fixed Charge(per day)
-                                            </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="billA">
-                                            <asp:Label ID="totalUnitsConsumed" runat="server"></asp:Label>
-                                        </td>
-                                        <td id="slabText" runat="server"  class="billA">
-                                            
-                                        </td>
-                                        <td id="fixedText" runat="server"  class="billA">
-                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="billQ">
-                                            Total</td>
-                                        <td class="billA">
-                                            <asp:Label ID="totalSlabCharge" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="totalFixCharge" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                    <br />
-
-                  <table style="border: thin groove #000000" class="calculations">
-                                    <tr>
-                                        <td class="billQ">
-                                            Tax Eval on</td>
-                                        <td class="billQ">
-                                            Price</td>
-                                        <td class="billQ">
-                                            Adj. Charges(1.5%)</td>
-                                        <td class="billQ">
-                                            Def. Charges(8%)</td>
-                                        <td class="billQ">
-                                            Total</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="billQ">
-                                            Energy Charge</td>
-                                        <td class="billA">
-                                            <asp:Label ID="energyChrg" runat="server"></asp:Label>
-                                            </td>
-                                        <td class="billA">
-                                            <asp:Label ID="adjEnrgyChrg" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="defEnrgyChrg" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="netEnrgyChrg" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="billQ">
-                                            Fixed Charge</td>
-                                        <td class="billA">
-                                            <asp:Label ID="fixChrg" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="adjFixChrg" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="defFixChrg" runat="server"></asp:Label>
-                                        </td>
-                                        <td class="billA">
-                                            <asp:Label ID="netFixChrg" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr class="billQ">
-                                        <td>
-                                            &nbsp;</td>
-                                        <td>
-                                            &nbsp;</td>
-                                        <td>
-                                            &nbsp;</td>
-                                        <td>
-                                            &nbsp;</td>
-                                        <td class="billQ">
-                                            <asp:Label ID="subTotalTxt" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                    <br />
-                    </td>
-            
-            </tr>
-            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
-                <td colspan="3" >
-                    
-                    <label runat="server" id="elecTax"></label>
-                    <label runat="server" id="netBillAmt"></label>
-                    &nbsp;</td>
-            
-            </tr>
-            <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
-                <td >
-                    &nbsp;</td>
-                <td >
-                    &nbsp;</td>
-                <td >
-                   
-                    &nbsp;</td>
-            
-            </tr>
-            <tr>
-                <td colspan="2" >
-                 
-                    </td>
-                <td >
-                  
-                  
-                  </td>
-            
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-            
-            </tr>
-        </table>
             <hr style="color:White;" />
             <table>
 
@@ -724,9 +493,9 @@
             });
             $('.clicker').click(function () {
                 var offset = $(this).offset();
-                $("#printBill").hide();
-                $("#printBill").show("drop");
-                $("#printBill").offset({ top: offset.top - 4, left: offset.left + 145 });
+                $("#printOptions").hide();
+                $("#printOptions").fadeIn("drop");
+                //$("#printOptions").offset({ top: offset.top - 4, left: offset.left + 145 });
             });
 
             $('#tips').click(function () {

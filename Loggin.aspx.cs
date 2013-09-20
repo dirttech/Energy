@@ -29,36 +29,59 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void loginUser_Click(object sender, EventArgs e)
     {
-        UserLogin usr = UserLogin_S.NewLoging(usrName.Value, psHid.Value);
-        if (usr != null)
+        UserLogin();
+    }
+
+    protected void UserLogin()
+    {
+        if (usrName.Value == "testuser")
         {
-            Session["UserName"] = usrName.Value;
-
-            UserMapping map = UserMapping_S.MapUser(usr.UserId);
-            
-            if (map != null)
+            if (pwd.Value == "testuser")
             {
-                Session["Apartment"] = map.Apartment;
-                Session["MeterType"] = map.MeterType;
-                Session["Building"] = map.Building;
-                Session["UserID"] = map.UserId;
-                
-            }
-
-          
-            if (usr.PasswordStatus=="pending")
-            {
-                
-               Response.Redirect("~/UserSettings/ResetUserPassword.aspx");
-            }
-            else
-            {
-              Response.Redirect("~/SMapUsers/front.aspx");
+                List<UserMapping> allApartments = UserMapping_S.ListAll2to9FloorApartments("Faculty Housing");
+                Random rnd=new Random();
+                int r=rnd.Next(allApartments.Count);
+                UserMapping map = UserMapping_S.UserMapWithApartmentBuilding(allApartments[r].Building, allApartments[r].Apartment);
+                if (map != null)
+                {
+                    Session["UserName"] = "testuser";
+                    Session["Apartment"] = map.Apartment;
+                    Session["MeterType"] = map.MeterType;
+                    Session["Building"] = map.Building;
+                    Session["UserID"] = map.UserId;
+                    Response.Redirect("~/SMapUsers/front.aspx");
+                }
             }
         }
         else
         {
-            msg.Text = "Wrong Username/Password";
+            UserLogin usr = UserLogin_S.NewLoging(usrName.Value, psHid.Value);
+            if (usr != null)
+            {
+                Session["UserName"] = usrName.Value;
+                UserMapping map = UserMapping_S.MapUser(usr.UserId);
+                if (map != null)
+                {
+                    Session["Apartment"] = map.Apartment;
+                    Session["MeterType"] = map.MeterType;
+                    Session["Building"] = map.Building;
+                    Session["UserID"] = map.UserId;
+                }
+                if (usr.PasswordStatus == "pending")
+                {
+                    Response.Redirect("~/UserSettings/ResetUserPassword.aspx");
+                }
+                else
+                {
+                    Response.Redirect("~/SMapUsers/front.aspx");
+                }
+            }
+            else
+            {
+                msg.Text = "Wrong Username/Password";
+            }
         }
     }
+
 }
+
