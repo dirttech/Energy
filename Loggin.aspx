@@ -53,7 +53,7 @@
         <tr>
         <td style="width:600px; vertical-align:top; padding-top:50px; padding-left:40px;">
 
-      <h3>Average indian house is consuming <font color="red">1100 KWhr </font>of energy every month.</h3>  <br /> 
+      <h3>Average indian house is consuming <font color="red">1100 KWhr </font>of energy every year.</h3>  <br /> 
       
       Want to know yours?&nbsp;&nbsp;<a href="Register.aspx">Register here  </a>
 

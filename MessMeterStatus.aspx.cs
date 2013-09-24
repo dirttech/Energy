@@ -12,13 +12,14 @@ public partial class MeterStatus : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         DrawStatus();
+
     }
 
 
     protected void DrawStatus()
     {
         popup.Attributes.Add("class", "abstract");
-  
+        DrawMess();
     }
 
     protected void DrawFaculty()

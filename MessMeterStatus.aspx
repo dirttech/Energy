@@ -149,7 +149,7 @@
     <li><a  href="BoysHostelMeterStatus.aspx">Boys Hostel</a></li>
     <li><a  href="AcademicMeterStatus.aspx">Academic Building</a></li>
      <li><a href="LibraryMeterStatus.aspx">Library</a></li>
-     <li><a href="MessMeterStatus.aspx">Mess Building</a></li>
+     <li><a href="MessMeterStatus.aspx">Mess & Dining</a></li>
     
     </ul>
     </div>
