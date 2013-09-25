@@ -165,7 +165,7 @@ margin-bottom:7px;
 
     <div>
     <div id="billbody" runat="server"></div>
-       <uc:BillBody id="bill2" runat="server" />
+       <uc:BillBody id="bill1" runat="server" />
      
 
      <div id="printOptions" runat="server" style=" display:none; position:absolute; left:750px; top:200px;-moz-border-radius:8px;
