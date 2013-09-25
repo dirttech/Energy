@@ -325,10 +325,10 @@ barTime.splice(barTime.length-1,1);
 </td></tr>
 
 <tr><td style="border-top:1px solid gray;" colspan="2">
-   <span style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: x-small; font-style: italic; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
+   <span style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; font-style: italic; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
     <br />
     Supported through extensive efforts by IIIT-Delhi Admin Department and research 
-    grant from Department of Electronic and Information Technology (DEITy), 
+    grant from Department of Electronic and Information Technology (DEITy), <br />
     Government of India (Grant Number DeitY/R&amp;D/ITEA/4(2)/2012).</span></td></tr>
 </table>
 

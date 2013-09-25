@@ -32,6 +32,9 @@ public partial class SMapClassicBill : System.Web.UI.Page
     }
     protected void calculatePrint(UserMapping userData)
     {
+        Control bill1 = Page.LoadControl("~/Controls/Bill.ascx");
+        
+
         bill1.fromDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
                                            System.Globalization.CultureInfo.InvariantCulture);
         bill1.toDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
@@ -54,7 +57,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
         }
         
         bill1.calculatePrint(userData);
-      
+        billbody.Controls.Add(bill1);
     }
 
     protected void generateSideBarItems()

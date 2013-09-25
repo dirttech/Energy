@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using App_Code.ImportCSV;
+using System.Data;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 public partial class admin_AddEnergyTips : System.Web.UI.Page
 {

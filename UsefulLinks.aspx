@@ -3,9 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
       <style type="text/css">
           .linkContainer {
-              position: fixed;
+              position: relative;
+              width:80%;
               left: 230px;
               right: 30px;
+            
           }
           p {
               font-weight: normal;
@@ -36,6 +38,7 @@
              padding:10px;
                border-radius:0px 12px 12px 0px;  
              box-shadow:  0px 2px  2px 2px #888, 2px 3px 5px 0px #888;
+             
         }
         .sideLine>a
         {
@@ -93,7 +96,7 @@
     </div>
     
     <div id="linkDiv" class="linkContainer" runat="server">
-               <div id="radv" runat="server"><br />
+               <div id="radv"><br />
                <h3>Research Advice</h3>
                <p>
                    
@@ -110,16 +113,22 @@ I covered the points made by EWD in this blog post. Its truly inspiring!
 Its a good collection of advice on how to conduct research and how to communicate it. Its mostly for computer science researchers.
                </p>
                </div>
-                <div id="stat" runat="server">
+                <div id="stat" >
                <h3>Statistical Links</h3><p>
                <b style="color:skyblue">Reproducible Research:</b><br /> Similar to <a target="_blank" href="http://reference.wolfram.com/legacy/v5/Tour/MathematicaNotebooks.html">Mathematica Notebook</a>, <a href="http://ipython.org/notebook.html" target="_blank">IPython Notebook</a> allows one to integrate code, output, markdown and much more in the same document. These notebooks 
                can be rendered as <a href="http://en.wikipedia.org/wiki/HTML" target="_blank">HTML</a>, <a href="http://www.latex-project.org/" target="_blank">LaTeX</a> and even in <a href="http://en.wikipedia.org/wiki/HTML5" target="_blank">HTML5</a> based slideshows. 
-               <br />
+               <br /><br />
                Similarly, <a href="http://en.wikipedia.org/wiki/R_(programming_language)" target="_blank">R</a> has a package named <a href="http://yihui.name/knitr/" target="_blank">Knitr</a>, which allows similar stuff. <a href="http://www.mathworks.in/products/matlab/" target="_blank">Matlab</a> too allows to publish your work. 
                Our group is committed to document our code using these packages to make our research reproducible and more authentic, also releasing our code.
 <br />R also has a package called <a href="http://shiny.rstudio.org/" target="_blank">Shiny</a>, which can be used for bootstrapping web applications in R.</p>
+<p>
+"Often the hardest part of solving a machine learning problem can be finding the right estimator for the job. Different estimators are better suited for different types of data and different problems. 
+The flowchart below is designed to give users a bit of a rough guide on how to approach problems with regard to which estimators to try on your data."- Documentation <a href="http://scikit-learn.org/stable/index.html" target="_blank">Scikit-learn</a>. 
+We have found <a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html" target="_blank">this</a> flowchart on their site very helpful.
+</p>
+
                </div>
-                <div id="tech" runat="server">
+                <div id="tech" >
                <h3>Technical Writing</h3>
                <p><a class="uselink" href="http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/" target="_blank">Matt Might's shell scripts to improve writing:</a><br />
                Three scripts developed by Matt Might in course of his experience in reviewing and writing papers. These scripts help in finding passive voice usage (which if not done properly, may lead to misplacement of emphasis), to remove lexical illusions (such as consecutive 'the') and to remove weasel words such as very, quite, etc., which we often use to spice up our work, but, are not required.</p>

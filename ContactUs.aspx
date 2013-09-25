@@ -45,7 +45,7 @@
             <td style="vertical-align:top; width:400px;  padding-right:50px;">
            
                 <h3>Energy Lab</h3>
-                <p>3rd Floor, B-Wing, <br />IIIT Delhi</p><hr style="display:block;"/><br />
+                <p>3rd Floor, B-Wing, Academic Block<br />IIIT Delhi</p><hr style="display:block;"/><br />
                 <p>Okhla Industrial Estate,Phase III<br />
 (Near Govind Puri Metro Station)<br />
 New Delhi, India - 110020</p>

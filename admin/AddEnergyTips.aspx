@@ -9,10 +9,13 @@
     <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
     <style type="text/css">
     
-        td
+ td
 {
-  font-family:Verdana;
-  
+  font-family:Verdana; 
+}
+hr
+{
+    display:block;
 }
 
 span
@@ -27,7 +30,7 @@ span
 </head>
 <body>
     <form id="form1" runat="server">
-    <table width="90%">
+    <table width="90%" >
     <tr>
     <td>
      <div class="HeadingLeftTop">
@@ -40,6 +43,7 @@ span
     First line should be header/empty which will be ignored while uploading. Leave ID empty.
     
     </td></tr>
+    <tr>
     <td>
     <asp:FileUpload ID="FileUpload1" runat="server" />
          
@@ -48,6 +52,13 @@ span
     <tr><td align="right">
     <asp:Label ID="green" runat="server" Font-Bold="False" ForeColor="#009933"></asp:Label>
      <asp:Button ID="importData" runat="server" Text="Import" class="customButton" OnClick="importData_Click"/>
+    
+    </td></tr>
+    <tr><td>
+    
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1">
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>"></asp:SqlDataSource>
     
     </td></tr>
  
