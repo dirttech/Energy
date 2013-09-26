@@ -414,7 +414,7 @@ margin-bottom:7px;
     
     <uc:BillBody id="bill1" runat="server" />
 
-            <hr style="color:White;" />
+           
             <table>
 
             

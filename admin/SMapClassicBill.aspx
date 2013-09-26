@@ -7,13 +7,31 @@
 <head id="Head1" runat="server">
  <script type="text/javascript">
      function CopyHidden(ths) {
+         
 
          var hid = ths.getAttribute("Apart");
+       
          document.getElementById('<%=uid.ClientID%>').setAttribute("value", hid);
          var tp = ths.innerText;
          document.getElementById('<%=hidName.ClientID%>').setAttribute("value", tp);
          // document.getElementById('<%=Heading.ClientID %>').innerText = tp;
+         AllSelectedCopy();
+     }
+     function AllSelectedCopy() {
+         var htmlSelect = document.getElementById('<%=selectedBoxes.ClientID%>');
+         var list = "";
+         htmlSelect.Value = "";
+         for (var i = 0; i < 100; i++) {
+             if (document.getElementById("check" + i).checked) {
+                          
+                 var cid = document.getElementById("check"+i);
+                 var pid = cid.parentNode;
+                 var apt = pid.getAttribute("Apart");
 
+                 list=list + apt + ",";
+                 htmlSelect.setAttribute("value", list);
+             }
+         }
      }
      function printDiv(divID) {
          window.print();
@@ -91,6 +109,11 @@
   margin-right:10px;
 margin-bottom:7px;
         }
+         @media print
+        {
+            hr {page-break-before:always}
+            
+        }
         
     </style>
 
@@ -101,16 +124,23 @@ margin-bottom:7px;
     <form id="form1" runat="server">
     <div class="SideBar" style="height:500px;">
     <div class="HeadingLeftTop" style="opacity:0.9; width:93.3%">
-     <label id="Heading" runat="server" style=" font-size:x-large;">List of Apartments</label>    
-    <label id="subHeading" runat="server" style="font-size:small;" ></label>
+     <label id="Heading" runat="server" style=" font-size:x-large;">
+     
+        <asp:RadioButtonList ID="printMode" runat="server" 
+            RepeatDirection="Horizontal">
+            <asp:ListItem Selected="True" Value="all">All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+            <asp:ListItem Value="selected">Selected&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
+            <asp:ListItem Value="single">Individual</asp:ListItem>
+        </asp:RadioButtonList>
+     
+     </label>    
     </div>
       <div id="sideBar" runat="server" style="background-color:skyblue; padding-left:20px; ">
       
     
     </div>
     </div>
-
-   
+    <input type="hidden" ID="selectedBoxes" runat="server" style="" />
     <input id="hidName" type="hidden" runat="server" value="LNT"/>
 <input id="uid" type="hidden" runat="server" />
     <asp:ListBox ID="ListBox1" runat="server" Visible="false"></asp:ListBox>
@@ -156,7 +186,7 @@ margin-bottom:7px;
             
             </tr></table>     
     </div>
-    <div class="HeadingLeftTop" style="opacity:0.9; width:200px; position:absolute; right:300px; ">
+    <div class="HeadingLeftTop" style="opacity:0.9; width:200px; position:absolute; right:300px;display:none; ">
        
       <label id="Label1" runat="server" style=" font-size:x-large;">Current Bill</label> 
      <label id="UNameOfPrinter" runat="server" style=" font-size:large;"></label>  
@@ -165,7 +195,6 @@ margin-bottom:7px;
 
     <div>
     <div id="billbody" runat="server"></div>
-       <uc:BillBody id="bill1" runat="server" />
      
 
      <div id="printOptions" runat="server" style=" display:none; position:absolute; left:750px; top:200px;-moz-border-radius:8px;
@@ -173,8 +202,9 @@ margin-bottom:7px;
 	border-radius:8px; 
   box-shadow: 0px 0px 10px rgba(0,0,0,0.2); width:220px; height:180px; background-color:#0d96c5; opacity:0.9; z-index:12;">
 
-                     <h4>
-                         <asp:CheckBox ID="allApartments" runat="server" Checked="true" Height="20px"/>&nbsp;All Apartments</h4>
+                     <h4 align="center">
+                     Select Meters
+                         </h4>
                          <hr />
                          <h5><asp:CheckBox ID="powerCheck" runat="server" Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
                        <h5>  <asp:CheckBox ID="lightCheck" runat="server" Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>

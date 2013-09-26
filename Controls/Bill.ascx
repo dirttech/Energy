@@ -46,15 +46,24 @@
              width:100%;   
         }
         
+     .style1
+     {
+         width: 32%;
+     }
+     .style2
+     {
+         width: 33%;
+     }
+        
     </style>
 
 
  <table class="tabStyle" id="printingDiv">
          <tr>
-                <td >
+                <td class="style2" >
                 <img src="../images/iiitd_logo.png" height="50px" alt="IIITD"/>
                                    </td>
-                <td style="font-size:x-large;">
+                <td style="font-size:x-large;" class="style1">
                     ELECTRICITY BILL</td>
                 
                 <td class="tplbl" style="width:300px;">
@@ -65,7 +74,7 @@
             </tr>
             <tr style="vertical-align: top; ">
                 
-                <td>   <label runat="server" id="fullName" class="billHead"></label>
+                <td class="style2">   <label runat="server" id="fullName" class="billHead"></label>
                    <label runat="server" id="address" class="billHead2"></label>
                    <label runat="server" id="mobile" class="billHead2"></label>
                         
@@ -81,7 +90,7 @@
               
             </tr>
             <tr style=" background-color:#f6f0f0 !important; opacity:0.85;">
-                <td width="35%">
+                <td class="style2">
                 <h4 >Billing Details:</h4>
                 <h5>
                   Meter No. &nbsp;&nbsp;<label runat="server" id="meterNo" class="billA"></label>
@@ -90,7 +99,7 @@
                   Bill Date &nbsp;&nbsp; <label runat="server" id="billDate" class="billA"></label>
                   </h5>
                     </td>
-                <td width="32%">
+                <td class="style1">
                 <h5>
                  Power Factor &nbsp;&nbsp;<label class="billA">0.9</label>
                  Sanctioned Load &nbsp;&nbsp;<label class="billA">8 Kva</label>
@@ -303,12 +312,14 @@
                   </td>
             </tr>
             <tr >
-                <td>
+                <td class="style2">
                     &nbsp;</td>
-                <td>
+                <td class="style1">
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
             
             </tr>
         </table>
+
+         <hr style="color:White;" />

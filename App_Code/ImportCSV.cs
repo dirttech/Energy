@@ -103,5 +103,37 @@ namespace App_Code.ImportCSV
 
 
         }
+
+        public static bool InsertTips(string tip_text)
+        {
+            try
+            {
+                using (DbConnection conn = provider.CreateConnection())
+                {
+                    conn.ConnectionString = connString;
+                    conn.Open();
+
+                    using (DbCommand cmd = conn.CreateCommand())
+                    {
+                        string sqlQuery;
+                        sqlQuery = "INSERT INTO energy_tips" +
+                               "(tips) " +
+                               "VALUES('"+tip_text+"')";
+
+                        cmd.CommandText = sqlQuery;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
+                    conn.Close();
+                }
+                return true;
+            }
+            catch (Exception exp)
+            {
+                return false;
+            }
+
+        }   
     }
 }

@@ -17,15 +17,15 @@ public partial class Controls_Bill : System.Web.UI.UserControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        fullName.InnerText = "";
-        address.InnerText = "";
-        mobile.InnerText = "";
-        meterNo.InnerText = "";
-        billAmount.InnerText = "";
-        billDate.InnerText = "";
-        billNo.InnerText = "";
-        billPeriod.InnerText = "";
-        dueDate.InnerText = "";
+    //    fullName.InnerText = "";
+    //    address.InnerText = "";
+    //    mobile.InnerText = "";
+    //    meterNo.InnerText = "";
+    //    billAmount.InnerText = "";
+    //    billDate.InnerText = "";
+    //    billNo.InnerText = "";
+    //    billPeriod.InnerText = "";
+    //    dueDate.InnerText = "";
         
     }
     private DateTime fr_Date;

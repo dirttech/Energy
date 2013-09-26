@@ -44,6 +44,10 @@ span
     <td>
     <asp:FileUpload ID="FileUpload1" runat="server" />
          
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+            ControlToValidate="FileUpload1" Display="Dynamic" ErrorMessage="*Required" 
+            SetFocusOnError="True"></asp:RequiredFieldValidator>
+         
     </td>
     </tr>
     <tr><td align="right">

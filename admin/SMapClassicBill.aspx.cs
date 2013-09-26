@@ -30,9 +30,10 @@ public partial class SMapClassicBill : System.Web.UI.Page
 
         }
     }
+
     protected void calculatePrint(UserMapping userData)
     {
-        //Control bill1 = Page.LoadControl("~/Controls/Bill.ascx");
+        var  bill1 =(Controls_Bill)Page.LoadControl("~/Controls/Bill.ascx");
         
 
         bill1.fromDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
@@ -57,7 +58,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
         }
         
         bill1.calculatePrint(userData);
-        //billbody.Controls.Add(bill1);
+        billbody.Controls.Add(bill1);
     }
 
     protected void generateSideBarItems()
@@ -81,6 +82,12 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 cell.Style.Add("height", "40px");
                 cell.Style.Add("border-bottom-style", "groove");
 
+                CheckBox check = new CheckBox();
+                check.ID = "check"+i;
+                check.Checked = true;               
+                check.Attributes.Add("Apart", AllApartments[i].Apartment);
+                check.Style.Add("padding", "20px");
+
                 HtmlGenericControl nameLabel = new HtmlGenericControl("label");
                 nameLabel.ID = "nameLabel" + i;
                 nameLabel.InnerText = AllApartments[i].Apartment;
@@ -91,6 +98,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 ListBox1.Items.Add(AllApartments[i].Apartment);
                 nameLabel.Attributes.Add("onclick", "JavaScript:CopyHidden(this)");
 
+                cell.Controls.Add(check);
                 cell.Controls.Add(nameLabel);
                 wrapper.Cells.Add(cell);
                 sideTable.Rows.Add(wrapper);
@@ -107,8 +115,6 @@ public partial class SMapClassicBill : System.Web.UI.Page
         generateSideBarItems();
 
     }
-
-
 
     protected UserLogin returnUserObj(string userName)
     {
@@ -150,8 +156,31 @@ public partial class SMapClassicBill : System.Web.UI.Page
     protected void printBill_Click(object sender, EventArgs e)
     {
         //uid.Value = ListBox1.Items[0].Text;
-        UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
-        UNameOfPrinter.InnerText = userObj.Apartment;
-        calculatePrint(userObj);
+        if (printMode.SelectedValue == "selected")
+        {
+            var primeArray = selectedBoxes.Value.Split(',');
+            for (int apt = 0; apt < primeArray.Length - 1; apt++)
+            {
+                UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", primeArray[apt]);
+                UNameOfPrinter.InnerText = userObj.Apartment;
+                calculatePrint(userObj);
+            }
+        }
+        else if (printMode.SelectedValue == "all")
+        {
+            for (int apt = 0; apt < ListBox1.Items.Count; apt++)
+            {
+                UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", ListBox1.Items[apt].Text);
+                UNameOfPrinter.InnerText = userObj.Apartment;
+                calculatePrint(userObj);
+            }
+        }
+        else
+        {
+            UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
+            UNameOfPrinter.InnerText = userObj.Apartment;
+            calculatePrint(userObj);
+        }
+        
     }
 }

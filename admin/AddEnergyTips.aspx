@@ -47,18 +47,39 @@ span
     <td>
     <asp:FileUpload ID="FileUpload1" runat="server" />
          
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+            ControlToValidate="FileUpload1" Display="Dynamic" ErrorMessage="*Required" 
+            SetFocusOnError="True" ValidationGroup="multipleTip"></asp:RequiredFieldValidator>
+         
     </td>
     </tr>
     <tr><td align="right">
     <asp:Label ID="green" runat="server" Font-Bold="False" ForeColor="#009933"></asp:Label>
-     <asp:Button ID="importData" runat="server" Text="Import" class="customButton" OnClick="importData_Click"/>
+     <asp:Button ID="importData" runat="server" Text="Import" class="customButton" 
+            OnClick="importData_Click" ValidationGroup="multipleTip"/>
     
     </td></tr>
     <tr><td>
     
-        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1">
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>"></asp:SqlDataSource>
+        <hr />
+        <div class="HeadingLeftTop">
+                <asp:Label ID="Label1" runat="server" Font-Bold="False" 
+           >Add Tip</asp:Label>
+           </div>
+        </td></tr>
+ 
+    <tr><td>
+    
+        <asp:TextBox ID="addTipText" runat="server" Rows="3" TextMode="MultiLine" 
+            Width="304px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+            ControlToValidate="addTipText" Display="Dynamic" ErrorMessage="*Required" 
+            SetFocusOnError="True" ValidationGroup="singleTip"></asp:RequiredFieldValidator>
+    <asp:Label ID="status" runat="server" Font-Bold="False" ForeColor="#3399FF"></asp:Label>
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="addTip" runat="server" style="margin-bottom:15px;" 
+            CssClass="customButton" Text="Add" ValidationGroup="singleTip" OnClick="addTip_Click" />
     
     </td></tr>
  

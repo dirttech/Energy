@@ -54,4 +54,19 @@ public partial class admin_AddEnergyTips : System.Web.UI.Page
         }
     }
 
+    protected void addTip_Click(object sender, EventArgs e)
+    {
+        bool sts = Import_CSVs.InsertTips(addTipText.Text);
+        if (sts == true)
+        {
+            status.Text = "Added Succesfully!";
+            addTipText.Text = "";
+        }
+        else
+        {
+            status.Text = "Sorry! Something went wrong!";
+
+        }
+
+    }
 }

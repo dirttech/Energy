@@ -63,7 +63,12 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             string path="/FH-RPi02/Meter32/Power";
 
             FetchEnergyDataS_Map.FetchPowerConsumption(frTime, tTime, apartment, meter_type, out timeSt, out energyArray);
-           
+
+            for (int i = 0; i < energyArray.Length; i++)
+            {
+                energyArray[i] = Math.Round(energyArray[i], 2);
+            }
+
             interval = timeSt[timeSt.Length - 1] - timeSt[0];
             startDate = timeSt[0];
 

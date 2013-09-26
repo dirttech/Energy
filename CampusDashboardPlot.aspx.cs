@@ -196,11 +196,13 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
 
 
-            double en = energyArray[0]; 
-                //for (int l = 0; l < energyArray.Length; l++)
-                //{
-                //   energyArray[l]= energyArray[l] -en;
-                //}
+            double en = energyArray[0];
+            for (int l = 0; l < energyArray.Length; l++)
+            {
+                energyArray[l] = Math.Round(energyArray[l], 2);
+            }
+
+        
 
             interval = timeSt[timeSt.Length - 1] - timeSt[0];
             startDate = timeSt[0];
@@ -282,7 +284,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                         barEnergy[p - 1] = Math.Round((barEnergy[p] - barEnergy[p - 1]) / 1000,0);
                     }
                     barEnergy[barEnergy.Length - 1] = 0;
-                    energyTimeSeries = Utilitie_S.TimeFormatterBar(barTime);
+                    energyTimeSeries = Utilitie_S.TimeFormatter(barTime);
                 }
             }
         }
