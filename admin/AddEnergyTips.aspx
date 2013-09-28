@@ -82,6 +82,43 @@ span
             CssClass="customButton" Text="Add" ValidationGroup="singleTip" OnClick="addTip_Click" />
     
     </td></tr>
+ <tr><td> <hr />
+        <div class="HeadingLeftTop">
+                <asp:Label ID="Label3" runat="server" Font-Bold="False" 
+           >Delete Tips</asp:Label>
+           </div>
+        </td></tr></td></tr>
+    <tr><td>
+
+
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+            BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
+            CellPadding="3" DataKeyNames="ID" DataSourceID="SqlDataSource1" 
+            ForeColor="Black" GridLines="Vertical" 
+            onselectedindexchanged="GridView1_SelectedIndexChanged" PageSize="5">
+            <AlternatingRowStyle BackColor="#CCCCCC" />
+            <Columns>
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
+                    ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="tips" HeaderText="Energy Tips" 
+                    SortExpression="tips" />
+                <asp:CommandField SelectText="Delete" ShowSelectButton="True" />
+            </Columns>
+            <FooterStyle BackColor="#CCCCCC" />
+            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+            <SortedAscendingHeaderStyle BackColor="#808080" />
+            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+            <SortedDescendingHeaderStyle BackColor="#383838" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>" 
+            ProviderName="<%$ ConnectionStrings:BillingAppConnectionString.ProviderName %>" SelectCommand="Select ID, tips from energy_tips
+"></asp:SqlDataSource>
+    
+    </td></tr>
  
     </table>
    

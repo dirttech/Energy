@@ -33,7 +33,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
 
     protected void calculatePrint(UserMapping userData)
     {
-        var  bill1 =(Controls_Bill)Page.LoadControl("~/Controls/Bill.ascx");
+        var bill1 = (Controls_Bill)Page.LoadControl("~/Controls/Bill.ascx");
         
 
         bill1.fromDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",

@@ -246,6 +246,7 @@ namespace App_Code.Utility
 
         public static List<int> LastDashMonths(int lastMonths)
         {
+            DateTime initialDate=new DateTime(2013,8,1);
             List<int> epochs = new List<int>();
             List<DateTime> timeListing = new List<DateTime>();
 
@@ -264,8 +265,11 @@ namespace App_Code.Utility
 
             for (int j = 0; j < timeListing.Count; j++)
             {
-                Utilities ut = DateTimeToEpoch(timeListing[j]);
-                epochs.Add(ut.Epoch);
+                if (timeListing[j] > initialDate)
+                {
+                    Utilities ut = DateTimeToEpoch(timeListing[j]);
+                    epochs.Add(ut.Epoch);
+                }
             }
             return epochs;
         }

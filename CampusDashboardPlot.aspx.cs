@@ -29,7 +29,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //Response.Write(Session["Building-Selected"]);
-        months.SelectedValue = DateTime.Now.Month.ToString();
+        
 
         if (building == "Faculty Housing")
         {
@@ -42,6 +42,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
         if (IsPostBack == false)
         {
+            months.SelectedValue = DateTime.Now.Month.ToString();
             if (Session["Building-Selected"] != null)
             {
 
@@ -201,8 +202,6 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             {
                 energyArray[l] = Math.Round(energyArray[l], 2);
             }
-
-        
 
             interval = timeSt[timeSt.Length - 1] - timeSt[0];
             startDate = timeSt[0];

@@ -1,20 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SMapClassicBill.aspx.cs" Inherits="SMapClassicBill" %>
 <%@ Import Namespace="System.Web.Script.Serialization" %>
 
+<%@ Register TagPrefix="uc" TagName="Spinner2" 
+    Src="~/Controls/Bill.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
  <script type="text/javascript">
      function CopyHidden(ths) {
-         
-
          var hid = ths.getAttribute("Apart");
-       
          document.getElementById('<%=uid.ClientID%>').setAttribute("value", hid);
          var tp = ths.innerText;
          document.getElementById('<%=hidName.ClientID%>').setAttribute("value", tp);
-         // document.getElementById('<%=Heading.ClientID %>').innerText = tp;
          AllSelectedCopy();
      }
      function AllSelectedCopy() {
@@ -23,11 +21,9 @@
          htmlSelect.Value = "";
          for (var i = 0; i < 100; i++) {
              if (document.getElementById("check" + i).checked) {
-                          
                  var cid = document.getElementById("check"+i);
                  var pid = cid.parentNode;
                  var apt = pid.getAttribute("Apart");
-
                  list=list + apt + ",";
                  htmlSelect.setAttribute("value", list);
              }

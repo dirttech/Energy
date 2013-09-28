@@ -61,6 +61,7 @@ public partial class admin_AddEnergyTips : System.Web.UI.Page
         {
             status.Text = "Added Succesfully!";
             addTipText.Text = "";
+            GridView1.DataBind();
         }
         else
         {
@@ -68,5 +69,11 @@ public partial class admin_AddEnergyTips : System.Web.UI.Page
 
         }
 
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        bool sts = Import_CSVs.DeleteTips(Convert.ToInt32(GridView1.SelectedRow.Cells[0].Text));
+
+        GridView1.DataBind();
     }
 }

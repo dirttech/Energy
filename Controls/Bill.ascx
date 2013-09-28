@@ -322,4 +322,4 @@
             </tr>
         </table>
 
-         <hr style="color:White;" />
+         <hr style="color:White; background-color:White; border:0px;" />

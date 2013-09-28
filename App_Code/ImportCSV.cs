@@ -134,6 +134,38 @@ namespace App_Code.ImportCSV
                 return false;
             }
 
+        }
+
+        public static bool DeleteTips(int id)
+        {
+            try
+            {
+                using (DbConnection conn = provider.CreateConnection())
+                {
+                    conn.ConnectionString = connString;
+                    conn.Open();
+
+                    using (DbCommand cmd = conn.CreateCommand())
+                    {
+                        string sqlQuery;
+                        sqlQuery = "DELETE FROM energy_tips" +
+                               " where ID = " + id;
+                              
+
+                        cmd.CommandText = sqlQuery;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.ExecuteNonQuery();
+                        
+                    }
+                    conn.Close();
+                }
+                return true;
+            }
+            catch (Exception exp)
+            {
+                return false;
+            }
+
         }   
     }
 }

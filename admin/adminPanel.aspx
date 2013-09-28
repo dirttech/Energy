@@ -47,7 +47,7 @@
      <a style="color:Black;  font-size:large;  position:absolute; top:10px; left:20px;" id="nameTitle" runat="server">Welcome</a>
      
      <br />
-     <iframe id="belowFrame"   runat="server" style="height:700px; width:1000px; border:none;" src="userInfo.aspx"></iframe>
+     <iframe id="belowFrame"   runat="server" style="height:900px; width:1000px; border:none;" src="userInfo.aspx"></iframe>
 
     </form>
 </body>
