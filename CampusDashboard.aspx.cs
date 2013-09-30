@@ -75,7 +75,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {           
             row1.Cells.Add(cell1);
             buildingTable.Rows.Add(row1);
-
+            diff[0] = (value1[0] - value2[0]) / 1000;
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Academic Building", "Lecture Block", "Energy", "Building Total Mains", out time1, out val1);
@@ -88,7 +88,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {
             row2.Cells.Add(cell2);
             buildingTable.Rows.Add(row2);
-       
+            diff[1] = (value1[1] - value2[1]) / 1000;
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal( endTime, "now", "Library Building", null, "Energy", "Building Total Mains", out time1, out val1);
@@ -101,6 +101,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {
             row3.Cells.Add(cell3);
             buildingTable.Rows.Add(row3);
+            diff[2] = (value1[2] - value2[2]) / 1000; 
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Faculty Housing", null, "Energy", "Building Total Mains", out time1, out val1);
@@ -113,6 +114,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {
             row4.Cells.Add(cell4);
             buildingTable.Rows.Add(row4);
+            diff[3] = (value1[3] - value2[3]) / 1000;
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Girls Hostel", "AB", "Energy", "Building Total Mains", out time1, out val1);
@@ -129,6 +131,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {
             row5.Cells.Add(cell5);
             buildingTable.Rows.Add(row5);
+            diff[4] = ((value1[4] - value2[4]) + (value3[4] - value4[4])) / 1000; 
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Boys Hostel", "A", "Energy", "Building Total Mains", out time1, out val1);
@@ -145,6 +148,7 @@ public partial class CampusDashboard : System.Web.UI.Page
         {
             row6.Cells.Add(cell6);
             buildingTable.Rows.Add(row6);
+            diff[5] = ((value1[5] - value2[5]) + (value3[5] - value4[5])) / 1000;
         }
 
         FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Mess Building", null, "Energy", "Building Total Mains", out time1, out val1);
@@ -157,14 +161,10 @@ public partial class CampusDashboard : System.Web.UI.Page
         {            
             row7.Cells.Add(cell7);
             buildingTable.Rows.Add(row7);
+            diff[6] = (value1[6] - value2[6]) / 1000; 
         }
 
         
-        diff[0] = (value1[0] - value2[0])/1000;
-        diff[1] = (value1[1] - value2[1])/1000; diff[2] = (value1[2] - value2[2])/1000; 
-        diff[3] = (value1[3] - value2[3])/1000; diff[6] = (value1[6] - value2[6])/1000; 
-        diff[4] = ((value1[4] - value2[4])+(value3[4]-value4[4]))/1000; 
-        diff[5] = ((value1[5] - value2[5])+(value3[5]-value4[5]))/1000;
         for (int ff = 0; ff <= 6; ff++)
         {
             if (diff[ff] > 0)
