@@ -10,6 +10,7 @@ using App_Code.FetchingEnergySmap;
 using App_Code.Login;
 using App_Code.User_Mapping;
 using App_Code.Utility;
+using App_Code.BillCalculate;
 
 public partial class TrackBill : System.Web.UI.Page
 {
@@ -32,7 +33,7 @@ public partial class TrackBill : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Heading.InnerText = "Coming Soon";
+        //Heading.InnerText = "";
         
         CheckLogin();
        if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
@@ -40,8 +41,8 @@ public partial class TrackBill : System.Web.UI.Page
             meter_type = Session["MeterType"].ToString();
             building = Session["Building"].ToString();
             apartment= Session["Apartment"].ToString();
-        
-            GenerateBillingDiv();
+            UserMapping map = UserMapping_S.UserMapWithApartmentBuilding(building, apartment);
+            GenerateBillingDiv(map);
         }
         else
         {
@@ -50,54 +51,46 @@ public partial class TrackBill : System.Web.UI.Page
             //Response.Redirect("LoginPage.aspx");
         }
     }
-    protected void GenerateBillingDiv()
+    protected void GenerateBillingDiv(UserMapping map)
     {
-        List<int> epochs = Utilitie_S.LastDashMonths(6);
+        List<DateTime> initialListing = new List<DateTime>();
+        List<DateTime> finalListing = new List<DateTime>();
+        Utilitie_S.LastDashMonthsBillDates(6, out initialListing, out finalListing);
 
-
-        int[] epch;
-        double[] values;
-
-        for (int i = 0; i < epochs.Count; i = i + 2)
+        for (int i = 0; i < initialListing.Count;i++ )
         {
-            FetchEnergyDataS_Map.FetchBillConsumption(epochs[i+1], epochs[i], apartment, meter_type, out epch, out values);
-            Utilitie_S.ZeroArrayRefiner(epch, values, out epch, out values);
-
-            if (values.Length>1)
+            CalculateBill billObj = Calculate_Bill.BillCalculator(initialListing[i], finalListing[i], map.Apartment, "Power", "Light Backup");
+            if (billObj!=null )
             {
-
                 try
                 {
-                    Utilities ut1 = Utilitie_S.EpochToDateTime(epch[0]);
-                    Utilities ut2 = Utilitie_S.EpochToDateTime(epch[1]);
-
                     HtmlGenericControl billDiv = new HtmlGenericControl("div");
                     billDiv.ID = "billDiv" + i;
                     billDiv.Attributes.Add("class", "bill-wrapper");
 
                     HtmlGenericControl hmonth = new HtmlGenericControl("h2");
                     hmonth.ID = "hmonth" + i;
-                    hmonth.InnerText = ut1.Date.ToString("MMM");
+                    hmonth.InnerText = initialListing[i] .ToString("MMM");
 
                     HtmlGenericControl pUnits = new HtmlGenericControl("p");
                     pUnits.ID = "pUnits" + i;
-                    pUnits.InnerText = "Units Consumed: " + (values[i + 1] - values[0]).ToString() + " Units";
+                    pUnits.InnerText = "Units Consumed: " + (billObj.TotalUnits).ToString() + " Units";
 
-                    HtmlGenericControl pPrice = new HtmlGenericControl("p");
-                    pPrice.ID = "pPrice" + i;
-                    pPrice.InnerText = "Unit Price: 5Rs/unit";
-
+                    HtmlGenericControl approxUnitPrice = new HtmlGenericControl("p");
+                    approxUnitPrice.ID = "app" + i;
+                    approxUnitPrice.InnerText = "Approximate (per unit) price: " + Math.Round(billObj.BillAmount / billObj.TotalUnits, 2).ToString();
                     HtmlGenericControl br = new HtmlGenericControl("hr");
                     br.ID = "br" + i;
 
                     HtmlGenericControl hTotal = new HtmlGenericControl("h3");
                     hTotal.ID = "hTotal" + i;
-                    hTotal.InnerText = "Total: " + (Math.Round(5 * (values[i + 1] - values[i]), 2)).ToString() + " Rs";
-
+                    hTotal.InnerText = "Bill Amount: Rs " + billObj.BillAmount.ToString();
+                    hTotal.Style.Add("color", "white");
 
                     billDiv.Controls.Add(hmonth);
                     billDiv.Controls.Add(pUnits);
-                    billDiv.Controls.Add(pPrice);
+                    billDiv.Controls.Add(approxUnitPrice);
+
                     billDiv.Controls.Add(br);
                     billDiv.Controls.Add(hTotal);
                     billingContainer.Controls.Add(billDiv);

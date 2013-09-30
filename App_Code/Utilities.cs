@@ -274,6 +274,27 @@ namespace App_Code.Utility
             return epochs;
         }
 
+        public static void LastDashMonthsBillDates(int lastMonths, out List<DateTime> initialTimeListing, out List<DateTime> finalTimeListing)
+        {
+
+            initialTimeListing = new List<DateTime>();
+            finalTimeListing = new List<DateTime>();
+            DateTime now = DateTime.Today.AddDays(-1);
+            DateTime initialDate = new DateTime(2013, 8, 1);
+            DateTime first = new DateTime(now.Year, now.Month, 1, 0, 0, 1);            
+            
+            initialTimeListing.Add(first);
+            finalTimeListing.Add(now);
+
+            for (int i = 1; i < lastMonths; i++)
+            {
+                first = first.AddMonths(-1);
+                initialTimeListing.Add(new DateTime(first.Year,first.Month,1,0,0,1));
+                finalTimeListing.Add(new DateTime(first.Year, first.Month, DateTime.DaysInMonth(first.Year, first.Month), 23, 59, 59));
+            }
+            
+        }
+
         public static List<int> DashDaysEpochs(int fromtime, int numberOfDashs, int dashDays)
         {
             List<int> epochs = new List<int>();

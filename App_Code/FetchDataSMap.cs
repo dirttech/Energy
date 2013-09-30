@@ -154,11 +154,11 @@ namespace App_Code.FetchingEnergySmap
 
                 List<int> fromTim = new List<int>();
                 fromTim.Add(fromTime);
-                fromTim.Add(toTime - 300);
+                fromTim.Add(toTime);
 
                 List<int> toTim = new List<int>();
                 toTim.Add(fromTime + 300);
-                toTim.Add(toTime);
+                toTim.Add(toTime+300);
 
                 string[] fromArr = Utilitie_S.SMapValidDateFormatter(fromTim);
                 string[] toArr = Utilitie_S.SMapValidDateFormatter(toTim);

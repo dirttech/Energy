@@ -73,7 +73,8 @@ box-shadow: 0px 0px 8px 0px #000000;
            width:300px;  
            padding:5px;
            margin:15px;
-            box-shadow: 0px 0px 8px 1px #000000;
+           margin-left:30px;
+            <%--box-shadow: 0px 0px 8px 1px #000000;--%>
             opacity:0.9;
             float:left;
         }
@@ -116,11 +117,11 @@ box-shadow: 0px 0px 8px 0px #000000;
      <br />
 
        <div class="HeadingLeftTop" style=" width:300px;">
-    <label id="Heading" runat="server" style=" font-size:x-large;">Last Night</label>    
+    <label id="Heading" runat="server" style=" font-size:x-large;">Energy Bills</label>    
     <label id="subHeading" runat="server" style="font-size:small;" ></label>
     </div>
-
-     <div id="billingContainer" runat="server" style="display:none;"></div>
+    <h2 style=" padding-left:20px; font-size:27px; font-family:Segoe UI Light; text-shadow: -1px -1px white, 1px 1px gray">"Less energy consumption not only lessen up your bill amount, but also lessens <font color="orange">per unit (KWh) price</font> you pay."</h2>
+     <div id="billingContainer" runat="server" ></div>
 
     </form>
 </body>
