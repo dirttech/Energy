@@ -59,7 +59,7 @@ public partial class TrackBill : System.Web.UI.Page
 
         for (int i = 0; i < initialListing.Count;i++ )
         {
-            CalculateBill billObj = Calculate_Bill.BillCalculator(initialListing[i], finalListing[i], map.Apartment, "Power", "Light Backup");
+            CalculateBill billObj = Calculate_Bill.BillCalculator(initialListing[i], finalListing[i], map.Apartment, "Power", "Light Backup","auto",null,null);
             if (billObj!=null )
             {
                 try

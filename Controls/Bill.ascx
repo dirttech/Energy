@@ -304,8 +304,9 @@
                             <td runat="server" id="netBillAmt">
                                 &nbsp;</td>
                         </tr>
+
                     </table>
-                  
+                  <br />
                   
                   
                   

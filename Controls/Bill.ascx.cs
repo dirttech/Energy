@@ -11,6 +11,7 @@ using App_Code.FetchingEnergySmap;
 using App_Code.Login;
 using App_Code.User_Mapping;
 using App_Code.Utility;
+using App_Code.BillCalculate;
 
 
     public partial class Controls_Bill : System.Web.UI.UserControl
@@ -65,134 +66,57 @@ using App_Code.Utility;
             get { return meter_2; }
             set { meter_2 = value; }
         }
-
+        private string mode="auto";
+        public string Mode
+        {
+            get { return mode; }
+            set { mode = value; }
+        }
+        private double[] meter_1Readings = null;
+        public double[] meter1Readings
+        {
+            get { return meter_1Readings; }
+            set { meter_1Readings = value; }
+        }
+        private double[] meter_2Readings = null;
+        public double[] meter2Readings        
+        {
+            get { return meter_2Readings; }
+            set { meter_2Readings = value; }
+        }
 
         public void calculatePrint(UserMapping userData)
         {
-            try
-            {
                 headingTip.InnerText = tip_heading;
                 headingText.InnerText = tip_text;
 
-                UserMapping map = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", userData.Apartment);
-                if (map != null)
+                CalculateBill billObj = Calculate_Bill.BillCalculator(fromDate, toDate, userData.Apartment, meter_1, meter_2,mode, meter_1Readings, meter_2Readings);
+                string slabTxt="";
+                if (billObj.TotalUnits > billObj.SlabSize)
                 {
-                    DateTime frDate = fromDate;
-                    DateTime tDate = toDate;
-
-                    int day = frDate.Day;
-                    int month = frDate.Month;
-                    int year = frDate.Year;
-
-                    frDate = new DateTime(year, month, day, 0, 0, 1);
-                    day = tDate.Day;
-                    month = tDate.Month;
-                    year = tDate.Year;
-
-                    tDate = new DateTime(year, month, day, 23, 59, 59);
-
-                    if (frDate != null && tDate != null)
+                    if (billObj.TotalUnits > (2 * billObj.SlabSize))
                     {
-                        Utilities utFr = Utilitie_S.DateTimeToEpoch(frDate);
-                        Utilities utTo = Utilitie_S.DateTimeToEpoch(tDate);
-
-                        int[] timeStMet1 = new int[2]; double[] valuesMet1 = new double[2];
-                        if (meter_1 != null)
-                        {
-                            FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, meter_1, out timeStMet1, out valuesMet1);
-                            Utilitie_S.ZeroArrayRefiner(timeStMet1, valuesMet1, out timeStMet1, out valuesMet1);
-                        }
-
-                        int[] timeStMet2 = new int[2]; double[] valuesMet2 = new double[2];
-                        if (meter_2 != null)
-                        {
-                            FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, meter_2, out timeStMet2, out valuesMet2);
-                            Utilitie_S.ZeroArrayRefiner(timeStMet2, valuesMet2, out timeStMet2, out valuesMet2);
-                        }
-
-
-                        if (valuesMet1 != null || valuesMet2 != null)
-                        {
-                            double lightingUnits = 0;
-                            double powerUnits = 0;
-
-                            if (meter_1 != null)
-                            {
-                                powerUnits = Math.Round(((valuesMet1[1] - valuesMet1[0]) / 1000), 2);
-                            }
-                            if (meter_2 != null)
-                            {
-                                lightingUnits = Math.Round(((valuesMet2[1] - valuesMet2[0]) / 1000), 2);
-                            }
-
-                            double totalUnit = lightingUnits + powerUnits;
-
-                            int dayNo = (utTo.Epoch - utFr.Epoch) / (60 * 60 * 24);
-
-                            double SL1CHRG = 3.7; double SL2CHRG = 5.5; double SL3CHRG = 6.5; double slabSize = 6.67;
-                            double SL1PRC = 0; double SL2PRC = 0; double SL3PRC = 0;
-                            string slabTxt = "";
-                            double daslb = dayNo * slabSize;
-                            daslb = Math.Round(daslb, 2);
-
-                            if (totalUnit > daslb)
-                            {
-                                if (totalUnit >= (2 * daslb))
-                                {
-                                    SL1PRC = Math.Round(SL1CHRG * daslb, 2);
-                                    slabTxt = (daslb).ToString() + " X " + SL1CHRG.ToString() + " = " + SL1PRC.ToString();
-                                    SL2PRC = Math.Round(SL2CHRG * daslb, 2);
-                                    slabTxt = slabTxt + "<br />" + (daslb).ToString() + " X " + SL2CHRG.ToString() + " = " + SL2PRC.ToString();
-                                    SL3PRC = Math.Round(SL3CHRG * (totalUnit - (2 * daslb)), 2);
-                                    slabTxt = slabTxt + "<br />" + (totalUnit - (2 * daslb)).ToString() + " X " + SL3CHRG.ToString() + " = " + SL3PRC.ToString();
-                                }
-                                else
-                                {
-                                    SL1PRC = Math.Round(SL1CHRG * daslb, 2);
-                                    slabTxt = (daslb).ToString() + " X " + SL1CHRG.ToString() + " = " + SL1PRC.ToString();
-                                    SL2PRC = Math.Round(SL2CHRG * (totalUnit - (daslb)), 2);
-                                    slabTxt = slabTxt + "<br />" + (totalUnit - (daslb)).ToString() + " X " + SL2CHRG.ToString() + " = " + SL2PRC.ToString();
-                                }
-                            }
-                            else
-                            {
-                                SL1PRC = Math.Round(SL1CHRG * totalUnit, 2);
-                                slabTxt = (daslb).ToString() + " X " + SL1CHRG.ToString() + " = " + SL1PRC.ToString();
-                            }
-
-                            double TotalPRC = SL1PRC + SL2PRC + SL3PRC;
-                            double FIXED_CHRG = 6;
-                            double FIXED_PRC = FIXED_CHRG * dayNo;
-
-                            double Adj_PRCNT = 1.5;
-                            double Def_PRCNT = 8;
-
-                            double Adj_Total_PRC = Math.Round((Adj_PRCNT / 100) * TotalPRC, 2);
-                            double Def_Total_PRC = Math.Round((Def_PRCNT / 100) * TotalPRC, 2);
-
-                            double Adj_FIX_PRC = Math.Round((Adj_PRCNT / 100) * FIXED_PRC, 2);
-                            double Def_FIX_PRC = Math.Round((Def_PRCNT / 100) * FIXED_PRC, 2);
-
-                            double temp1 = TotalPRC + Adj_Total_PRC + Def_Total_PRC;
-                            double temp2 = FIXED_PRC + Adj_FIX_PRC + Def_FIX_PRC;
-
-                            temp1 = Math.Round(temp1, 2);
-                            temp2 = Math.Round(temp2, 2);
-
-                            double subTotal = temp1 + temp2;
-
-                            double ELEC_CHRG_PRCNT = 5;
-                            double ELEC_TAX = (ELEC_CHRG_PRCNT / 100) * subTotal;
-                            ELEC_TAX = Math.Round(ELEC_TAX, 2);
-
-                            double Final_Total = subTotal + ELEC_TAX;
-
+                        slabTxt = billObj.SlabSize.ToString() + " X " + billObj.Slab1Charge.ToString() + " = " + billObj.Slab1Price.ToString();
+                        slabTxt = slabTxt + "<br />" + billObj.SlabSize.ToString() + " X " + billObj.Slab2Charge.ToString() + " = " + billObj.Slab2Price.ToString();
+                        slabTxt = slabTxt + "<br />" + (billObj.TotalUnits - (2 * billObj.SlabSize)).ToString() + " X " + billObj.Slab3Charge.ToString() + " = " + billObj.Slab3Price.ToString();
+                    }
+                    else
+                    {
+                        slabTxt = billObj.SlabSize.ToString() + " X " + billObj.Slab1Charge.ToString() + " = " + billObj.Slab1Price.ToString();
+                        slabTxt = slabTxt + "<br />" + (billObj.TotalUnits - (billObj.SlabSize)).ToString() + " X " + billObj.Slab2Charge.ToString() + " = " + billObj.Slab2Price.ToString();
+                    }
+                }
+                else
+                {
+                    slabTxt = slabTxt + "<br />" + (billObj.TotalUnits).ToString() + " X " + billObj.Slab1Charge.ToString() + " = " + billObj.Slab1Price.ToString();
+                }
+                     
                             if (meter_1 != null)
                             {
                                 meterType1.Text = meter_1;
-                                metTyp1Units.Text = powerUnits.ToString();
-                                metTyp1Units0.Text = (Math.Round(valuesMet1[0] / 1000, 2)).ToString();
-                                metTyp1Units1.Text = (Math.Round(valuesMet1[1] / 1000, 2)).ToString();
+                                metTyp1Units.Text =billObj.Meter1Units.ToString();
+                                metTyp1Units0.Text = billObj.Meter1InitialReading.ToString();
+                                metTyp1Units1.Text = billObj.Meter1FinalReading.ToString();
                             }
                             else
                             {
@@ -205,9 +129,9 @@ using App_Code.Utility;
                             if (meter_2 != null)
                             {
                                 meterType2.Text = meter_2;
-                                metTyp2Units.Text = lightingUnits.ToString();
-                                metTyp2Units0.Text = (Math.Round(valuesMet2[0] / 1000, 2)).ToString();
-                                metTyp2Units1.Text = (Math.Round(valuesMet2[1] / 1000, 2)).ToString();
+                                metTyp2Units.Text = billObj.Meter2Units.ToString();
+                                metTyp2Units0.Text =billObj.Meter2InitialReading.ToString();
+                                metTyp2Units1.Text = billObj.Meter2FinalReading.ToString();
                             }
                             else
                             {
@@ -217,46 +141,39 @@ using App_Code.Utility;
                                 metTyp2Units1.Text = "";
                             }
 
-                            dayTd.InnerHtml = "Days = " + dayNo.ToString(); totalUnits.Text = totalUnit.ToString();
+                            dayTd.InnerHtml = "Days = " +billObj.BillDays.ToString(); totalUnits.Text = billObj.TotalUnits.ToString();
 
-                            totalUnitsConsumed.Text = totalUnit.ToString();
+                            totalUnitsConsumed.Text =  billObj.TotalUnits.ToString();
                             slabText.InnerHtml = slabTxt;
-                            fixedText.InnerHtml = FIXED_CHRG.ToString() + " X " + dayNo.ToString() + "(Days)";
+                            fixedText.InnerHtml = billObj.FixedCharge.ToString()+ " X " + billObj.BillDays.ToString() + "(Days)";
 
-                            totalSlabCharge.Text = TotalPRC.ToString();
-                            totalFixCharge.Text = FIXED_PRC.ToString();
+                            totalSlabCharge.Text = billObj.SlabTotal.ToString();
+                            totalFixCharge.Text = billObj.FixedPrice.ToString();
 
-                            energyChrg.Text = TotalPRC.ToString();
-                            fixChrg.Text = FIXED_PRC.ToString();
-                            adjEnrgyChrg.Text = Adj_Total_PRC.ToString();
-                            adjFixChrg.Text = Adj_FIX_PRC.ToString();
-                            defEnrgyChrg.Text = Def_Total_PRC.ToString();
-                            defFixChrg.Text = Def_FIX_PRC.ToString();
-                            netEnrgyChrg.Text = temp1.ToString();
-                            netFixChrg.Text = temp2.ToString();
+                            energyChrg.Text = billObj.SlabTotal.ToString();
+                            fixChrg.Text = billObj.FixedPrice.ToString();
+                            adjEnrgyChrg.Text = billObj.AdjChargeOnSlabTotal.ToString();
+                            adjFixChrg.Text = billObj.AdjChargeOnFixedTotal.ToString();
+                            defEnrgyChrg.Text = billObj.DefChargeOnSlabTotal.ToString();
+                            defFixChrg.Text = billObj.DefChargeOnFixedTotal.ToString();
+                            netEnrgyChrg.Text = billObj.NetSlabTotalAfterAllCharges.ToString();
+                            netFixChrg.Text = billObj.NetFixedTotalAfterAllCharges.ToString();
+                            subTotalTxt.Text = "Rs " + billObj.NetTotalBeforeElecticityTax.ToString();
 
+                            elecTax.InnerHtml = "Electricity Tax (" + billObj.electricityTax.ToString() + "%) on (Rs " + billObj.NetTotalBeforeElecticityTax.ToString() + " ) = Rs " + billObj.ElectricityPrice.ToString();
+                            netBillAmt.InnerHtml = "Net Bill Amount = Rs " + billObj.BillAmount.ToString();
 
-                            subTotalTxt.Text = "Rs " + subTotal.ToString();
-                            elecTax.InnerHtml = "Electricity Tax (" + ELEC_CHRG_PRCNT.ToString() + "%) on (Rs " + subTotal.ToString() + " ) = Rs " + ELEC_TAX.ToString();
-                            netBillAmt.InnerHtml = "Net Bill Amount = Rs " + Math.Round(Final_Total, 2).ToString();
+                            billAmount.InnerHtml = "Bill Amount = Rs " +billObj.BillAmount.ToString();
 
-                            billAmount.InnerHtml = "Bill Amount = Rs " + Math.Round(Final_Total, 2).ToString();
+                            address.InnerHtml = "Flat No: " + userData.Apartment + ", " + userData.Building + " (IIITD)," + " Okhla Phase III, Delhi";
 
-                            /****888888888888888888888888888888*******************************/
-                            address.InnerHtml = "Flat No: " + map.Apartment + ", " + map.Building + " (IIITD)," + " Okhla Phase III, Delhi";
-
-                            meterNo.InnerText = map.Apartment;
-                            billPeriod.InnerText = frDate.ToString("dd/MM/yyyy") + " to " + tDate.ToString("dd/MM/yyyy");
-                            dueDate.InnerHtml = "Due Date: " + DateTime.Now.AddDays(7).ToString("dd-MMM-yyyy");
+                            meterNo.InnerText =userData.Apartment;
+                            billPeriod.InnerText = fromDate.ToString("dd/MM/yyyy") + " to " + toDate.ToString("dd/MM/yyyy");
+                            dueDate.InnerHtml = "Due Date: " + billObj.dueDate;
                             billNo.InnerText = "Rep " + meterNo.InnerText + " - " + DateTime.Today.ToString("dd-MMM-yyyy");
-                            billDate.InnerText = DateTime.Now.ToString("dd-MMM-yyyy");
+                            billDate.InnerText =billObj.billDate;
                         }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
+                    
+                
+           
     }

@@ -44,9 +44,9 @@ public partial class MonthlyBill : System.Web.UI.Page
         belowFrame.Attributes.Add("src", "SMapModernBill.aspx");
     }
 
-    protected void latest_Click(object sender, EventArgs e)
+    protected void manual_Click(object sender, EventArgs e)
     {
-        belowFrame.Attributes.Add("src", "");
+        belowFrame.Attributes.Add("src", "SMapManualBill.aspx");
     }
 
 }

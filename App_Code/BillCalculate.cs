@@ -71,11 +71,11 @@ namespace App_Code.BillCalculate
             get { return meter2InitialReading; }
             set { meter2InitialReading = value; }
         }
-        private double meter3FinalReading;
-        public double Meter3FinalReading
+        private double meter2FinalReading;
+        public double Meter2FinalReading
         {
-            get { return meter3FinalReading; }
-            set { meter3FinalReading = value; }
+            get { return meter2FinalReading; }
+            set { meter2FinalReading = value; }
         }
 
         private double totalUnits;
@@ -91,12 +91,7 @@ namespace App_Code.BillCalculate
             set { billDays = value; }
         }
 
-        private double slab1Size;
-        public double Slab1Size
-        {
-            get { return slab1Size; }
-            set { slab1Size = value; }
-        }
+       
         public double Slab1Charge= 3.7;        
         private double slab1Price=0;
         public double Slab1Price
@@ -105,12 +100,7 @@ namespace App_Code.BillCalculate
             set { slab1Price = value; }
         }
 
-        private double slab2Size;
-        public double Slab2Size
-        {
-            get { return slab2Size; }
-            set { slab2Size = value; }
-        }
+      
         public double Slab2Charge = 5.5;        
         private double slab2Price=0;
         public double Slab2Price
@@ -119,12 +109,8 @@ namespace App_Code.BillCalculate
             set { slab2Price = value; }
         }
 
-        private double slab3Size;
-        public double Slab3Size
-        {
-            get { return slab3Size; }
-            set { slab3Size = value; }
-        }
+        public double SlabSize;
+       
         public double Slab3Charge= 6.5;        
         private double slab3Price=0;
         public double Slab3Price
@@ -217,7 +203,7 @@ namespace App_Code.BillCalculate
     }
     public static class Calculate_Bill
     {
-        public static CalculateBill BillCalculator(DateTime FromDate, DateTime ToDate, string Apartment, string Meter_1, string Meter_2)
+        public static CalculateBill BillCalculator(DateTime FromDate, DateTime ToDate, string Apartment, string Meter_1, string Meter_2, string mode, double[] valuesMet1, double[] valuesMet2)
         {
             //Meter1 Power
             //Meter2 Lighting
@@ -248,21 +234,23 @@ namespace App_Code.BillCalculate
                         Utilities utFr = Utilitie_S.DateTimeToEpoch(calculateObj.FromDate);        //Converting datetime to unix time. These functions are defined in Utilities.cs file
                         Utilities utTo = Utilitie_S.DateTimeToEpoch(calculateObj.ToDate);
 
-                        int[] timeStMet1 = new int[2]; double[] valuesMet1 = new double[2];
-                        if (Meter_1 != null)
-                        {//Energy Consumption for meter 1
-                            FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_1, out timeStMet1, out valuesMet1);
-                            Utilitie_S.ZeroArrayRefiner(timeStMet1, valuesMet1, out timeStMet1, out valuesMet1);
-                            calculateObj.Meter_1 = Meter_1;
+                        if (mode == "auto")
+                        {
+                            int[] timeStMet1 = new int[2]; valuesMet1 = new double[2];
+                            if (Meter_1 != null)
+                            {//Energy Consumption for meter 1
+                                FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_1, out timeStMet1, out valuesMet1);
+                                Utilitie_S.ZeroArrayRefiner(timeStMet1, valuesMet1, out timeStMet1, out valuesMet1);
+                                calculateObj.Meter_1 = Meter_1;
+                            }
+                            int[] timeStMet2 = new int[2]; valuesMet2 = new double[2];
+                            if (Meter_2 != null)
+                            {//Energy Consumption for meter 2
+                                FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_2, out timeStMet2, out valuesMet2);
+                                Utilitie_S.ZeroArrayRefiner(timeStMet2, valuesMet2, out timeStMet2, out valuesMet2);
+                                calculateObj.Meter_2 = Meter_2;
+                            }
                         }
-                        int[] timeStMet2 = new int[2]; double[] valuesMet2 = new double[2];
-                        if (Meter_2 != null)
-                        {//Energy Consumption for meter 2
-                            FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_2, out timeStMet2, out valuesMet2);
-                            Utilitie_S.ZeroArrayRefiner(timeStMet2, valuesMet2, out timeStMet2, out valuesMet2);
-                            calculateObj.Meter_2 = Meter_2;
-                        }
-
                         if (valuesMet1 != null || valuesMet2 != null)
                         {
                             double lightingUnits = 0, powerUnits = 0;                   //Initializing and calculating units consumed in next step
@@ -270,11 +258,15 @@ namespace App_Code.BillCalculate
                             {
                                 powerUnits = Math.Round(((valuesMet1[1] - valuesMet1[0]) / 1000), 2);
                                 calculateObj.Meter1Units = powerUnits;
+                                calculateObj.Meter1InitialReading = Math.Round(valuesMet1[0], 2);
+                                calculateObj.Meter1FinalReading = Math.Round(valuesMet1[1], 2); 
                             }
                             if (Meter_2 != null)
                             {
                                 lightingUnits = Math.Round(((valuesMet2[1] - valuesMet2[0]) / 1000), 2);
                                 calculateObj.Meter2Units = lightingUnits;
+                                calculateObj.Meter2InitialReading = Math.Round(valuesMet2[0], 2);
+                                calculateObj.Meter2FinalReading= Math.Round(valuesMet2[1], 2); 
                             }
                             double totalUnit = lightingUnits + powerUnits;              //Total units consumed for both light and power meters(1&2)
                             calculateObj.TotalUnits = totalUnit;
@@ -282,8 +274,9 @@ namespace App_Code.BillCalculate
                             calculateObj.BillDays = dayNo;
 
                             double slabSize = 6.67;   //Slab charges and slab size for one day
-                            double SL1PRC = 0; double SL2PRC = 0; double SL3PRC = 0;                                    //Initialize sla price varibales
+                            double SL1PRC = 0; double SL2PRC = 0; double SL3PRC = 0;                                    //Initialize slabs price varibales
                             double daslb = dayNo * slabSize; daslb = Math.Round(daslb, 2);                              //Calculating Slab size for Bill Period for each slab category
+                            calculateObj.SlabSize = daslb;
 
                             if (totalUnit > daslb)
                             {//This if else is used to calculate number of slabs corresponding to units consumed and price for each.
@@ -301,7 +294,7 @@ namespace App_Code.BillCalculate
                                     SL1PRC = Math.Round(calculateObj.Slab1Charge * daslb, 2);
                                     calculateObj.Slab1Price = SL1PRC;
                                     SL2PRC = Math.Round(calculateObj.Slab2Charge * (totalUnit - (daslb)), 2);
-                                    calculateObj.Slab1Price = SL1PRC;
+                                    calculateObj.Slab2Price = SL1PRC;
                                 }
                             }
                             else
