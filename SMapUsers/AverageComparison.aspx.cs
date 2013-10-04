@@ -9,6 +9,7 @@ using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
 using App_Code.User_Mapping;
 using System.Web.Script.Serialization;
+using WebAnalytics;
 
 public partial class AverageComparison : System.Web.UI.Page
 {
@@ -45,6 +46,20 @@ public partial class AverageComparison : System.Web.UI.Page
         if (IsPostBack == false)
         {
             hiddenPlotType.Value = null;
+            try
+            {
+                WebAnalytics.LoggerService LG = new LoggerService();
+
+                LoggingEvent logObj = new LoggingEvent();
+                logObj.EventID = "Average Comparison Page";
+                logObj.UserID = Session["UserID"].ToString();
+                bool sts = LG.LogEvent(logObj);
+
+            }
+            catch (Exception exp)
+            {
+
+            }
         }
         CheckLogin();
        
@@ -84,6 +99,7 @@ public partial class AverageComparison : System.Web.UI.Page
         {
             string meter_type = meterTypeList.SelectedValue;
             meterTypeList.SelectedValue = meter_type;
+
 
             string[] fromTimeArray = Utilitie_S.SMapValidDateFormatter(epochs);
 
@@ -144,7 +160,6 @@ public partial class AverageComparison : System.Web.UI.Page
     protected void Plotting_Click()
     {
         
-
         string compType = "LWK";
         DateTime fromTime = DateTime.Now.AddDays(-7);
         List<int> epochs = new List<int>();
@@ -177,16 +192,60 @@ public partial class AverageComparison : System.Web.UI.Page
         }
 
         Plot_Avg_Graph(epochs);
+
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Avg Graph of meter " + meterTypeList.SelectedValue + " type " + compType + "view " + viewTypeList.SelectedValue;
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
+
     }
 
     protected void meterTypeList_SelectedIndexChanged(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Avg Graph Meter Type Change to " + meterTypeList.SelectedValue;
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
         Plotting_Click();
 
     }
 
     protected void viewTypeList_SelectedIndexChanged(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Avg Graph View Change to " + viewTypeList.SelectedValue;
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
         if (viewTypeList.SelectedValue == "normal")
         {
             hiddenPlotType.Value = "normal";
@@ -201,6 +260,20 @@ public partial class AverageComparison : System.Web.UI.Page
 
     protected void logOut_Click(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Faculty Log Out";
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
         Session["UserName"] = null;
         Response.Redirect("~/Loggin.aspx");
     }

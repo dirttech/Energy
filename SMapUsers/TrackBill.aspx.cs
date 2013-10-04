@@ -11,6 +11,7 @@ using App_Code.Login;
 using App_Code.User_Mapping;
 using App_Code.Utility;
 using App_Code.BillCalculate;
+using WebAnalytics;
 
 public partial class TrackBill : System.Web.UI.Page
 {
@@ -36,6 +37,23 @@ public partial class TrackBill : System.Web.UI.Page
         //Heading.InnerText = "";
         
         CheckLogin();
+        if (IsPostBack == false)
+        {
+            try
+            {
+                WebAnalytics.LoggerService LG = new LoggerService();
+
+                LoggingEvent logObj = new LoggingEvent();
+                logObj.EventID = "Track Bill Page";
+                logObj.UserID = Session["UserID"].ToString();
+                bool sts = LG.LogEvent(logObj);
+
+            }
+            catch (Exception exp)
+            {
+
+            }
+        }
        if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
         {
             meter_type = Session["MeterType"].ToString();
@@ -113,6 +131,20 @@ public partial class TrackBill : System.Web.UI.Page
 
     protected void logOut_Click(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Faculty Log Out";
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
         Session["UserName"] = null;
         Response.Redirect("~/Loggin.aspx");
     }

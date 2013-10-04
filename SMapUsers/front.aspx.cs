@@ -9,6 +9,7 @@ using System.Web.UI.WebControls.WebParts;
 using App_Code.FetchingEnergyss;
 using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
+using WebAnalytics;
 
 public partial class Users_front : System.Web.UI.Page
 {
@@ -26,8 +27,24 @@ public partial class Users_front : System.Web.UI.Page
 
     protected void logOut_Click(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Faculty Log Out";
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
+
         Session["UserName"] = null;
         Response.Redirect("~/Loggin.aspx");
+
     }
     protected void CheckLogin()
     {
@@ -43,6 +60,23 @@ public partial class Users_front : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CheckLogin();
+        if (IsPostBack == false)
+        {
+            try
+            {
+                WebAnalytics.LoggerService LG = new LoggerService();
+
+                LoggingEvent logObj = new LoggingEvent();
+                logObj.EventID = "Faculty Home Page";
+                logObj.UserID = Session["UserID"].ToString();
+                bool sts = LG.LogEvent(logObj);
+
+            }
+            catch (Exception exp)
+            {
+
+            }
+        }
         if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
         {
             building = Session["Building"].ToString();

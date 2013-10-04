@@ -9,6 +9,7 @@ using System.Web.UI.WebControls.WebParts;
 using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
 using System.Web.Script.Serialization;
+using WebAnalytics;
 
 public partial class BarGraph : System.Web.UI.Page
 {
@@ -25,6 +26,21 @@ public partial class BarGraph : System.Web.UI.Page
 
     protected void logOut_Click(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Faculty Log Out";
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
+
         Session["UserName"] = null;
         Response.Redirect("~/Loggin.aspx");
     }
@@ -43,6 +59,24 @@ public partial class BarGraph : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
          CheckLogin();
+         if (IsPostBack == false)
+         {
+             try
+             {
+                 WebAnalytics.LoggerService LG = new LoggerService();
+
+                 LoggingEvent logObj = new LoggingEvent();
+                 logObj.EventID = "Energy Consumption Page";
+                 logObj.UserID = Session["UserID"].ToString();
+                 bool sts = LG.LogEvent(logObj);
+
+             }
+             catch (Exception exp)
+             {
+
+             }
+         }
+        
         if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
         {
 
@@ -91,6 +125,21 @@ public partial class BarGraph : System.Web.UI.Page
 
             string comparisonType = "DTD";
             comparisonType = hidCompType.Value;
+
+            try
+            {
+                WebAnalytics.LoggerService LG = new LoggerService();
+
+                LoggingEvent logObj = new LoggingEvent();
+                logObj.EventID = "Energy Consumption of meter" + meter_type + " compare " + comparisonType;
+                logObj.UserID = Session["UserID"].ToString();
+                bool sts = LG.LogEvent(logObj);
+
+            }
+            catch (Exception exp)
+            {
+
+            }
 
            
             List<int> epochs = Utilitie_S.Return_Bar_Time(frDate, comparisonType);
@@ -168,6 +217,21 @@ public partial class BarGraph : System.Web.UI.Page
     }
     protected void meterTypeList_SelectedIndexChanged(object sender, EventArgs e)
     {
+        try
+        {
+            WebAnalytics.LoggerService LG = new LoggerService();
+
+            LoggingEvent logObj = new LoggingEvent();
+            logObj.EventID = "Energy Consumption meter change to " + meterTypeList.SelectedValue;
+            logObj.UserID = Session["UserID"].ToString();
+            bool sts = LG.LogEvent(logObj);
+
+        }
+        catch (Exception exp)
+        {
+
+        }
+
         if (fromDate.Value == "")
         {
             Plot_Bar_Graph("LOAD");

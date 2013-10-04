@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using App_Code.Login;
 using App_Code.User_Mapping;
 using App_Code.Utility;
+using WebAnalytics;
 
 
 public partial class LoginPage : System.Web.UI.Page
@@ -58,6 +59,20 @@ public partial class LoginPage : System.Web.UI.Page
             UserLogin usr = UserLogin_S.NewLoging(usrName.Value, psHid.Value);
             if (usr != null)
             {
+                try
+                {
+                    WebAnalytics.LoggerService LG = new LoggerService();
+
+                    LoggingEvent logObj = new LoggingEvent();
+                    logObj.EventID = "Faculty Login";
+                    logObj.UserID = usr.UserId.ToString();
+                    bool sts = LG.LogEvent(logObj);
+                    
+                }
+                catch (Exception exp)
+                {
+
+                }
                 Session["UserName"] = usrName.Value;
                 UserMapping map = UserMapping_S.MapUser(usr.UserId);
                 if (map != null)
