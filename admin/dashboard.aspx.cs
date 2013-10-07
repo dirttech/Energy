@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using App_Code.FetchingEnergyss;
+using System.Web.UI.WebControls.WebParts;
+using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
 using System.Web.Script.Serialization;
 
 public partial class admin_dashboard : System.Web.UI.Page
 {
     public JavaScriptSerializer javaSerial = new JavaScriptSerializer();
-    public float[] energyArray;
+    public double[][] a2D;
     public int[] timeArray;
+    public static Int32[] timeSt;
+  
     public static int meterId;
     public static string deviceId;
     public static int startDate;
@@ -33,56 +37,54 @@ public partial class admin_dashboard : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CheckLogin();
+       
+            GenerateMeterList();
+            Plot_ALL_Graph();
     }
 
     protected void submitDate_Click(object sender, EventArgs e)
-    {
-        DateTime frDate = DateTime.Today;
-        DateTime tDate = DateTime.Now;
-        if (fromDate.Value != "")
-        {
-            frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
-                                              System.Globalization.CultureInfo.InvariantCulture);
-        }
-        if (toDate.Value != "")
-        {
-            tDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
-                                              System.Globalization.CultureInfo.InvariantCulture);
-        }
-        Utilities ut1 = Utilitie_S.DateTimeToEpoch(frDate);
-        Utilities ut2 = Utilitie_S.DateTimeToEpoch(tDate);
-
-            Plot_ALL_Graph(ut1.Epoch, ut2.Epoch, 3, "1");
-
+    {        
+       
+        Plot_ALL_Graph();
     }
 
-    protected void Plot_ALL_Graph(int frTime, int tTime, int meterId, string deviceId)
+    protected void Plot_ALL_Graph()
     {
         try
         {
-            List<FetchingEnergy> energyObj = FetchingEnergy_s.fetchEnergyALL(frTime, tTime, meterId, deviceId);
-          
-            int count = energyObj.Count;
-            energyArray = new float[count];
-            timeArray = new int[count];
-            
-            startDate = energyObj[0].TimeStamp;
+            DateTime frDate = DateTime.Now.AddDays(-1);
+            DateTime tDate = DateTime.Now;
+            string frTime = "now -1440minutes";
+            string tTime = "now";
 
-           
-
-            for (int i = 0; i < count-1; i++)
+            if (fromDate.Value != "")
             {
-                energyArray[i] = energyObj[i+1].W;
+                frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                  System.Globalization.CultureInfo.InvariantCulture);
+                frTime = "now -" + (Convert.ToInt32((DateTime.Now - frDate).TotalMinutes)).ToString() + "minutes";
             }
-            //for (int i = 0; i < count; i++)
-            //{
-            //    timeArray[i] = energyObj[i].TimeStamp;
-            //}
+            if (toDate.Value != "")
+            {
+                tDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                                  System.Globalization.CultureInfo.InvariantCulture);
+                tTime = "now -" + (Convert.ToInt32((DateTime.Now - tDate).TotalMinutes)).ToString() + "minutes";
+            }
+            Utilities ut = Utilitie_S.DateTimeToEpoch(frDate);
+            startDate = ut.Epoch;
+            Utilities ut2 = Utilitie_S.DateTimeToEpoch(tDate);
+            timeInterval = ut2.Epoch - startDate;
 
-            timeInterval=energyObj.Count-1;
+            var primeArray = selectedBoxes.Value.Split(',');
+            a2D = new double[primeArray.Length-1][];
 
-            //timeSeries = Utilitie_S.TimeFormatter(timeArray);
-
+            for (int i = 0; i < primeArray.Length-1; i++)
+            {
+                double[] temp;
+                int[] tmp;
+                FetchEnergyDataS_Map.GetParamByIDBuilding(primeArray[i].ToString(), criteriaList.SelectedItem.Text, buildingList.SelectedItem.Text, frTime, tTime, out temp,out tmp);
+                a2D[i] = temp;
+            }
+       
         }
         catch (Exception e)
         {
@@ -90,4 +92,30 @@ public partial class admin_dashboard : System.Web.UI.Page
         }
 
     }
+
+    protected void GenerateMeterList()
+    {
+        string[] meterIDs;
+        FetchEnergyDataS_Map.ListingBuildingMeter(buildingList.SelectedItem.Text, out meterIDs);
+        if (meterIDs != null)
+        {
+            for(int i=0;i<meterIDs.Length;i++)
+            {
+                CheckBox check = new CheckBox();
+                check.ID = "check" + i;
+                check.Attributes.Add("MeterId", meterIDs[i].ToString());
+                check.Text= meterIDs[i].ToString();
+                if (i == 0)
+                {
+                    check.Checked = true;
+                }
+                checkboxDiv.Controls.Add(check);
+
+                HtmlGenericControl hr = new HtmlGenericControl("hr");
+                hr.Style.Add("margin", "0px");
+                checkboxDiv.Controls.Add(hr);
+            }
+        }
+    }
+
 }

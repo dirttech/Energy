@@ -20,7 +20,10 @@ namespace App_Code.FetchingEnergySmap
         static string uuid;
         static string sURL = "http://192.168.1.40:9101/api/query";
         static string stringData = "";
-       
+
+        ///<summary>
+        ///To Fetch Power data for Apartment between given time limit 
+        ///</summary>        
         public static void FetchPowerConsumption(string fromtime, string toTime, string flat, string type, out Int32[] timeSt, out double[] values)
         {
            
@@ -83,6 +86,10 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///To Fetch Energy data for Apartment between Array of times
+        ///Give "FromTime" in first array and "ToTime" in corresponding element of seconed array
+        ///</summary> 
         public static void FetchBarConsumption(string[] fromTimeArray, string[] toTimeArray, string flat, string type, out Int32[] timeSt, out double[] values)
         {
             timeSt = new int[toTimeArray.Length];
@@ -144,9 +151,12 @@ namespace App_Code.FetchingEnergySmap
             }
         }
 
+        ///<summary>
+        ///To Fetch Energy Values for Bills of Apartment between given time limit 
+        ///This function applies "Window" of 5 minutes and "From-Time = start of day" , "To-Time = end of day"  
+        ///</summary> 
         public static void FetchBillConsumption(int fromTime, int toTime, string flat, string type, out Int32[] timeSt, out double[] values)
         {
-
             timeSt = new int[2];
             values = new double[2];
             try
@@ -217,6 +227,12 @@ namespace App_Code.FetchingEnergySmap
             }
         }
 
+        ///<summary>
+        ///Provides "Average Energy Consumption" between given times of provided "Building"
+        ///Floors = 2 to 9
+        ///Give "FromTime" in first array and "ToTime" in corresponding element of seconed array
+        ///
+        ///</summary> 
         public static void FetchAvgConsumption(string[] fromTimeArray, string[] toTimeArray, string location, string type, out Int32[] timeSt, out double[] values)
         {
             timeSt = new int[toTimeArray.Length];
@@ -296,7 +312,11 @@ namespace App_Code.FetchingEnergySmap
             }
         }
 
-        public static void FetchBuildingData(string fromtime, string toTime, string building, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
+        ///<summary>
+        ///Provides Electric Parameter Values of given building.
+        ///It provides "Sampled Data" for "Sample Time = 'width' Minutes provided.
+        ///</summary>        
+        public static void FetchBuildingData(string fromtime, string toTime, int width, string building, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
         {
 
             timeSt = new int[1];
@@ -304,7 +324,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") limit 100000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "apply window(first, field='minute', width=" + width.ToString() + ") to data in (" + fromtime + ", " + toTime + ") limit 100000000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -358,7 +378,12 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void FetchBuildingAcademia(string fromtime, string toTime, string building, string criteria, string meter_type,string block, out Int32[] timeSt, out double[] values)
+        ///<summary>
+        ///Provides Electric Parameter Values of given building.
+        ///It provides "Sampled Data" for "Sample Time = 'width' Minutes provided.
+        ///Building Should have Blocks (e.g Academic Building)
+        ///</summary>        
+        public static void FetchBuildingAcademia(string fromtime, string toTime,int width, string building, string criteria, string meter_type,string block, out Int32[] timeSt, out double[] values)
         {
 
             timeSt = new int[1];
@@ -366,7 +391,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") limit 100000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block + "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "apply window(first, field='minute', width=" + width.ToString() + ") to data in (" + fromtime + ", " + toTime + ") limit 100000000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -420,7 +445,12 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void FetchBuildingHostels(string fromtime, string toTime, string building, string wing, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
+        ///<summary>
+        ///Provides Electric Parameter Values of given building.
+        ///It provides "Sampled Data" for "Sample Time = 'width' Minutes provided.
+        ///Building Should have Wings (e.g Hostels)
+        ///</summary>        
+        public static void FetchBuildingHostels(string fromtime, string toTime, int width, string building, string wing, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
         {
 
             timeSt = new int[1];
@@ -428,7 +458,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") limit 100000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "apply window(first, field='minute', width="+width.ToString()+") to data in (" + fromtime + ", " + toTime + ") limit 100000000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + wing + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -482,7 +512,11 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
-        public static void FetchWingsHostels(string fromtime, string toTime, string building, string wing, int floor, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
+        ///<summary>
+        ///Provides Electric Parameter Values of given building + FLOOR.
+        ///Building Should have Wings (e.g Hostels)
+        ///</summary>        
+        public static void FetchWingsHostelsFloorWise(string fromtime, string toTime, string building, string wing, int floor, string criteria, string meter_type, out Int32[] timeSt, out double[] values)
         {
 
             timeSt = new int[1];
@@ -502,8 +536,6 @@ namespace App_Code.FetchingEnergySmap
                 ASCIIEncoding encoding = new ASCIIEncoding();
                 byte[] data = encoding.GetBytes(stringData);
 
-                req.ContentLength = data.Length;
-
                 Stream os = req.GetRequestStream();
                 os.Write(data, 0, data.Length);
                 os.Close();
@@ -523,6 +555,8 @@ namespace App_Code.FetchingEnergySmap
 
                 var f21 = f1[0];
                 var f2 = f21["uuid"];
+
+                req.ContentLength = data.Length;
                 var f3 = f21["Readings"];
 
                 timeSt = new int[f3.Length];
@@ -544,11 +578,14 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Provides Electric Parameter Value of given Building,Time
+        ///Only returns First Value
+        ///</summary>        
         public static void FetchBuildingTotal(string frtime, string totime, string building, string block_wing, string criteria, string meter_type, out Int32 timeSt, out double values)
         {
             timeSt = 0;
-            values = 0;
-           
+            values = 0;           
             try
             {
                 
@@ -615,6 +652,10 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Provides Electric Parameter Values(Mostly Energy) of given building (+) Wing/Block
+        ///Give "FromTime" in first array and "ToTime" in corresponding element of seconed array
+        ///</summary>        
         public static void FetchBuildingBarConsumption(string[] frtime, string[] totime, string building, string block_wing, string meter_type, out Int32[] timeSt, out double[] values)
         {
             string criteria = "Energy";
@@ -686,6 +727,9 @@ namespace App_Code.FetchingEnergySmap
             }
         }
 
+        ///<summary>
+        ///To Ping Meter and it returns its status for given meter id
+        ///</summary>        
         public static void PingingMeter(string building, string meter_id, out bool status)
         {
 
@@ -755,11 +799,12 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Array of Floors for given Building
+        ///</summary>        
         public static void ListingFloors(string building, out string[] floors)
         {
-
             floors = new string[1];
-
             try
             {
                 stringData = "select distinct Metadata/Location/Floor where Metadata/Location/Building ='" + building + "'";
@@ -810,11 +855,12 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Meter Id's in given Building + Floor
+        ///</summary>        
         public static void ListingMeter(string building, string floor, out string[] meterIDs)
         {
-
             meterIDs = new string[1];
-
             try
             {
                 stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "' and Metadata/Location/Floor ='"+floor+"'";
@@ -865,10 +911,68 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Meter Id's in given Building 
+        ///</summary>        
+        public static void ListingBuildingMeter(string building, out string[] meterIDs)
+        {
+            meterIDs = new string[1];
+            try
+            {
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                meterIDs = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    meterIDs[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Electrical Parameter value for given Meter ID
+        ///</summary>        
         public static void GetMeterByID(string meterID,string param, out double value, out int time)
         {
-            value = 0; time = 0;            
-
+            value = 0; time = 0;          
             try
             {
                 stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param + "'";
@@ -921,11 +1025,75 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Electrical Parameter value for given Meter ID
+        ///</summary>        
+        public static void GetParamByIDBuilding(string meterID, string param, string building, string fromtime, string totime, out double[] value, out int[] time)
+        {
+            value = new double[1]; time = new int[1];
+            try
+            {
+                stringData = "apply window(first, field='minute', width=1) to data in (" + fromtime + ", " + totime + ") limit 100000000 where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param +"' and Metadata/Location/Building ='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f21 = f1[0];
+                var f2 = f21["uuid"];
+                var f3 = f21["Readings"];
+                time= new int[f3.Length];
+                value = new double[f3.Length];
+
+                for (int i = 0; i < f3.Length; i++)
+                {
+                    var f4 = f3[i];
+                    time[i] = Convert.ToInt32(f4[0] / 1000);
+                    value[i] = Convert.ToDouble(f4[1]);
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Exact Location for given Meter ID
+        ///Returns Floor, Wing, Building, Flat, Block, Meter Type (if any)
+        ///</summary>        
         public static void GetMeterLocationByID(string meterID, out string building, out string floor, out string wing, out string flat, out string block, out string type)
         {
             building = ""; floor = ""; wing = "";
             flat = ""; block = ""; type = "";
-
             try
             {
                 stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing, Metadata/Extra/FlatNumber, Metadata/Extra/Block, Metadata/Extra/Type where Metadata/Extra/MeterID = '" + meterID + "'";

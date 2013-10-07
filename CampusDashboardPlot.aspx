@@ -55,8 +55,7 @@
 
     
 barEnergy.splice(barEnergy.length-1,1);
-barTime.splice(barTime.length-1,1);
-
+    
     var readings=new Array(energyData.length);
    
 

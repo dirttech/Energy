@@ -87,30 +87,49 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
       
             string frTime = "now -1440minutes";
             string tTime = "now";
+            DateTime ftDate = DateTime.Now.AddDays(-1);
+            DateTime ttDate = DateTime.Now;
+            int factor = 1;
 
             if (typ != null)
             {
                 if (fromDate.Value != "")
                 {
-                    DateTime ftDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
-                                          System.Globalization.CultureInfo.InvariantCulture);
-
-                    frTime = "now -" + (Convert.ToInt32((DateTime.Now - ftDate).TotalMinutes)).ToString() + "minutes";
-
+                    ftDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                          System.Globalization.CultureInfo.InvariantCulture);             
                 }
                 if (toDate.Value != "")
                 {
-                    DateTime ttDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
-                                          System.Globalization.CultureInfo.InvariantCulture);
-                    if (ttDate > DateTime.Now)
-                    {
-                        ttDate = DateTime.Now;
-                    }
-
+                    ttDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                          System.Globalization.CultureInfo.InvariantCulture);                
+                }
+                if (fromDate.Value != "" || toDate.Value != "")
+                {
+                    frTime = "now -" + (Convert.ToInt32((DateTime.Now - ftDate).TotalMinutes)).ToString() + "minutes";
                     tTime = "now -" + (Convert.ToInt32((DateTime.Now - ttDate).TotalMinutes)).ToString() + "minutes";
 
+                    double min = (ttDate - ftDate).TotalMinutes;
+                    if (min < 1440)
+                    {
+                        factor = 1;
+                    }
+                    else if (min >= 1440 && min < 10080)
+                    {
+                        factor = 10;
+                    }
+                    else if (min >= 10080 && min < 40320)
+                    {
+                        factor = 60;
+                    }
+                    else if (min >= 40320 && min < 241920)
+                    {
+                        factor = 180;
+                    }
+                    else
+                    {
+                        factor = 1440;
+                    }
                 }
-
             }
             else
             {
@@ -122,7 +141,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
             if (building == "Academic")
             {
-                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime, "Academic Building", paramList.SelectedValue, "Building Total Mains", "Academic Block", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime,factor, "Academic Building", paramList.SelectedValue, "Building Total Mains", "Academic Block", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/academia.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 1 <a href='AcademicMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1000 sqm";
                 buildInfo.InnerHtml+= "<br />Covered area (on floors) - 5638.88 sqm<br />No of storeys - G + 5<br />Height of Building - 23.1 m</p><br />";
@@ -130,7 +149,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "ClassRooms")
             {
-                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime, "Academic Building", paramList.SelectedValue, "Building Total Mains", "Lecture Block", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingAcademia(frTime, tTime,factor, "Academic Building", paramList.SelectedValue, "Building Total Mains", "Lecture Block", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/classrooms.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 1 <a href='AcademicMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 577 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 1731 sqm<br />No of storeys - G + 2<br />Height of Building - 12.1 m</p><br />";
@@ -138,7 +157,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "Mess Building")
             {
-                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime,factor, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/mess.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 1 <a href='MessMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1279.61 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 4690.78 sqm<br />No of storeys - G + 3<br />Height of Building - 16.3 m</p><br />";
@@ -146,7 +165,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "Library Building")
             {
-                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime,factor, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 
                 buildingimg.ImageUrl = "~/images/buildings/library.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 1 <a href='LibraryMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 620.41 sqm";
@@ -155,7 +174,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "Faculty Housing")
             {
-                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, building, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime,factor, building, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/faculty.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 83 <a href='FacultyMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 559.67 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6509.78 sqm<br />No of storeys - G+11<br />Height of Building - 34.30 m</p><br />";
@@ -163,7 +182,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "Girls Hostel AB")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, "Girls Hostel", "AB", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Girls Hostel", "AB", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/girls_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 23 <a href='GirlsHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 838.99 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 3562.28 sqm<br />No of storeys - G + 4<br />Height of Building - 16.50 m</p><br />";
@@ -172,7 +191,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             }
             if (building == "Girls Hostel BC")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, "Girls Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Girls Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/girls_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 23 <a href='GirlsHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 838.99 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 3562.28 sqm<br />No of storeys - G + 4<br />Height of Building - 16.50 m</p><br />";
@@ -180,7 +199,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
             if (building == "Boys Hostel A")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, "Boys Hostel", "A", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Boys Hostel", "A", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/boys_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 34 <a href='BoysHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1116.19 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6798.57 sqm<br />No of storeys - G + 7<br />Height of Building - 26.40 m</p><br />";
@@ -189,7 +208,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
             if (building == "Boys Hostel BC")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, "Boys Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Boys Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/boys_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 34 <a href='BoysHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1116.19 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6798.57 sqm<br />No of storeys - G + 7<br />Height of Building - 26.40 m</p><br />";
@@ -283,7 +302,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                         barEnergy[p - 1] = Math.Round((barEnergy[p] - barEnergy[p - 1]) / 1000,0);
                     }
                     barEnergy[barEnergy.Length - 1] = 0;
-                    energyTimeSeries = Utilitie_S.TimeFormatter(barTime);
+                        energyTimeSeries = Utilitie_S.TimeFormatter(barTime);
                 }
             }
         }

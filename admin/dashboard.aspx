@@ -6,21 +6,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Energy Dashboard</title>
+    <style type="text/css">
+        .select
+    {
+        padding-top:5px;
+            margin-left: 40px;
+        }
+    hr
+    {
+        margin:0px;
+    }
+    
+    </style>
     
   <link rel="Stylesheet" type="text/css" href="../Scripts/Default.css" />
    <link rel="stylesheet" type="text/css" href="../Scripts/calender/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript" src="../Scripts/jquery-1.4.1.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" / >
+    <script type="text/javascript">
+        function CopyChecked() {
+            var htmlSelect = document.getElementById('<%=selectedBoxes.ClientID%>');
+            var list = "";
+            htmlSelect.Value = "";
+            for (var i = 0; i < 100; i++) {
+                if (document.getElementById("check" + i).checked) {
+                    var cid = document.getElementById("check" + i);
+                    var pid = cid.parentNode;
+                    var apt = pid.getAttribute("MeterId");
+                    list = list + apt + ",";
+                    htmlSelect.setAttribute("value", list);
+                }
+            }
+            
+        }
+    </script>
         <script type="text/javascript">
-  
-    var energyData = <%=new JavaScriptSerializer().Serialize(energyArray)%>;
-  
-    var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
-    var startDate=sD*1000;
-   
-    var interval = <%= new JavaScriptSerializer().Serialize(timeInterval) %> ;
-    interval=interval/100;
+    
+    var energyData = <%=new JavaScriptSerializer().Serialize(a2D)%>;
 
+    var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
+    var startDate=new Date(sD*1000);
+    var interval = <%= new JavaScriptSerializer().Serialize(timeInterval) %> ;
+   
      jQuery(document).ready(function ($) {
      $('#container').highcharts({
             chart: {
@@ -64,11 +91,9 @@
             plotOptions: {
                 area: {
                     fillColor: {
-                           linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                         stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
+                    pointInterval: interval,
+                    pointStart:Date.UTC(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()),
+                           
                         
                     },
                     lineWidth: 1,
@@ -86,11 +111,47 @@
             },
     
             series: [{
-                type: 'area',
-                name: 'Energy Consumption',
-                pointInterval: interval,
-                pointStart:startDate,
-                data:energyData
+               type:'line',
+                data:energyData[0]
+            },
+            {
+            type:'line',
+                data:energyData[1]
+            },{
+                 type:'line',
+                data:energyData[2]
+            },
+            {
+            type:'line',
+                data:energyData[3]
+            },
+            {
+             type:'line',
+                data:energyData[4]
+            },
+            {
+            type:'line',
+                data:energyData[5]
+            },
+            {
+             type:'line',
+                data:energyData[6]
+            },
+            {
+             type:'line',
+                data:energyData[7]
+            },
+            {
+             type:'line',
+                data:energyData[8]
+            },
+            {
+             type:'line',
+                data:energyData[9]
+            },
+            {
+             type:'line',
+                data:energyData[10]
             }]
         });
 
@@ -109,20 +170,19 @@
     <table>
     <tr>
     <td>
-     From<br />
     <div id="datetimepicker1" class="input-append date">
-      <input type="text" id="fromDate" runat="server" style=" margin-left:30px;"/>
-      
+      <input type="text" id="fromDate" runat="server" style=" margin-left:30px;"/>     
 
       <span class="add-on">
         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
       </span>
     </div> 
+       
     
     </td>
-    <td>
-    To<br />
-    <div id="datetimepicker2" class="input-append date">
+    <td>       
+           
+       <div id="datetimepicker2" class="input-append date">
       <input type="text" id="toDate" runat="server" style=" margin-left:10px;"/>
       
 
@@ -130,17 +190,46 @@
         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
       </span>
     </div> 
-    </td>
-        <td>
-     <br />
-       <asp:Button ID="submitDate" runat="server" Text="Submit" class="customButton" 
-                style=" margin-left:10px; margin-bottom:5px;" onclick="submitDate_Click"/>
-    </td>
+        </td>
+        <td class="select">
+        &nbsp;
+         <asp:DropDownList ID="buildingList" runat="server">
+             <asp:ListItem>Faculty Housing</asp:ListItem>
+             <asp:ListItem>Boys Hostel</asp:ListItem>
+             <asp:ListItem>Academic Building</asp:ListItem>
+             <asp:ListItem>Girls Hostel</asp:ListItem>
+             <asp:ListItem>Mess Building</asp:ListItem>
+             <asp:ListItem>Library Building</asp:ListItem>
+             <asp:ListItem>Service Block</asp:ListItem>
+
+        </asp:DropDownList>
+&nbsp;
+        <asp:DropDownList ID="criteriaList" runat="server">
+         <asp:ListItem Value="Power" units="Watts">Power</asp:ListItem>
+        <asp:ListItem Value="Voltage" units="Volts">Voltage</asp:ListItem>
+        <asp:ListItem Value="Energy" units="FwdHr">Energy</asp:ListItem>
+            <asp:ListItem Value="Frequency" units="Hertz">Frequency</asp:ListItem>
+        </asp:DropDownList>
+&nbsp; 
+              <asp:Button ID="submitDate" runat="server" Text="Submit" class="customButton" OnClientClick="CopyChecked()"
+                style=" margin-left:5px; margin-bottom:10px;" onclick="submitDate_Click"/>  </td>
     </tr>
+   
      <tr>
-    <td colspan="3">
+     <td style="vertical-align:top;">
+     <div class="HeadingLeftTop">
+    <label id="Heading" runat="server" style=" font-size:x-large;">Select Meters</label>
+    </div>
+    <input type="hidden" ID="selectedBoxes" runat="server" style="" />
     
-     <div id="container" style="width: 900px; height: 500px; margin: 0 auto"></div>
+    <div id="checkboxDiv" runat="server" style="height:500px; overflow:scroll;" >
+    
+    </div>
+
+    </td>
+    <td colspan="2">
+    
+     <div id="container" style="width: 900px; height: 500px; "></div>
     </td>
     </tr>
     </table>

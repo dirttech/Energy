@@ -23,6 +23,7 @@ public partial class MeterStatus : System.Web.UI.Page
         DrawBoysHostel();
         DrawAcademic();
         DrawLibrary();
+        DrawMess();
     }
 
     protected void DrawFaculty()

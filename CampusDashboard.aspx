@@ -62,7 +62,7 @@ li#camp
 <h3>Click on specific building to see its energy consumption data.</h3>
 <p>Labeled buildings  are clickable.</p>
  <asp:ImageMap ID="ImageMap1" runat="server" 
-        ImageUrl="~/images/sitemapfinal.png" HotSpotMode="PostBack" 
+        ImageUrl="~/images/SiteMapPlusServices.png" HotSpotMode="PostBack" 
         onclick="ImageMap1_Click" >
         <asp:PolygonHotSpot HotSpotMode="PostBack" PostBackValue="Boys Hostel A" Coordinates="263,106,284,44,328,52,328,92,317,92,314,67,292,62,274,110" />
         <asp:PolygonHotSpot Coordinates="350,88,350,52,398,52,404,86,394,89,388,68,361,86" 
@@ -71,6 +71,8 @@ li#camp
             HotSpotMode="PostBack" PostBackValue="Mess Building" />
         <asp:PolygonHotSpot Coordinates="716,49,733,38,754,73,763,115,749,122,739,86" 
             HotSpotMode="PostBack" PostBackValue="Academic" />
+            <%--<asp:PolygonHotSpot Coordinates="780,45,780,60,806,60,805,43" 
+            HotSpotMode="PostBack" PostBackValue="Service Block" />--%>
         <asp:PolygonHotSpot Coordinates="766,80,770,61,800,67,800,82,793,82,784,103,770,103" 
             HotSpotMode="PostBack" PostBackValue="ClassRooms" />
         <asp:PolygonHotSpot Coordinates="814,46,812,38,856,37,857,44,853,44,853,71,844,68,814,70,814,44" 
