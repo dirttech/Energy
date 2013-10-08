@@ -90,8 +90,8 @@ box-shadow: 0px 0px 8px 0px #000000;
     var intervals = <%= new JavaScriptSerializer().Serialize(interval) %> ;
     intervals=intervals*0.55;
     
-    var readings=new Array(energyData.length);
-    for(var i=0;i<energyData.length;i++)
+    var readings=new Array(energyData[0].length);
+    for(var i=0;i<energyData[0].length;i++)
     {
         readings[i]=new Array(2);
         readings[i][0]=timeStamps[i]*1000;

@@ -48,7 +48,7 @@
     </div>
     </td>
     <td style="vertical-align:top; margin-top:0px; padding-top:0px;">
-       <iframe id="sideFrame" style="border:none; height:800px;  width:700px; overflow:visible;"></iframe>
+       <iframe id="sideFrame" style="border:none; height:800px;  width:1000px; overflow:visible;"></iframe>
     </td>
     </tr>
     </table>

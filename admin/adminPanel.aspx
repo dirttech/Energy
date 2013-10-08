@@ -36,8 +36,8 @@
     <div id="navigationTop">
    <a id="userInf" runat="server" onserverclick="usrInfo_Click" >User Info</a>
 
-     <a id="dashbrd" runat="server" onserverclick="dashbrd_Click" style="display:none;">Energy Dashboard</a>
-
+     <a id="dashbrd" runat="server" onserverclick="dashbrd_Click" >Energy Dashboard</a>
+   
      <a id="mnthlyBill" runat="server" href="MonthlyBill.aspx" target="_blank">Print Bills</a>
      
      </div>
@@ -47,7 +47,7 @@
      <a style="color:Black;  font-size:large;  position:absolute; top:10px; left:20px;" id="nameTitle" runat="server">Welcome</a>
      
      <br />
-     <iframe id="belowFrame"   runat="server" style="height:900px; width:1000px; border:none;" src="userInfo.aspx"></iframe>
+     <iframe id="belowFrame"   runat="server" style="height:900px; width:1300px; border:none;" src="userInfo.aspx"></iframe>
 
     </form>
 </body>
