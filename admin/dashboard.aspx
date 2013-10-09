@@ -28,77 +28,113 @@
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" / >
     <script type="text/javascript">
         function CopyChecked() {
-            var htmlSelect = document.getElementById('<%=selectedBoxes.ClientID%>');
-            var list = "";
-            htmlSelect.Value = "";
-            for (var i = 0; i < 100; i++) {
-                if (document.getElementById("check" + i).checked) {
-                    var cid = document.getElementById("check" + i);
-                    var pid = cid.parentNode;
-                    var apt = pid.getAttribute("MeterId");
-                    list = list + apt + ",";
-                    htmlSelect.setAttribute("value", list);
-                }
-            }
+//            var htmlSelect = document.getElementById('<%=selectedBoxes.ClientID%>');
+//            var list = "";
+//            htmlSelect.Value = "";
+//            for (var i = 0; i < 100; i++) {
+//                if (document.getElementById("check" + i).checked) {
+//                    var cid = document.getElementById("check" + i);
+//                    var pid = cid.parentNode;
+//                    var apt = pid.getAttribute("MeterId");
+//                    list = list + apt + ",";
+//                    htmlSelect.setAttribute("value", list);
+//                }
+//            }
             
         }
     </script>
         <script type="text/javascript">
     
     var valueArr1 = <%=new JavaScriptSerializer().Serialize(valueArray1)%>;
-    var timeArr1 = <%=new JavaScriptSerializer().Serialize(timeArray1)%>;
+    var timeArr1 = <%=new JavaScriptSerializer().Serialize(timeArray)%>;
     var valueArr2 = <%=new JavaScriptSerializer().Serialize(valueArray2)%>;
-    var timeArr2 = <%=new JavaScriptSerializer().Serialize(timeArray2)%>;
+   
     var valueArr3 = <%=new JavaScriptSerializer().Serialize(valueArray3)%>;
-    var timeArr3 = <%=new JavaScriptSerializer().Serialize(timeArray3)%>;
+   
     var valueArr4 = <%=new JavaScriptSerializer().Serialize(valueArray4)%>;
-    var timeArr4 = <%=new JavaScriptSerializer().Serialize(timeArray4)%>;
+   
     var valueArr5 = <%=new JavaScriptSerializer().Serialize(valueArray5)%>;
-    var timeArr5 = <%=new JavaScriptSerializer().Serialize(timeArray5)%>;
+  
 
     var mD = <%=new JavaScriptSerializer().Serialize(midArr)%>;
     
     var interval = <%= new JavaScriptSerializer().Serialize(timeInterval) %> ;
     try{
-        var readings1=new Array(valueArr1.length);
-        for(var i=0;i<valueArr1.length;i++)
-        {
-            readings1[i]=new Array(2);
-            readings1[i][0]=timeArr1[i]*1000;
-            readings1[i][1]=valueArr1[i];
-        }        
-        var readings2=new Array(valueArr2.length);
-        for(var i=0;i<valueArr2.length;i++)
-        {
-            readings2[i]=new Array(2);
-            readings2[i][0]=timeArr1[i]*1000;
-            readings2[i][1]=valueArr2[i];
-        }
-        var readings3=new Array(valueArr3.length);
-        for(var i=0;i<valueArr3.length;i++)
-        {
-            readings3[i]=new Array(2);
-            readings3[i][0]=timeArr1[i]*1000;
-            readings3[i][1]=valueArr3[i];
-        }
-        var readings4=new Array(valueArr4.length);
-        for(var i=0;i<valueArr4.length;i++)
-        {
-            readings4[i]=new Array(2);
-            readings4[i][0]=timeArr1[i]*1000;
-            readings4[i][1]=valueArr4[i];
-        }
-        var readings5=new Array(valueArr5.length);
-        for(var i=0;i<valueArr5.length;i++)
-        {
-            readings5[i]=new Array(2);
-            readings5[i][0]=timeArr1[i]*1000;
-            readings5[i][1]=valueArr5[i];
-        }
- 
-   
+            if(valueArr1!=null)
+            {
+                var readings1=new Array(valueArr1.length);
+                for(var i=0;i<valueArr1.length;i++)
+                {
+                    readings1[i]=new Array(2);
+                    readings1[i][0]=timeArr1[i]*1000;
+                    readings1[i][1]=valueArr1[i];
+                }  
+            }  
+         }
+    catch(err1)  {
+
     }
-    catch(err)  {
+    try{    
+            if(valueArr2!=null)
+            {
+                var readings2=new Array(valueArr2.length);
+                for(var i=0;i<valueArr2.length;i++)
+                {
+                    readings2[i]=new Array(2);
+                    readings2[i][0]=timeArr1[i]*1000;
+                    readings2[i][1]=valueArr2[i];
+                }
+            }
+       }
+            catch(err2)
+            {
+
+            }
+      
+    try{   
+            if(valueArr3!=null)
+            {
+                var readings3=new Array(valueArr3.length);
+                for(var i=0;i<valueArr3.length;i++)
+                {
+                    readings3[i]=new Array(2);
+                    readings3[i][0]=timeArr1[i]*1000;
+                    readings3[i][1]=valueArr3[i];
+                }
+            }
+        }
+        catch(err3)  {
+
+    }
+    try{   
+            if(valueArr4!=null)
+            {
+                var readings4=new Array(valueArr4.length);
+                for(var i=0;i<valueArr4.length;i++)
+                {
+                    readings4[i]=new Array(2);
+                    readings4[i][0]=timeArr1[i]*1000;
+                    readings4[i][1]=valueArr4[i];
+                }
+            }
+        }
+        catch(err4)  {
+
+    }
+    try{   
+            if(valueArr5!=null)
+            {
+                var readings5=new Array(valueArr5.length);
+                for(var i=0;i<valueArr5.length;i++)
+                {
+                    readings5[i]=new Array(2);
+                    readings5[i][0]=timeArr1[i]*1000;
+                    readings5[i][1]=valueArr5[i];
+                } 
+            }
+        }
+   
+    catch(err5){
 
     }
      jQuery(document).ready(function ($) {
@@ -327,7 +363,7 @@
         <asp:ListItem Value="Energy" units="Whr">Energy</asp:ListItem>
             <asp:ListItem Value="Frequency" units="Hertz">Frequency</asp:ListItem>
         </asp:DropDownList>
-              <asp:Button ID="Button1" runat="server" Text="Submit" class="customButton" OnClientClick="CopyChecked()"
+              <asp:Button ID="Button1" runat="server" Text="Submit" class="customButton"
                 style=" margin-left:5px; margin-bottom:10px;" onclick="submitDate_Click"/>  </td>  
    
     </tr>

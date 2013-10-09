@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
+using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
@@ -24,6 +25,7 @@ public partial class admin_dashboard : System.Web.UI.Page
     public int[] timeArray5;
     public double[] valueArray5;
     public string[] midArr;
+    public int[] timeArray;
 
     public static Int32[] timeSt;
   
@@ -88,8 +90,54 @@ public partial class admin_dashboard : System.Web.UI.Page
             FetchEnergyDataS_Map.GetParamByIDBuilding(meterTxt2.Text, criteriaList.SelectedItem.Text, build2.SelectedItem.Text, frTime, tTime, out valueArray2, out timeArray2);
             FetchEnergyDataS_Map.GetParamByIDBuilding(meterTxt3.Text, criteriaList.SelectedItem.Text, build3.SelectedItem.Text, frTime, tTime, out valueArray3, out timeArray3);
             FetchEnergyDataS_Map.GetParamByIDBuilding(meterTxt4.Text, criteriaList.SelectedItem.Text, build4.SelectedItem.Text, frTime, tTime, out valueArray4, out timeArray4);
-            FetchEnergyDataS_Map.GetParamByIDBuilding(meterTxt5.Text, criteriaList.SelectedItem.Text, build5.SelectedItem.Text, frTime, tTime, out valueArray5, out timeArray5);               
-
+            FetchEnergyDataS_Map.GetParamByIDBuilding(meterTxt5.Text, criteriaList.SelectedItem.Text, build5.SelectedItem.Text, frTime, tTime, out valueArray5, out timeArray5);
+            int[] len =new int[5];
+            if (timeArray1 != null)
+            {
+                len[0] = timeArray1.Length;
+            }
+            if (timeArray2 != null)
+            {
+                len[1] = timeArray2.Length;
+            }
+            if (timeArray3 != null)
+            {
+                len[2] = timeArray3.Length;
+            }
+            if (timeArray4 != null)
+            {
+                len[3] = timeArray4.Length;
+            }
+            if (timeArray5 != null)
+            {
+                len[4] = timeArray5.Length;
+            }
+            int maxlen = len.Max();
+            if (timeArray1 != null)
+            {
+                if (timeArray1.Length == maxlen)
+                { timeArray = timeArray1; }
+            }
+            if (timeArray2 != null)
+            {
+                if (timeArray2.Length == maxlen)
+                { timeArray = timeArray2; }
+            }
+            if (timeArray3 != null)
+            {
+                if (timeArray3.Length == maxlen)
+                { timeArray = timeArray3; }
+            }
+            if (timeArray4 != null)
+            {
+                if (timeArray4.Length == maxlen)
+                { timeArray = timeArray4; }
+            }
+            if (timeArray5 != null)
+            {
+                if (timeArray5.Length == maxlen)
+                { timeArray = timeArray5; }
+            }
         }
         catch (Exception e)
         {
