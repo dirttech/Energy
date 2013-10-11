@@ -796,8 +796,8 @@ Data Intensive Computing
          <tr>
                
                     <td class="infoWrapper">
-                    <label class="nameWrapper">Yuvraj Agarwal</label><br />
-                    <label class="namePosition"></label><br />    
+                      <a href="http://www.cs.cmu.edu/~yuvraja/" target="_blank" class="nameWrapper">Yuvraj Agarwal</a><br />
+                    <label class="namePosition">Assistant Professor </label><br />    
                     <label class="below-info">CMU<br />
                    </label>
                   <br />

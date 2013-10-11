@@ -232,6 +232,56 @@
     <h3>Publications</h3>
 
     <ul>
+
+        <li>Nipun Batra, Manoj Gulati, Amarjeet Singh, Mani Srivastava, “It’s Different: Insights into home energy consumption in India” to appear at the 5th ACM Workshop On Embedded Systems For Energy-Efficient Buildings, will be held in Rome, Italy, November 13-14, 2013
+<a val="itsDiff" class="abstractLink">[Abstract]</a>
+        <a href="http://manojgulati.files.wordpress.com/2013/09/buildsys.pdf"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="itsDiff">
+            Residential buildings contribute signiﬁcantly to the overall energy usage across the world. Real deployments, and
+collected data thereof, play a critical role in providing insights into home energy consumption and occupant behavior.
+Existing datasets from real residential deployments are all
+from the developed countries. Developing countries, such as
+India, present unique opportunities to evaluate the scalability
+of existing research in diverse settings. Building upon more
+than a year of experience in sensor network deployments, we
+undertake an extensive deployment in a three storey home in
+Delhi, spanning 73 days from May-August 2013, measuring
+electrical, water and ambient parameters. We used 33 sensors across the home, measuring these parameters, collecting
+a total of approx. 400 MB of data daily. We discuss the architectural implications on the deployment systems that can be
+used for monitoring and control in the context of developing
+countries. Addressing the unreliability of electrical grid and
+internet in such settings, we present Sense Local-store Upload architecture for robust data collection. While providing several unique aspects, our deployment further validates
+the common considerations from similar residential deployments, discussed previously in the literature.
+</label>
+</li>
+ <li>Nipun Batra, Haimonti Dutta, Amarjeet Singh, “INDiC: Improved Non-Intrusive load monitoring using load Division and Calibration”, to appear at the 12th International Conference on Machine Learning and Applications (ICMLA’13) will be held in Miami, Florida, USA, December 4 – December 7, 2013
+<a val="loadDiv" class="abstractLink">[Abstract]</a>
+        <a href="http://nipunbatra.files.wordpress.com/2013/09/icmla.pdf"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="loadDiv">
+            Residential buildings contribute signiﬁcantly to the
+overall energy consumption across most parts of the world. While
+smart monitoring and control of appliances can reduce the overall
+energy consumption, management and cost associated with such
+systems act as a big hindrance. Prior work has established that
+detailed feedback in the form of appliance level consumption
+to building occupants improves their awareness and paves the
+way for reduction in electricity consumption. Non-Intrusive
+Load Monitoring (NILM), i.e. the process of disaggregating
+the overall home electricity usage measured at the meter level
+into constituent appliances, provides a simple and cost effective
+methodology to provide such feedback to the occupants. In this
+paper we present Improved Non-Intrusive load monitoring using
+load Division and Calibration (INDiC) that simpliﬁes NILM
+by dividing the appliances across multiple instrumented points
+(meters/phases) and calibrating the measured power. Proposed
+approach is used together with the Combinatorial Optimization
+framework and evaluated on the popular REDD dataset. Empirical evaluation, using INDiC based Combinatorial Optimization,
+demonstrate signiﬁcant improvement in disaggregation accuracy.
+</label>
+</li>
+
     <li>Pandarasamy Arjunan, Manaswi Saha, Manoj Gulati, Nipun Batra, Amarjeet Singh, Pushpendra Singh, “SensorAct: Design and Implementation of Fine-grained Sensing and Control Sharing in Buildings”, to appear as Poster at  10th USENIX Symposium on Networked Systems Design and Implementation (NSDI ’13), 2013.
     
     </li>
@@ -306,54 +356,7 @@ performance results.
 
         </li>
 
-         <li>Nipun Batra, Manoj Gulati, Amarjeet Singh, Mani Srivastava, “It’s Different: Insights into home energy consumption in India” to appear at the 5th ACM Workshop On Embedded Systems For Energy-Efficient Buildings, will be held in Rome, Italy, November 13-14, 2013
-<a val="itsDiff" class="abstractLink">[Abstract]</a>
-        <a href="http://manojgulati.files.wordpress.com/2013/09/buildsys.pdf"
-           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
-            <label class="abstract" id="itsDiff">
-            Residential buildings contribute signiﬁcantly to the overall energy usage across the world. Real deployments, and
-collected data thereof, play a critical role in providing insights into home energy consumption and occupant behavior.
-Existing datasets from real residential deployments are all
-from the developed countries. Developing countries, such as
-India, present unique opportunities to evaluate the scalability
-of existing research in diverse settings. Building upon more
-than a year of experience in sensor network deployments, we
-undertake an extensive deployment in a three storey home in
-Delhi, spanning 73 days from May-August 2013, measuring
-electrical, water and ambient parameters. We used 33 sensors across the home, measuring these parameters, collecting
-a total of approx. 400 MB of data daily. We discuss the architectural implications on the deployment systems that can be
-used for monitoring and control in the context of developing
-countries. Addressing the unreliability of electrical grid and
-internet in such settings, we present Sense Local-store Upload architecture for robust data collection. While providing several unique aspects, our deployment further validates
-the common considerations from similar residential deployments, discussed previously in the literature.
-</label>
-</li>
- <li>Nipun Batra, Haimonti Dutta, Amarjeet Singh, “INDiC: Improved Non-Intrusive load monitoring using load Division and Calibration”, to appear at the 12th International Conference on Machine Learning and Applications (ICMLA’13) will be held in Miami, Florida, USA, December 4 – December 7, 2013
-<a val="loadDiv" class="abstractLink">[Abstract]</a>
-        <a href="http://nipunbatra.files.wordpress.com/2013/09/icmla.pdf"
-           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
-            <label class="abstract" id="loadDiv">
-            Residential buildings contribute signiﬁcantly to the
-overall energy consumption across most parts of the world. While
-smart monitoring and control of appliances can reduce the overall
-energy consumption, management and cost associated with such
-systems act as a big hindrance. Prior work has established that
-detailed feedback in the form of appliance level consumption
-to building occupants improves their awareness and paves the
-way for reduction in electricity consumption. Non-Intrusive
-Load Monitoring (NILM), i.e. the process of disaggregating
-the overall home electricity usage measured at the meter level
-into constituent appliances, provides a simple and cost effective
-methodology to provide such feedback to the occupants. In this
-paper we present Improved Non-Intrusive load monitoring using
-load Division and Calibration (INDiC) that simpliﬁes NILM
-by dividing the appliances across multiple instrumented points
-(meters/phases) and calibrating the measured power. Proposed
-approach is used together with the Combinatorial Optimization
-framework and evaluated on the popular REDD dataset. Empirical evaluation, using INDiC based Combinatorial Optimization,
-demonstrate signiﬁcant improvement in disaggregation accuracy.
-</label>
-</li>
+         
 
     </ul>
     <br />

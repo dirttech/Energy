@@ -107,8 +107,7 @@
 It contains advice starting from being a graduate student till the post PhD period. It also has some links on good writing tips, giving a talk etc. If you are a researcher, you should definitely give this a read.
 <br />
 <a class="uselink" href="http://researchnoter.wordpress.com/2013/08/17/advice-to-a-young-scientist-e-w-dijkstra/" target="_blank">Advice to a Young Scientist</a> – By E.W.Dijkstra<br />
-I covered the points made by EWD in this blog post. Its truly inspiring!
-<br />
+
 <a class="uselink" href="http://www.cs.cmu.edu/afs/cs.cmu.edu/user/mleone/web/how-to.html" target="_blank">Advice on Research and Writing</a> – By Mark Leone<br />
 Its a good collection of advice on how to conduct research and how to communicate it. Its mostly for computer science researchers.
                </p>
