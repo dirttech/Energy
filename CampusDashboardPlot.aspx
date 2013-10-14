@@ -69,7 +69,7 @@
         {
             alert("Sorry! We don't have data for your selection.");
         }
-//        barEnergy.splice(barEnergy.length-1,1);    
+        barEnergy.splice(barEnergy.length-1,1);    
         slab1En.splice(slab1En.length-1,1);
 //        slab3En.splice(slab3En.length-1,1);
 //        slab4En.splice(slab4En.length-1,1);

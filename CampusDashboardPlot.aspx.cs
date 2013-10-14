@@ -315,9 +315,13 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         {          
             for (int i = 0; i < time.Count; i = i + slabCount)
             {
-                slab1.Add(time[i]);
+                if (slabCount == 1)
+                {
+                    slab2.Add(time[i]);
+                }
                 if (slabCount == 3 || slabCount == 4)
                 {
+                    slab1.Add(time[i]);
                     slab2.Add(time[i + 1]);
                     slab3.Add(time[i + 2]);
                     if (slabCount == 4)
@@ -385,7 +389,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         {
             if (sc == 1)
             {
-                SubtractEnergyArray(s1v, out s1v);
+                SubtractEnergyArray(s2v, out s2v);
             }
             if (sc == 3)
             {
@@ -463,7 +467,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         subtractedValues = null;
         if (values != null)
         {
-            subtractedValues = new double[values.Length - 1];
+            subtractedValues = new double[values.Length - 2];
             List<int> neg = new List<int>();
             for (int d = 0; d < values.Length; d++)
             {
@@ -472,6 +476,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                     neg.Add(d);
                 }
             }
+            
             int prvs = -1;
             foreach (int index in neg)
             {
@@ -482,6 +487,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 prvs = index;
             }
             subtractedValues = values;
+            subtractedValues[subtractedValues.Length - 2] = -1;
         }
     }
 
