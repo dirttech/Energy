@@ -662,8 +662,7 @@ namespace App_Code.FetchingEnergySmap
             timeSt = new int[totime.Length];
             values = new double[totime.Length];
             try
-            {
-                
+            {                
                 for (int j = 0; j < totime.Length; j++)
                 {
                     HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
@@ -711,12 +710,23 @@ namespace App_Code.FetchingEnergySmap
                     var f2 = f21["uuid"];
                     var f3 = f21["Readings"];
 
-                    for (int i = 0; i < f3.Length; i++)
+                    try
                     {
-                        var f4 = f3[i];
-                        timeSt[j] = Convert.ToInt32(f4[0] / 1000);
-                        values[j] = Convert.ToDouble(f4[1]);
+                        if (f3.Length>0)
+                        {
+                            var f4 = f3[0];                        
+                            timeSt[j] = Convert.ToInt32(f4[0] / 1000);
+                            values[j] = Convert.ToDouble(f4[1]);
+                            values[j] = values[j] / 1000;
+                        }
+                        else
+                        {
+                            timeSt[j] = -1;
+                            values[j] = -1;
+                        }
                     }
+                    catch (Exception h)
+                    { }
 
                     response.Close();
                 }

@@ -180,6 +180,9 @@ namespace App_Code.Utility
                 allDays.Add(allDays[allDays.Count - 1] + 216000);
                 return allDays;
             }
+
+          
+
             if (comparisonType == "HBH")        // will return epochs for all hours coming between two dates for hour by hour comparisons
             {
                 List<int> allHours = new List<int>();
@@ -239,6 +242,58 @@ namespace App_Code.Utility
                     }
                 }
                 return weekdays;
+            }
+
+            return null;
+        }
+
+        public static List<int> Return_Slab_Time(DateTime fromTime, string comparisonType, bool slab, out int slabCount)
+        {
+            slabCount = 1;      
+
+            if (comparisonType == "DTD-Slabs")        // will return epochs of all days coming between two dates for day to day comparisons with slabs 
+            {
+                List<int> allDays = new List<int>();
+                int year = fromTime.Year;
+                int month = fromTime.Month;
+                foreach (DateTime date in fromTime.AllDatesInMonth())
+                {
+                    if (date <= DateTime.Now)
+                    {
+                        Utilities ut = DateTimeToEpoch(date);
+                        int ep = ut.Epoch;
+                        ep = ep + 1;
+                        allDays.Add(ep);
+                        if (slab == true)
+                        {
+                            if (fromTime.Month >= 4 && fromTime.Month <= 9)
+                            {//slabs for april to sept
+                                slabCount = 3;
+                                ep = ep + (60 * 60 * 6);
+                                allDays.Add(ep);
+                                ep = ep + (60 * 60 * 9);
+                                allDays.Add(ep);
+                            }
+                            else
+                            {//slabs for rest of months
+                                slabCount = 4;
+                                ep = ep + (60 * 60 * 6);
+                                allDays.Add(ep);
+                                ep = ep + (60 * 60 * 11);
+                                allDays.Add(ep);
+                                ep = ep + (60 * 60 * 6);
+                                allDays.Add(ep);
+                            }
+                        }
+                    }
+                }
+
+                Utilities utt = Utilitie_S.EpochToDateTime(allDays[allDays.Count - 1]);
+                DateTime dt = utt.Date.AddDays(1);
+                dt = new DateTime(dt.Year, dt.Month, dt.Day, 00, 02, 00);
+                Utilities uttt = Utilitie_S.DateTimeToEpoch(dt);
+                allDays.Add(uttt.Epoch);
+                return allDays;
             }
 
             return null;

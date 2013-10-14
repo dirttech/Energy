@@ -35,9 +35,9 @@
 
  <script type="text/javascript">
   
-    var energyData = <% =new JavaScriptSerializer().Serialize(energyArray)%>;
-  
-  
+    var energyData = <% =new JavaScriptSerializer().Serialize(slab2Val)%>;
+    
+    var powerData = <% =new JavaScriptSerializer().Serialize(energyArray)%>;
     var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
     var timeStamps=<%=new JavaScriptSerializer().Serialize(timeSt) %>;
 
@@ -51,31 +51,40 @@
     intervals=intervals*0.55;
 
     var barTime=<%=new JavaScriptSerializer().Serialize(energyTimeSeries)%>;
-    var barEnergy=<%=new JavaScriptSerializer().Serialize(barEnergy)%>;
+    var barEnergy=<%=new JavaScriptSerializer().Serialize(slab2Val)%>;
+    var slab3En = <% =new JavaScriptSerializer().Serialize(slab3Val)%>;
+    var slab1En = <% =new JavaScriptSerializer().Serialize(slab1Val)%>;
+    var slab4En = <% =new JavaScriptSerializer().Serialize(slab4Val)%>;
+    try
+    {
+        
+        var readings=new Array(powerData.length);
+        for(var i=0;i<powerData.length;i++)
+        {
+            readings[i]=new Array(2);
+            readings[i][0]=timeStamps[i]*1000;
+            readings[i][1]=powerData[i];
+        }
+        if(readings.length<=1)
+        {
+            alert("Sorry! We don't have data for your selection.");
+        }
+//        barEnergy.splice(barEnergy.length-1,1);    
+        slab1En.splice(slab1En.length-1,1);
+//        slab3En.splice(slab3En.length-1,1);
+//        slab4En.splice(slab4En.length-1,1);
+     }
+     catch(exp)
+     {
 
-    
-barEnergy.splice(barEnergy.length-1,1);
-    
-    var readings=new Array(energyData.length);
+     }
    
-
-    for(var i=0;i<energyData.length;i++)
-    {
-        readings[i]=new Array(2);
-        readings[i][0]=timeStamps[i]*1000;
-        readings[i][1]=energyData[i];
-    }
-     if(readings.length<=1)
-    {
-        alert("Sorry! We don't have data for your selection.");
-    }
-    
-       jQuery(document).ready(function ($) {
-                Highcharts.setOptions({
-	global: {
-		useUTC: false
-	}
-});
+           jQuery(document).ready(function ($) {
+                    Highcharts.setOptions({
+	                    global: {
+		                    useUTC: false
+	                    }
+            });
             $('#container').highcharts({
             chart: {
                 type: 'line',
@@ -83,8 +92,7 @@ barEnergy.splice(barEnergy.length-1,1);
                 spacingRight: 20
             },
             title: {
-                text: build,
-               
+                text: build,               
             },
             subtitle: {
                 text: 'Click and Drag to Zoom in'
@@ -135,6 +143,7 @@ barEnergy.splice(barEnergy.length-1,1);
                 title: {
                     text: 'Energy Consumption'
                 },
+
                 subtitle: {
                     text: ''
                 },
@@ -150,7 +159,12 @@ barEnergy.splice(barEnergy.length-1,1);
                         align: 'high'
                     },
                     labels: {
-                        overflow: 'justify'
+                        rotation: -90,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
                     }
                 },
                 tooltip: {
@@ -159,8 +173,21 @@ barEnergy.splice(barEnergy.length-1,1);
                 plotOptions: {
                     column: {
                         dataLabels: {
-                            enabled: true
-                        }
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'justify',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                    }
+                    },
+                     series: {
+                    stacking:"normal"
                     }
                 },
                 
@@ -168,8 +195,23 @@ barEnergy.splice(barEnergy.length-1,1);
                     enabled: false
                 },
                series: [{
-                name: 'Energy Consumption',
+                name: 'Normal Hours',
                 data: barEnergy
+            },
+            {
+                name: 'Peak Hours',
+                data: slab3En,
+                color: 'maroon'
+            },
+            {
+                name: 'Off-Peak Hours',
+                data: slab1En,
+                color: 'black'
+            },
+            {
+                name: 'Off-Peak Hours',
+                data: slab4En,
+                 color: 'black'
             }]
             });
     });

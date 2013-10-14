@@ -24,7 +24,13 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     public static string[] energyTimeSeries;
     public double[] barEnergy;
     public int[] barTime;
-    
+    public double[] barEnergyPeak;
+    public int[] barTimePeak;
+    public double[] barEnergyOffPeak;
+    public int[] barTimeOffPeak;
+    public int[] slab1, slab2, slab3, slab4; public double[] slab1Val, slab2Val, slab3Val, slab4Val;
+    List<int> slab11, slab22, slab33, slab44;
+    string[] frDateArray, toDateArray;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -109,25 +115,13 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                     tTime = "now -" + (Convert.ToInt32((DateTime.Now - ttDate).TotalMinutes)).ToString() + "minutes";
 
                     double min = (ttDate - ftDate).TotalMinutes;
-                    if (min < 1440)
+                    if (min < 43200)
                     {
                         factor = 1;
-                    }
-                    else if (min >= 1440 && min < 10080)
-                    {
-                        factor = 10;
-                    }
-                    else if (min >= 10080 && min < 40320)
-                    {
-                        factor = 60;
-                    }
-                    else if (min >= 40320 && min < 241920)
-                    {
-                        factor = 180;
-                    }
+                    }                    
                     else
                     {
-                        factor = 1440;
+                        factor = 30;
                     }
                 }
             }
@@ -238,85 +232,266 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         //plot return bar time with DTD comp type
 
         DateTime selectedDate = new DateTime(Convert.ToInt32(years.SelectedValue), Convert.ToInt32(months.SelectedValue), 1);
-        List<int> selectDateList = Utilitie_S.Return_Bar_Time(selectedDate, "DTD");
+        int slabCount = 0; 
         
-        if (selectDateList != null)
+        List<int> selectDateList;
+        if (selectedDate!=null)
         {
-            int[] ep = new int[selectDateList.Count];
-            for (int v = 0; v < selectDateList.Count; v++)
+            List<int> lst=Utilitie_S.Return_Bar_Time(selectedDate, "DTD");
+            if (lst != null)
             {
-                ep[v] = selectDateList[v];
+                timeArray = new int[lst.Count];
+                for (int r = 0; r < lst.Count; r++)
+                {
+                    timeArray[r] = lst[r];
+                }
+                energyTimeSeries = Utilitie_S.TimeFormatterBar(timeArray);
             }
-            energyTimeSeries = Utilitie_S.TimeFormatterBar(ep);
-            List<int> toEpochs = new List<int>();
-            for (int i = 0; i < selectDateList.Count; i++)
-            {
-                toEpochs.Add(selectDateList[i] + (selectDateList[1] - selectDateList[0]));
-            }
-            string[] frDateArray = Utilitie_S.SMapValidDateFormatter(selectDateList);
-            string[] toDateArray = Utilitie_S.SMapValidDateFormatter(toEpochs);
-
             if (building == "Academic")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Academic Block", "Building Total Mains", out barTime, out barEnergy);
+               slabCount = 0;
+               selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+               Get_Slab_Data(selectDateList, slabCount, "Academic Building", "Academic Block");
             }
             if (building == "ClassRooms")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Academic Building", "Lecture Block", "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, "Academic Building", "Lecture Block");
             }
             if (building == "Mess Building")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, building, null);
             }
             if (building == "Library Building")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, building, null);
             }
             if (building == "Faculty Housing")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, building, null, "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;                
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, "Faculty Housing", null);                
             }
             if (building == "Girls Hostel AB")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Girls Hostel", "AB", "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, "Girls Hostel", "AB");
             }
             if (building == "Girls Hostel BC")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Girls Hostel", "BC", "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount,"Girls Hostel", "BC");
             }
             if (building == "Boys Hostel A")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Boys Hostel", "A", "Building Total Mains", out barTime, out barEnergy);
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "A");
             }
             if (building == "Boys Hostel BC")
             {
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, "Boys Hostel", "BC", "Building Total Mains", out barTime, out barEnergy);
-            }
-            if (barTime != null)
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "BC");
+            }          
+        }
+    }
+
+    protected void Time_Division(List<int> time, int slabCount, out List<int> slab1, out List<int> slab2, out List<int> slab3, out List<int> slab4)
+    {
+        slab1 = new List<int>();
+        slab2 = new List<int>();
+        slab3 = new List<int>();
+        slab4 = new List<int>();
+        int ct = 0;
+        try
+        {          
+            for (int i = 0; i < time.Count; i = i + slabCount)
             {
-                Utilitie_S.ZeroArrayRefiner(barTime, barEnergy, out barTime, out barEnergy);
-                if (barTime.Length>1)
+                slab1.Add(time[i]);
+                if (slabCount == 3 || slabCount == 4)
                 {
-                    for (int p = 1; p < barTime.Length; p++)
+                    slab2.Add(time[i + 1]);
+                    slab3.Add(time[i + 2]);
+                    if (slabCount == 4)
                     {
-                        barEnergy[p - 1] = Math.Round((barEnergy[p] - barEnergy[p - 1]) / 1000,0);
+                        slab4.Add(time[i + 3]);
                     }
-                    barEnergy[barEnergy.Length - 1] = 0;
-                        energyTimeSeries = Utilitie_S.TimeFormatter(barTime);
+                    if (slabCount == 3)
+                    {
+                        slab4 = null;
+                    }
                 }
+                ct++;
             }
         }
+        catch (Exception f)
+        {
 
+        }        
     }
-    protected void plotButton_Click(object sender, EventArgs e)
+
+    protected void Time_Bound_Limit(List<int> epochs, out string[] fromDates, out string[] toDates)
     {
-       
+        fromDates=new string[epochs.Count];
+        toDates = new string[epochs.Count];
+        List<int> toEpochs = new List<int>();
+        for (int i = 0; i < epochs.Count; i++)
+        {
+            toEpochs.Add(epochs[i] + 60);
+        }
+        toDates = Utilitie_S.SMapValidDateFormatter(toEpochs);
+        fromDates = Utilitie_S.SMapValidDateFormatter(epochs);
+    }
+
+    protected void Get_Slab_Data(List<int> selectDateList, int slabCount, string buildingName, string block_wing)
+    {
+        Time_Division(selectDateList, slabCount, out slab11, out slab22, out slab33, out slab44);
+        if (slabCount > 0)
+        {
+            Time_Bound_Limit(slab22, out frDateArray, out toDateArray);
+            FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab2, out slab2Val);
+            //SubtractEnergyArray(slab2Val, out slab2Val);
+            if (slabCount == 3 || slabCount == 4)
+            {
+                Time_Bound_Limit(slab11, out frDateArray, out toDateArray);
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab1, out slab1Val);
+                //SubtractEnergyArray(slab1Val, out slab1Val);
+                Time_Bound_Limit(slab33, out frDateArray, out toDateArray);
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab3, out slab3Val);
+                //SubtractEnergyArray(slab3Val, out slab3Val);
+                if (slabCount == 4)
+                {
+                    Time_Bound_Limit(slab44, out frDateArray, out toDateArray);
+                    FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab4, out slab4Val);
+                    //SubtractEnergyArray(slab4Val, out slab4Val);
+                }
+            }
+            merger(slabCount, slab1Val, slab2Val, slab3Val, slab4Val,out slab1Val,out slab2Val,out slab3Val,out slab4Val);
+        }
+    }
+
+    protected void merger(int sc, double[] slab1Value, double[] slab2Value, double[] slab3Value, double[] slab4Value, out double[] s1v,out double[] s2v,out double[] s3v, out double[] s4v)
+    {
+        s1v = slab1Value; s2v = slab2Value; s3v = slab3Value; s4v = slab4Value;
+        if (sc > 0)
+        {
+            if (sc == 1)
+            {
+                SubtractEnergyArray(s1v, out s1v);
+            }
+            if (sc == 3)
+            {
+                for (int d = 0; d < s1v.Length-1; d++)
+                {
+                    if (slab1Value[d] > 0 && slab2Value[d] > 0)
+                    {
+                        s1v[d] = Math.Round(s2v[d] - s1v[d],0);
+                    }
+                    else
+                    {
+                        s1v[d] = -1;
+                    }
+                    if (slab2Value[d] > 0 && slab3Value[d] > 0)
+                    {
+                        s2v[d] =  Math.Round(s3v[d] - s2v[d],0);
+                    }
+                    else
+                    {
+                        s2v[d] = -1;
+                    }
+                    if (slab3Value[d] > 0 && slab1Value[d+1] > 0)
+                    {
+                        s3v[d] =  Math.Round(s1v[d+1] - s3v[d],0);
+                    }
+                    else
+                    {
+                        s3v[d] = -1;
+                    }
+                }
+            }
+            if (sc == 4)
+            {
+                for (int d = 0; d < s1v.Length - 1; d++)
+                {
+                    if (slab1Value[d] > 0 && slab2Value[d] > 0)
+                    {
+                        s1v[d] = Math.Round(s2v[d] - s1v[d], 0);
+                    }
+                    else
+                    {
+                        s1v[d] = -1;
+                    }
+                    if (slab2Value[d] > 0 && slab3Value[d] > 0)
+                    {
+                        s2v[d] = Math.Round(s3v[d] - s2v[d], 0);
+                    }
+                    else
+                    {
+                        s2v[d] = -1;
+                    }
+                    if (slab3Value[d] > 0 && slab4Value[d] > 0)
+                    {
+                        s3v[d] =  Math.Round(s4v[d] - s3v[d],0);
+                    }
+                    else
+                    {
+                        s3v[d] = -1;
+                    }
+                    if (slab4Value[d] > 0 && slab1Value[d + 1] > 0)
+                    {
+                        s4v[d] =  Math.Round(s1v[d + 1] - s4v[d],0);
+                    }
+                    else
+                    {
+                        s4v[d] = -1;
+                    }
+                }
+            }            
+        }
+    }
+
+    protected void SubtractEnergyArray(double[] values, out double[] subtractedValues)
+    {
+        subtractedValues = null;
+        if (values != null)
+        {
+            subtractedValues = new double[values.Length - 1];
+            List<int> neg = new List<int>();
+            for (int d = 0; d < values.Length; d++)
+            {
+                if (values[d] >= 0)
+                {
+                    neg.Add(d);
+                }
+            }
+            int prvs = -1;
+            foreach (int index in neg)
+            {
+                if (prvs != -1)
+                {
+                    values[prvs] = Math.Round((values[index] - values[prvs]),0);
+                }
+                prvs = index;
+            }
+            subtractedValues = values;
+        }
+    }
+
+    protected void plotButton_Click(object sender, EventArgs e)
+    {       
         Plot_Building_All("Button");
         Plot_Building_Energy();
     }
     protected void wing1_Click(object sender, EventArgs e)
-    {
-        
+    {        
         if (building == "Girls Hostel BC")
         {
             building = "Girls Hostel AB";
@@ -330,8 +505,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
        
     }
     protected void wing2_Click(object sender, EventArgs e)
-    {
-       
+    {       
         if (building == "Girls Hostel AB")
         {
             building = "Girls Hostel BC";
