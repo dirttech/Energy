@@ -31,6 +31,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     public int[] slab1, slab2, slab3, slab4; public double[] slab1Val, slab2Val, slab3Val, slab4Val;
     List<int> slab11, slab22, slab33, slab44;
     string[] frDateArray, toDateArray;
+    public string slab1Txt = "", slab2Txt = "", slab3Txt = "", slab4Txt = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -250,57 +251,78 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             if (building == "Academic")
             {
                slabCount = 0;
-               selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+               selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
                Get_Slab_Data(selectDateList, slabCount, "Academic Building", "Academic Block");
             }
             if (building == "ClassRooms")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Academic Building", "Lecture Block");
             }
             if (building == "Mess Building")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, building, null);
             }
             if (building == "Library Building")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, building, null);
             }
             if (building == "Faculty Housing")
             {
                 slabCount = 0;                
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Faculty Housing", null);                
             }
             if (building == "Girls Hostel AB")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Girls Hostel", "AB");
             }
             if (building == "Girls Hostel BC")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount,"Girls Hostel", "BC");
             }
             if (building == "Boys Hostel A")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "A");
             }
             if (building == "Boys Hostel BC")
             {
                 slabCount = 0;
-                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "BC");
             }          
+        }
+    }
+
+    protected void slabText(int slabCount)
+    {
+        if (slabCount == 1)
+        {
+            slab2Txt = "00:00Hrs - 24:00Hr";
+        }
+        if (slabCount == 3)
+        {
+            slab1Txt = "00:00Hrs - 06:00Hrs";
+            slab2Txt = "06:00Hrs - 15:00Hrs";
+            slab3Txt = "15:00Hrs - 24:00Hrs";
+        }
+        if (slabCount == 4)
+        {
+            slab1Txt = "00:00Hrs - 06:00Hrs";
+            slab2Txt = "06:00Hrs - 17:00Hrs";
+            slab3Txt = "17:00Hrs - 23:00Hrs";
+            slab4Txt = "23:00Hrs - 24:00Hrs";
         }
     }
 
@@ -358,6 +380,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
     protected void Get_Slab_Data(List<int> selectDateList, int slabCount, string buildingName, string block_wing)
     {
         Time_Division(selectDateList, slabCount, out slab11, out slab22, out slab33, out slab44);
+        slabText(slabCount);
         if (slabCount > 0)
         {
             Time_Bound_Limit(slab22, out frDateArray, out toDateArray);

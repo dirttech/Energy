@@ -55,6 +55,12 @@
     var slab3En = <% =new JavaScriptSerializer().Serialize(slab3Val)%>;
     var slab1En = <% =new JavaScriptSerializer().Serialize(slab1Val)%>;
     var slab4En = <% =new JavaScriptSerializer().Serialize(slab4Val)%>;
+
+    var slab1Text=<%=new JavaScriptSerializer().Serialize(slab1Txt)%>;
+    var slab2Text=<%=new JavaScriptSerializer().Serialize(slab2Txt)%>;
+    var slab3Text=<%=new JavaScriptSerializer().Serialize(slab3Txt)%>;
+    var slab4Text=<%=new JavaScriptSerializer().Serialize(slab4Txt)%>;
+
     try
     {
         
@@ -195,21 +201,21 @@
                     enabled: false
                 },
                series: [{
-                name: 'Normal Hours',
+                name: 'Normal Hours('+slab2Text+')',
                 data: barEnergy
             },
             {
-                name: 'Peak Hours',
+                name: 'Peak Hours('+slab3Text+')',
                 data: slab3En,
                 color: 'maroon'
             },
             {
-                name: 'Off-Peak Hours',
+                name: 'Off-Peak Hours('+slab1Text+')',
                 data: slab1En,
                 color: 'black'
             },
             {
-                name: 'Off-Peak Hours',
+                name: 'Off-Peak Hours('+slab4Text+')',
                 data: slab4En,
                  color: 'black'
             }]
