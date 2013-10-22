@@ -8,7 +8,7 @@
    position:relative;
     background-color:transparent;
    width:21.7em;
-  
+  margin:5px;
    cursor:pointer;
    
     
@@ -135,22 +135,19 @@ h2
             <img src="images/homeLogoAll.png" height="220px" style="png-shadow: 5px 5px 5px #222;"/></td>
               <td style="font-family:@Batang;color:Black; text-transform:none; vertical-align:top; padding-top:10px; padding-left:10px;">
 
-             
-
-              <div style="background-color:transparent; width:210px; height:40px; position:absolute; right:0px; " class="cutDiv2"></div>
-              <div style="background-color:#8B4513; width:170px; height:40px; position:absolute; right:0px; " >
-              &nbsp;&nbsp;<a href="Register.aspx" class="sideA">Register</a>
+              <div style=" position:absolute; right:10px; text-align:left;"  >
+              <a href="admin/adminLogin.aspx" ><img alt="Admin Login" title="Admin Login" height="75px" src="images/icons/admin.png" /></a>
               </div>
 
-              <div style="background-color:transparent; width:260px; height:40px; position:absolute; right:0px; top:130px;" class="cutDiv3"></div>
-              <div style="background-color:#D2B48C; width:220px; height:40px; position:absolute; right:0px; top:130px;" >
-              <a href="Tips.aspx" class="sideA">Energy Saving Tips</a>
+              <div style="position:absolute; right:10px; top:155px;" >
+              <a href="Register.aspx" ><img alt="Register Here" title="Register Here" height="75x" src="images/icons/register.png" /></a>
               </div>
 
-               <div style="background-color:transparent; width:160px; height:40px; position:absolute; right:0px; top:185px;" class="cutDiv1"></div>
-              <div style="background-color:#F0E68C; width:170px; height:40px; position:absolute; right:0px; text-align:left; top:185px;"  >
-              <a href="admin/adminLogin.aspx" class="sideA">Admin</a>
+             <div style=" position:absolute; right:10px;  top:235px;" >
+              <a href="Tips.aspx"><img alt="Energy Saving Tips" title="Energy Saving Tips" height="75px" src="images/icons/smalltips.png" /></a>
               </div>
+
+               
 
           </td>
            
