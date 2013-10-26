@@ -39,6 +39,7 @@
     <li><a class="navy" onclick="pageLoad('ImportBuildingSchema.aspx')">Import Building Schema</a></li>
     <li><a class="navy" onclick="pageLoad('AprooveRegistrationRequests.aspx')">Confirm Registration</a></li>
     <li><a class="navy" onclick="pageLoad('AddEnergyTips.aspx')">Energy Saving Tips</a></li>
+        <li><a class="navy" onclick="pageLoad('BillConfiguration.aspx')">Bill Settings</a></li>
    <li><a class="navy" onclick="pageLoad('CreateUser.aspx')" style="display:none;">Create User</a></li>
     <li><a class="navy" onclick="pageLoad('AssignMeter.aspx')" style="display:none;">Assign Meter</a></li>
     <li><a class="navy" onclick="pageLoad('ChangeMeter.aspx')" style="display:none;" >Change Meter</a></li>

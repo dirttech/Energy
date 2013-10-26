@@ -92,7 +92,15 @@ using App_Code.BillCalculate;
 
                 CalculateBill billObj = Calculate_Bill.BillCalculator(fromDate, toDate, userData.Apartment, meter_1, meter_2,mode, meter_1Readings, meter_2Readings);
                 string slabTxt="";
-                if (billObj.TotalUnits > billObj.SlabSize)
+                if (billObj.ApplicableSlabs > 0)
+                {
+                    double tempUnits = billObj.TotalUnits;
+                    for (int gh = 0; gh < billObj.ApplicableSlabs; gh++)
+                    {
+                        slabTxt =slabTxt+ billObj.SlabSizeArr[gh].ToString() + " X " + billObj.SlabChargeArr[gh].ToString() + " = " + billObj.SlabPriceArr[gh].ToString() + "<br />";
+                    }
+                }
+                /*if (billObj.TotalUnits > billObj.SlabSize)
                 {
                     if (billObj.TotalUnits > (2 * billObj.SlabSize))
                     {
@@ -110,7 +118,7 @@ using App_Code.BillCalculate;
                 {
                     slabTxt = slabTxt + "<br />" + (billObj.TotalUnits).ToString() + " X " + billObj.Slab1Charge.ToString() + " = " + billObj.Slab1Price.ToString();
                 }
-                     
+                */ 
                             if (meter_1 != null)
                             {
                                 meterType1.Text = meter_1;
