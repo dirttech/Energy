@@ -32,7 +32,7 @@
    
     <form id="form1" runat="server">
         <div>
-            <div class="HeadingLeftTop" style="opacity: 0.9; width: 300px">
+            <div class="HeadingLeftTop" style="opacity: 0.9; width: 320px">
                 <label id="Heading" runat="server" style="font-size: x-large;">Bill Settings</label>
                 <label id="subHeading" runat="server" style="font-size: small;">All the Taxes/Charges should be "Monthly".</label>
             </div>
@@ -117,22 +117,51 @@
             </tr>
             <tr>
                 <td colspan="3">
-                <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" Visible="false">
-                         <Columns>
-                            <asp:BoundField DataField="ID" HeaderText="S.No." ReadOnly="True" SortExpression="ID"></asp:BoundField>
-                            <asp:BoundField DataField="fixed_charge" HeaderText="Fixed Charge"></asp:BoundField>
-                            <asp:BoundField DataField="adj_charge" HeaderText="Adj. Charge"></asp:BoundField>
-                            <asp:BoundField DataField="def_charge" HeaderText="Def. Charge"></asp:BoundField>
-                            <asp:BoundField DataField="electicity_tax" HeaderText="Electricity Tax"></asp:BoundField>
-                            <asp:BoundField DataField="slab_size" HeaderText="Slab Size(ALL)"></asp:BoundField>
-                            <asp:BoundField DataField="slab_price" HeaderText="Slab Price(ALL)"></asp:BoundField>
-                            <asp:BoundField DataField="applicable_date" HeaderText="Applicable Date"></asp:BoundField>
-                            <asp:CommandField ShowSelectButton="True" />
+                 <div class="HeadingLeftTop" style="opacity: 0.9; width: 320px">
+                <label id="Label1" runat="server" style="font-size: x-large;">Set previous configuration</label>
+                </div>
+                    <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" 
+                        AutoGenerateColumns="False" DataKeyNames="ID" BackColor="White" 
+                        BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" 
+                        ForeColor="Black" GridLines="Horizontal" 
+                        onselectedindexchanged="GridView1_SelectedIndexChanged">
+                        <Columns>
+                            <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" 
+                                ReadOnly="True" SortExpression="ID" />
+                            <asp:BoundField DataField="fixed_charge" HeaderText="Fixed Charge" 
+                                SortExpression="fixed_charge" />
+                            <asp:BoundField DataField="adj_charge" HeaderText="Adj Charge" 
+                                SortExpression="adj_charge" />
+                            <asp:BoundField DataField="def_charge" HeaderText="Def Charge" 
+                                SortExpression="def_charge" />
+                            <asp:BoundField DataField="electicity_tax" HeaderText="Electricity Tax" 
+                                SortExpression="electicity_tax" />
+                            <asp:BoundField DataField="slab_size" HeaderText="Slab Size" 
+                                SortExpression="slab_size" />
+                            <asp:BoundField DataField="slab_price" HeaderText="Slab Price" 
+                                SortExpression="slab_price" />
+                            <asp:BoundField DataField="applicable_date" HeaderText="Applied Date" 
+                                SortExpression="applicable_date" />
+                            <asp:CommandField SelectText="Set" ShowSelectButton="True">
+                            <ControlStyle ForeColor="#0066FF" />
+                            </asp:CommandField>
                         </Columns>
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                        <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                        <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                        <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                        <SortedDescendingHeaderStyle BackColor="#242121" />
                     </asp:GridView>
+                    <br />
+                    <asp:Label ID="msg" runat="server" ForeColor="Blue"></asp:Label>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>" 
-            ProviderName="<%$ ConnectionStrings:BillingAppConnectionString.ProviderName %>" SelectCommand="SELECT ID,fixed_charge,adj_charge,def_charge,electicity_tax,slab_size,slab_price,applicable_date FROM bill_settings"></asp:SqlDataSource>
+                        ConnectionString="<%$ ConnectionStrings:BillingAppConnectionString %>" 
+                        ProviderName="<%$ ConnectionStrings:BillingAppConnectionString.ProviderName %>" 
+                        SelectCommand="SELECT ID, fixed_charge, adj_charge, def_charge, electicity_tax, slab_size, slab_price, applicable_date FROM  billing.bill_settings">
+                    </asp:SqlDataSource>
                 </td>
             </tr>
         </table>

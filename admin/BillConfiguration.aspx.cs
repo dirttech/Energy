@@ -24,12 +24,13 @@ public partial class admin_BillConfiguration : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CheckLogin();
+        fromDate.Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
     }
     protected void SaveConfiguration_Click(object sender, EventArgs e)
     {
         BillConfigure billobj = new BillConfigure();
 
-        billobj.ApplicableDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+        billobj.ApplicableDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss",
                                            System.Globalization.CultureInfo.InvariantCulture);
         billobj.FixedCharge = Convert.ToDouble(fixedCharge.Text);
         billobj.AdjCharge = Convert.ToDouble(adjCharge.Text);
@@ -80,6 +81,28 @@ public partial class admin_BillConfiguration : System.Web.UI.Page
       
 
 
+        }
+    }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        BillConfigure latex = new BillConfigure();
+        latex.FixedCharge = Convert.ToDouble(GridView1.SelectedRow.Cells[1].Text);
+        latex.AdjCharge = Convert.ToDouble(GridView1.SelectedRow.Cells[2].Text);
+        latex.DefCharge = Convert.ToDouble(GridView1.SelectedRow.Cells[3].Text);
+        latex.ElectricityTax = Convert.ToDouble(GridView1.SelectedRow.Cells[4].Text);
+        latex.SlabSize = GridView1.SelectedRow.Cells[5].Text;
+        latex.SlabPrice = GridView1.SelectedRow.Cells[6].Text;
+        latex.ApplicableDate = DateTime.Now;
+
+        bool sts = Bill_Configure.InsertConfiguration(latex);
+        if (sts == true)
+        {
+            msg.Text = "Configuration Set!";
+            GridView1.DataBind();
+        }
+        else
+        {
+            msg.Text = "Something went wrong!";
         }
     }
 }
