@@ -20,9 +20,17 @@
 
 </script>
 
-     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.customSelect.js"></script>
     <script type="text/javascript">
+        function Annonating(obj)
+        {
+            document.getElementById('<%=frmTime.ClientID%>').setAttribute("class", "NotAnnonated");
+             document.getElementById('<%=tTime.ClientID%>').setAttribute("class", "NotAnnonated");
+             obj.setAttribute("class", "Annonated");
+        }
+
         jQuery(document).ready(function ($) {
 
             $('#options').click(function () {
@@ -39,39 +47,55 @@
 </script>
     <link rel="shortcut icon" href="../images/dashboard_icon.png" />
     <style type="text/css">
-      #optionsDiv
-    {
-      display:none;  
-      text-decoration:none;
-      border-radius:2px;
-      -webkit-box-shadow: 0px 0px 8px 0px #000000;
--moz-box-shadow: 0px 0px 8px 0px #000000;
-box-shadow: 0px 0px 8px 0px #000000;
- text-align:center;
- vertical-align:bottom;
- color:#1a9cc8;
- line-height:20px;
-    }
-      hr
-    {
-        margin:0px;
-    }
-       a
-      {
-          font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-          text-decoration:none;
-      }
-        a:hover
+        #optionsDiv
         {
-             text-decoration:none;
+            display: none;
+            text-decoration: none;
+            border-radius: 2px;
+            -webkit-box-shadow: 0px 0px 8px 0px #000000;
+            -moz-box-shadow: 0px 0px 8px 0px #000000;
+            box-shadow: 0px 0px 8px 0px #000000;
+            text-align: center;
+            vertical-align: bottom;
+            color: #1a9cc8;
+            line-height: 20px;
         }
-    .topBarNavigation a:hover
-{
-  font-size: x-large;   
-  color:White;
-  text-decoration:none;
-     
-}
+
+        hr
+        {
+            margin: 0px;
+        }
+
+        a
+        {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            text-decoration: none;
+        }
+
+       a:hover
+       {
+            text-decoration: none;
+       }
+        .topBarNavigation a:hover
+        {
+            font-size: x-large;
+            color: White;
+            text-decoration: none;
+        }
+        .Annonated
+        {
+            background-color: pink !important;
+        }
+
+        .NotAnnonated
+        {
+            background-color: white;
+            cursor: pointer !important;
+        }
+        p
+        {
+            color: white;
+        }
     </style>
 
     <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
@@ -103,7 +127,12 @@ box-shadow: 0px 0px 8px 0px #000000;
 	global: {
 		useUTC: false
 	}
-});
+                });
+                $('#draggable').draggable();
+                $('#closeButton').click(function() {
+                    $('#draggable').fadeOut();
+                    $('#msg').text('');
+                });
             $('#container').highcharts({
             chart: {
                 type: 'area',
@@ -112,10 +141,10 @@ box-shadow: 0px 0px 8px 0px #000000;
             },
             title: {
                 text: 'Click and Drag to Zoom in'
-               
+                
             },
             subtitle: {
-                text: ''              
+                text: 'Click on certain point to annotate'              
             },
             xAxis: {
              
@@ -133,6 +162,18 @@ box-shadow: 0px 0px 8px 0px #000000;
             },
             plotOptions: {
                 area: {
+                    cursor:'pointer',
+                    point:{events:{click:function(){
+                        $('#draggable').fadeIn();
+                        var notAnnonated=$('.NotAnnonated').attr('id');
+                        var annonated= $('.Annonated').attr('id');
+                       
+                        $('#'+annonated).val(this.x/1000);
+                        $('#'+notAnnonated).attr('class','Annonated');
+                        $('#'+annonated).attr('class','NotAnnonated');
+                        $('#'+notAnnonated).attr('readonly','readonly');
+                        $('#'+annonated).attr('readonly','readonly');
+                    }}},
                     marker: {
                         enabled: false,
                         symbol: 'circle',
@@ -165,6 +206,67 @@ box-shadow: 0px 0px 8px 0px #000000;
 <script src="../Scripts/high_charts/js/highcharts.js"></script>
 <script src="../Scripts/high_charts/js/modules/exporting.js"></script>
     <form id="form1" runat="server" style="margin:0px;">
+
+           <div id="draggable" runat="server" style="-webkit-border-radius:8px;display:none;	border-radius:8px; z-index:100; background-color:#0d96c5; cursor:move;  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);position:absolute; -khtml-user-drag: element; left:800px; top:150px; padding:10px;" draggable="true">
+     <img id="closeButton" runat="server" style="position:absolute; top:15px; right:15px; height:20px; cursor:pointer;" src="~/images/closeButton.png" alt="close" />
+        <table>
+            <tr>
+                <td colspan="2"><h3>Annotate Device</h3>
+                    <p id="pmesg" runat="server">Select seconed point on graph.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:TextBox ID="frmTime" name="frmTime" runat="server" placeholder="From Time" class="Annonated" onClick="return Annonating(this)" ViewStateMode="Enabled"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:TextBox ID="tTime" name="tTime" runat="server" placeholder="To Time" class="NotAnnonated" onClick="return Annonating(this)"  ViewStateMode="Enabled"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:DropDownList ID="deviceList" runat="server">
+                    </asp:DropDownList>
+                </td>
+                <td><p>Not in list? Click to
+                    <asp:LinkButton ID="addCustom" runat="server" ForeColor="Black" OnClick="addCustom_Click" >Add new device</asp:LinkButton></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" >
+                    <table Visible="False" runat="server" id="newDeviceTable">
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="newDeviceText" placeholder="New Device Name" runat="server"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="newDeviceText" ErrorMessage="*Required" Font-Size="Larger" ForeColor="Pink"></asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:TextBox ID="newDeviceDesc" placeholder="Description. Please explain this device." runat="server" TextMode="MultiLine"></asp:TextBox>
+                            </td>
+                            <td>
+                               
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><asp:Label ID="msg" runat="server" ForeColor="yellow"></asp:Label></td>
+                <td>
+                    <asp:Button ID="annonateButton" runat="server" Text="Annotate" CssClass="customButton" OnClick="annotateButton_Click"/>
+                </td>
+            </tr>
+        </table>
+     
+    </div>
 
      <div id="navigationTop">
      <a href="front.aspx">Home</a>

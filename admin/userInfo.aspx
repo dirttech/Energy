@@ -44,6 +44,7 @@
     <li><a class="navy" onclick="pageLoad('AssignMeter.aspx')" style="display:none;">Assign Meter</a></li>
     <li><a class="navy" onclick="pageLoad('ChangeMeter.aspx')" style="display:none;" >Change Meter</a></li>
     <li><a class="navy" onclick = "pageLoad('ResetPassword.aspx')">Reset Password</a></li>
+        <li><a class="navy" onclick="pageLoad('AddAnnonateDevice.aspx')">Add Annonate Device</a></li>
   </ul>
 
     </div>

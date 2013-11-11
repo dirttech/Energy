@@ -7,6 +7,8 @@ using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
 using System.Web.Script.Serialization;
 using WebAnalytics;
+using App_Code.AnnonationCategories;
+using App_Code.AnnotateDevice;
 
 public partial class Users_PowerConsumption : System.Web.UI.Page
 {
@@ -33,6 +35,11 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             nameTitle.InnerText = "Welcome " + Session["UserName"].ToString();
         }
     }
+    protected void addCustom_Click(object sender, EventArgs e)
+    {
+        newDeviceTable.Visible = true;
+        draggable.Style.Add("display", "block");
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         CheckLogin();
@@ -40,6 +47,8 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
         {
             try
             {
+                Populate_DeviceList();
+
                 WebAnalytics.LoggerService LG = new LoggerService();
 
                 LoggingEvent logObj = new LoggingEvent();
@@ -137,5 +146,71 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
         }
         Session["UserName"] = null;
         Response.Redirect("~/Loggin.aspx");
+    }
+    protected void annotateButton_Click(object sender, EventArgs e)
+    {
+
+        if (newDeviceTable.Visible == false)
+        {
+            DeviceAnnotations annonateObj = new DeviceAnnotations();
+            annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
+            annonateObj.ToTime = Convert.ToInt32(tTime.Text);
+            annonateObj.MeterId = 1;
+            annonateObj.building = Session["Building"].ToString();
+            annonateObj.Device = deviceList.SelectedItem.Text;
+            bool stat = Device_Annotations.InsertAnnotations(annonateObj);
+            if (stat == true)
+            {
+                msg.Text = "Annotation Completed!";
+                frmTime.Text = ""; tTime.Text = "";
+            }
+            else
+            {
+                msg.Text = "Something went wrong!";
+            }
+        }
+        else
+        {
+            DeviceCategories deviceObj = new DeviceCategories();
+            deviceObj.CreatedBy = Session["UserID"].ToString();
+            deviceObj.DeviceName = newDeviceText.Text;
+            deviceObj.Description = newDeviceDesc.Text;
+            bool sts = Device_Categories.InsertAnnonations(deviceObj);
+            if (sts == true)
+            {
+                msg.Text = "Something went wrong with annotation! Device Added.";
+                DeviceAnnotations annonateObj = new DeviceAnnotations();
+                annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
+                annonateObj.ToTime = Convert.ToInt32(tTime.Text);
+                annonateObj.MeterId = 1;
+                annonateObj.building = Session["Building"].ToString();
+                annonateObj.Device = newDeviceText.Text;
+                bool stc = Device_Annotations.InsertAnnotations(annonateObj);
+                if (stc == true)
+                {
+                    msg.Text = "Annotation Completed!";
+                    newDeviceTable.Visible = false;
+                    frmTime.Text = ""; tTime.Text = "";
+                }
+                Populate_DeviceList();
+                
+            }
+            else
+            {
+                msg.Text = "Something went wrong!";
+            }
+        }
+    }
+    protected void Populate_DeviceList()
+    {
+        deviceList.Items.Clear();
+        List<DeviceCategories> deviceListing = Device_Categories.GetAnnonationCategories(Session["UserID"].ToString());
+        if (deviceListing != null)
+        {
+            for (int i = 0; i < deviceListing.Count; i++)
+            {
+                deviceList.Items.Add(deviceListing[i].DeviceName);
+            }
+        }
     }
 }
