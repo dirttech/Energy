@@ -149,7 +149,8 @@
     <li><a  onclick="scrollTo('<%=boy.ClientID %>')">Boys Hostel</a></li>
     <li><a  onclick="scrollTo('<%=acd.ClientID %>')">Academic Building</a></li>
      <li><a  onclick="scrollTo('<%=lib.ClientID %>')">Library</a></li>
-     <li><a  onclick="scrollTo('<%=mess.ClientID %>')">Mess Building</a></li>
+     <li><a  onclick="scrollTo('<%=mess.ClientID %>')">Mess & Dining</a></li>
+          <li><a  onclick="scrollTo('<%=serv.ClientID %>')">Service Block</a></li>
     
     </ul>
     </div>
@@ -193,6 +194,9 @@
                
                </div>
                 <div id="mess" runat="server">
+               
+               </div>
+                <div id="serv" runat="server">
                
                </div>
             </div>

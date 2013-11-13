@@ -994,7 +994,7 @@ namespace App_Code.FetchingEnergySmap
             value = 0; time = 0;          
             try
             {
-                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param + "' AND Metadata/Location/Building='"+building+"'";
+                stringData = "select data before now where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param + "' and Metadata/Location/Building='"+building+"'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -1117,7 +1117,7 @@ namespace App_Code.FetchingEnergySmap
             flat = ""; block = ""; type = "";
             try
             {
-                stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing, Metadata/Extra/FlatNumber, Metadata/Extra/Block, Metadata/Extra/Type where Metadata/Extra/MeterID = '" + meterID + "' AND  Metadata/Location/Building='"+build+"'";
+                stringData = "select Metadata/Location/Building, Metadata/Location/Floor, Metadata/Extra/Wing, Metadata/Extra/FlatNumber, Metadata/Extra/Block, Metadata/Extra/Type where Metadata/Extra/MeterID = '" + meterID + "' and  Metadata/Location/Building='"+build+"'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();

@@ -24,6 +24,7 @@ public partial class MeterStatus : System.Web.UI.Page
         DrawAcademic();
         DrawLibrary();
         DrawMess();
+        DrawServiceBlock();
     }
 
     protected void DrawFaculty()
@@ -377,7 +378,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
         HtmlGenericControl heading = new HtmlGenericControl("h1");
 
-        heading.InnerHtml = "Mess Building";
+        heading.InnerHtml = "Mess & Dining";
         facultyDiv.Controls.Add(heading);
 
         FetchEnergyDataS_Map.ListingFloors(building, out allFloors);
@@ -424,6 +425,69 @@ public partial class MeterStatus : System.Web.UI.Page
 
         }
             mess.Controls.Add(facultyDiv);
+        }
+
+    }
+
+    protected void DrawServiceBlock()
+    {
+        serv.Controls.Clear();
+        string building = "Service Block";
+        string[] allFloors;
+
+        HtmlGenericControl facultyDiv = new HtmlGenericControl("div");
+        facultyDiv.ID = "servDiv";
+        facultyDiv.Attributes.Add("class", "containers");
+
+        HtmlGenericControl heading = new HtmlGenericControl("h1");
+
+        heading.InnerHtml = "Service Block";
+        facultyDiv.Controls.Add(heading);
+
+        FetchEnergyDataS_Map.ListingFloors(building, out allFloors);
+        var allFloor = allFloors.OrderBy(o => int.Parse(o.ToString()));
+        foreach (string kfloor in allFloor)
+        {
+            string[] allMeters;
+            FetchEnergyDataS_Map.ListingMeter(building, kfloor, out allMeters);
+            bool status = false;
+
+            if (allMeters != null)
+            {
+                HtmlGenericControl subHeading = new HtmlGenericControl("h4");
+                subHeading.InnerHtml = "Floor: " + kfloor;
+                facultyDiv.Controls.Add(subHeading);
+
+
+                for (int i = 0; i < allMeters.Length; i++)
+                {
+                    FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+
+                    HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
+                    meterIdSpan.Attributes.Add("class", "meterSpan");
+
+                    Button meterIdLabel = new Button();
+                    meterIdLabel.ID = "meterTickMS" + i.ToString() + kfloor;
+                    meterIdLabel.Text = allMeters[i];
+                    meterIdLabel.Attributes.Add("build", building);
+
+                    //HtmlGenericControl meterIdLabel = new HtmlGenericControl("h2");
+                    //meterIdLabel.InnerHtml = allMeters[i];
+                    meterIdLabel.Attributes.Add("val", allMeters[i]);
+                    meterIdLabel.Style.Add("background-color", "red");
+                    meterIdLabel.Attributes.Add("class", "meterLabel");
+                    meterIdLabel.Click += new EventHandler(LastSeenAt);
+
+                    if (status == true)
+                    {
+                        meterIdLabel.Style.Add("background-color", "green");
+                    }
+                    meterIdSpan.Controls.Add(meterIdLabel);
+                    facultyDiv.Controls.Add(meterIdSpan);
+                }
+
+            }
+            serv.Controls.Add(facultyDiv);
         }
 
     }
