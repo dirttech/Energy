@@ -35,192 +35,195 @@
 
  <script type="text/javascript">
   
-    var energyData = <% =new JavaScriptSerializer().Serialize(slab2Val)%>;
+     var energyData = <% =new JavaScriptSerializer().Serialize(slab2Val)%>;
     
-    var powerData = <% =new JavaScriptSerializer().Serialize(energyArray)%>;
-    var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
-    var timeStamps=<%=new JavaScriptSerializer().Serialize(timeSt) %>;
+     var powerData = <% =new JavaScriptSerializer().Serialize(energyArray)%>;
+     var sD = <%=new JavaScriptSerializer().Serialize(startDate)%>;
+     var timeStamps=<%=new JavaScriptSerializer().Serialize(timeSt) %>;
 
-    var units=<%=new JavaScriptSerializer().Serialize(unit)%>;
-    var dataType=<%=new JavaScriptSerializer().Serialize(plotType) %>;
+     var units=<%=new JavaScriptSerializer().Serialize(unit)%>;
+     var dataType=<%=new JavaScriptSerializer().Serialize(plotType) %>;
 
-    var startDate=sD*1000;
+     var startDate=sD*1000;
 
-    var intervals = <%= new JavaScriptSerializer().Serialize(interval) %> ;
+     var intervals = <%= new JavaScriptSerializer().Serialize(interval) %> ;
     var build = <%= new JavaScriptSerializer().Serialize(building) %> ;
-    intervals=intervals*0.55;
+     intervals=intervals*0.55;
 
-    var barTime=<%=new JavaScriptSerializer().Serialize(energyTimeSeries)%>;
+     var barTime=<%=new JavaScriptSerializer().Serialize(energyTimeSeries)%>;
     var barEnergy=<%=new JavaScriptSerializer().Serialize(slab2Val)%>;
-    var slab3En = <% =new JavaScriptSerializer().Serialize(slab3Val)%>;
-    var slab1En = <% =new JavaScriptSerializer().Serialize(slab1Val)%>;
-    var slab4En = <% =new JavaScriptSerializer().Serialize(slab4Val)%>;
+     var slab3En = <% =new JavaScriptSerializer().Serialize(slab3Val)%>;
+     var slab1En = <% =new JavaScriptSerializer().Serialize(slab1Val)%>;
+     var slab4En = <% =new JavaScriptSerializer().Serialize(slab4Val)%>;
 
-    var slab1Text=<%=new JavaScriptSerializer().Serialize(slab1Txt)%>;
-    var slab2Text=<%=new JavaScriptSerializer().Serialize(slab2Txt)%>;
-    var slab3Text=<%=new JavaScriptSerializer().Serialize(slab3Txt)%>;
-    var slab4Text=<%=new JavaScriptSerializer().Serialize(slab4Txt)%>;
+     var slab1Text=<%=new JavaScriptSerializer().Serialize(slab1Txt)%>;
+     var slab2Text=<%=new JavaScriptSerializer().Serialize(slab2Txt)%>;
+     var slab3Text=<%=new JavaScriptSerializer().Serialize(slab3Txt)%>;
+     var slab4Text=<%=new JavaScriptSerializer().Serialize(slab4Txt)%>;
 
-    try
-    {
+     try
+     {
         
-        var readings=new Array(powerData.length);
-        for(var i=0;i<powerData.length;i++)
-        {
-            readings[i]=new Array(2);
-            readings[i][0]=timeStamps[i]*1000;
-            readings[i][1]=powerData[i];
-        }
-        if(readings.length<=1)
-        {
-            alert("Sorry! We don't have data for your selection.");
-        }
-        barEnergy.splice(barEnergy.length-1,1);    
-        slab1En.splice(slab1En.length-1,1);
-//        slab3En.splice(slab3En.length-1,1);
-//        slab4En.splice(slab4En.length-1,1);
+         var readings=new Array(powerData.length);
+         for(var i=0;i<powerData.length;i++)
+         {
+             readings[i]=new Array(2);
+             readings[i][0]=timeStamps[i]*1000;
+             readings[i][1]=powerData[i];
+         }
+         if(readings.length<=1)
+         {
+             alert("Sorry! We don't have data for your selection.");
+         }
+         barEnergy.splice(barEnergy.length-1,1);    
+         slab1En.splice(slab1En.length-1,1);
+         //        slab3En.splice(slab3En.length-1,1);
+         //        slab4En.splice(slab4En.length-1,1);
      }
      catch(exp)
      {
 
      }
    
-           jQuery(document).ready(function ($) {
-                    Highcharts.setOptions({
-	                    global: {
-		                    useUTC: false
-	                    }
-            });
-            $('#container').highcharts({
-            chart: {
-                type: 'line',
+     jQuery(document).ready(function ($) {
+         Highcharts.setOptions({
+             global: {
+                 useUTC: false
+             }
+         });
+         $('#container').highcharts({
+             chart: {
+                 type: 'line',
                  zoomType: 'x',
-                spacingRight: 20
-            },
-            title: {
-                text: build,               
-            },
-            subtitle: {
-                text: 'Click and Drag to Zoom in'
+                 spacingRight: 20
+             },
+             title: {
+                 text: build,               
+             },
+             subtitle: {
+                 text: 'Click and Drag to Zoom in'
               
-            },
-            xAxis: {
+             },
+             xAxis: {
              
-               type:'datetime',
+                 type:'datetime',
               
-            },
-            yAxis: {
-                title: {
+             },
+             yAxis: {
+                 title: {
                     
-                    text: dataType+"("+units+")"
-                }
-            },
-            tooltip: {
-                valueSuffix: units
-            },
-            plotOptions: {
-                line: {
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
-                        }
-                    }
-                }
-            },
-            credits:false,
-            series: [
-            {
-                name:  dataType+"("+units+")",
-                data: readings
-            }
+                     text: dataType+"("+units+")"
+                 }
+             },
+             tooltip: {
+                 valueSuffix: units
+             },
+             plotOptions: {
+                 line: {
+                     allowPointSelect: true ,
+                     cursor:'pointer',
+                   
+                     marker: {
+                         enabled: false,
+                         symbol: 'circle',                       
+                         radius: 2,
+                         states: {
+                             hover: {
+                                 enabled: true
+                             }
+                         }
+                     }
+                 }
+             },
+             credits:false,
+             series: [
+             {
+                 name:  dataType+"("+units+")",
+                 data: readings
+             }
             
-            ]
-        });
+             ]
+         });
 
          $('#container2').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Energy Consumption'
-                },
+             chart: {
+                 type: 'column'
+             },
+             title: {
+                 text: 'Energy Consumption'
+             },
 
-                subtitle: {
-                    text: ''
-                },
-                xAxis: {
-                     type: 'datetime',
-                     categories: barTime
+             subtitle: {
+                 text: ''
+             },
+             xAxis: {
+                 type: 'datetime',
+                 categories: barTime
                 
-                },
-                yAxis: {
+             },
+             yAxis: {
                     
-                    title: {
-                        text: 'Energy(Kilowatt Hrs)',
-                        align: 'high'
-                    },
-                    labels: {
-                        rotation: -90,
-                    align: 'right',
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Verdana, sans-serif'
-                    }
-                    }
-                },
-                tooltip: {
-                    valueSuffix: ' KWh'
-                },
-                plotOptions: {
-                    column: {
-                        dataLabels: {
-                    enabled: true,
-                    rotation: -90,
-                    color: '#FFFFFF',
-                    align: 'justify',
-                    x: 4,
-                    y: 10,
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Verdana, sans-serif',
-                        textShadow: '0 0 3px black'
-                    }
-                    }
-                    },
-                     series: {
-                    stacking:"normal"
-                    }
-                },
+                 title: {
+                     text: 'Energy(Kilowatt Hrs)',
+                     align: 'high'
+                 },
+                 labels: {
+                     rotation: -90,
+                     align: 'right',
+                     style: {
+                         fontSize: '13px',
+                         fontFamily: 'Verdana, sans-serif'
+                     }
+                 }
+             },
+             tooltip: {
+                 valueSuffix: ' KWh'
+             },
+             plotOptions: {
+                 column: {
+                     dataLabels: {
+                         enabled: true,
+                         rotation: -90,
+                         color: '#FFFFFF',
+                         align: 'justify',
+                         x: 4,
+                         y: 10,
+                         style: {
+                             fontSize: '13px',
+                             fontFamily: 'Verdana, sans-serif',
+                             textShadow: '0 0 3px black'
+                         }
+                     }
+                 },
+                 series: {
+                     stacking:"normal"
+                 }
+             },
                 
-                credits: {
-                    enabled: false
-                },
-               series: [{
-                name: 'Normal Hours('+slab2Text+')',
-                data: barEnergy
-            },
-            {
-                name: 'Peak Hours('+slab3Text+')',
-                data: slab3En,
-                color: 'maroon'
-            },
-            {
-                name: 'Off-Peak Hours('+slab1Text+')',
-                data: slab1En,
-                color: 'black'
-            },
-            {
-                name: 'Off-Peak Hours('+slab4Text+')',
-                data: slab4En,
-                 color: 'black'
-            }]
-            });
-    });
+             credits: {
+                 enabled: false
+             },
+             series: [{
+                 name: 'Normal Hours('+slab2Text+')',
+                 data: barEnergy
+             },
+          {
+              name: 'Peak Hours('+slab3Text+')',
+              data: slab3En,
+              color: 'maroon'
+          },
+          {
+              name: 'Off-Peak Hours('+slab1Text+')',
+              data: slab1En,
+              color: 'black'
+          },
+          {
+              name: 'Off-Peak Hours('+slab4Text+')',
+              data: slab4En,
+              color: 'black'
+          }]
+         });
+     });
    
    
     </script>
@@ -314,7 +317,11 @@
         <hr />
                 <table >
                     <tr>
-                        <td align="right">
+                        <td align="right">Meter Type &nbsp;
+                            <asp:DropDownList ID="loadType" runat="server">
+                                <asp:ListItem Value="Building Total Mains">Mains</asp:ListItem>
+                                <asp:ListItem Value="Building Total Backup">Light Backup</asp:ListItem>
+                            </asp:DropDownList>
                             <asp:DropDownList ID="months" runat="server">
                                 <asp:ListItem Value="1">Jan</asp:ListItem>
                                 <asp:ListItem Value="2">Feb</asp:ListItem>
@@ -337,6 +344,7 @@
                             </asp:DropDownList>
                             <asp:Button ID="plotBar" runat="server" style="margin-bottom:13px;" Text="Plot" class="customButton" 
                                 onclick="plotBar_Click" />
+                            <a href="CampusDashboard.aspx" style="">Back</a>
                             </td>
                     </tr>
                     <tr>

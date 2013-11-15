@@ -49,7 +49,12 @@ public partial class admin_dashboard : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CheckLogin();       
+        CheckLogin();
+        if (IsPostBack == false)
+        {
+            //fromDate.Value = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy HH:mm:ss");
+            //toDate.Value = DateTime.Today.ToString("dd/MM/yyyy HH:mm:ss");
+        }
        // Plot_ALL_Graph();
     }
 

@@ -35,54 +35,36 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //Response.Write(Session["Building-Selected"]);
-        
-
-        if (building == "Faculty Housing")
-        {
-            meterList.Enabled = true;
-        }
-        else
-        {
-            meterList.Enabled = false;
-        }
-
+       
         if (IsPostBack == false)
         {
             months.SelectedValue = DateTime.Now.Month.ToString();
             if (Session["Building-Selected"] != null)
             {
-
                 building = Session["Building-Selected"].ToString();
                 Plot_Building_Energy();
             }
             else
             {
                 Response.Write("<script>alert('Sorry! This building is not registered yet.');</script>");
-
             }
             paramList.SelectedValue = criteria;
             meterList.SelectedValue = meter_type;
             unit = paramList.SelectedValue;
             plotType = paramList.SelectedItem.Text;
-
-            if (building == "Girls Hostel AB")
-            {
-                wing1.Visible = true;
-                wing2.Visible = true;
-            }
-            else if (building == "Boys Hostel A")
-            {
-                wing1.Visible = true;
-                wing2.Visible = true;
-            }
-            else
-            {
                 wing1.Visible = false;
                 wing2.Visible = false;
-            }
-
             Plot_Building_All(null);
+        }
+        if (building == "Faculty Housing" || building == "Girls Hostel" || building == "Boys Hostel")
+        {
+            meterList.Enabled = true;
+            loadType.Enabled = true;
+        }
+        else
+        {
+            meterList.Enabled = false;
+            loadType.Enabled = false;
         }
         
     }
@@ -150,6 +132,11 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 1731 sqm<br />No of storeys - G + 2<br />Height of Building - 12.1 m</p><br />";
          
             }
+            if (building == "Facilities Building")
+            {
+                FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, factor, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                
+            }
             if (building == "Mess Building")
             {
                 FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime,factor, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
@@ -175,18 +162,18 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6509.78 sqm<br />No of storeys - G+11<br />Height of Building - 34.30 m</p><br />";
          
             }
-            if (building == "Girls Hostel AB")
+            if (building == "Girls Hostel")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Girls Hostel", "AB", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Girls Hostel", null, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/girls_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 23 <a href='GirlsHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 838.99 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 3562.28 sqm<br />No of storeys - G + 4<br />Height of Building - 16.50 m</p><br />";
-                wing1.Text = "Wing AB   |";
+               
             
             }
-            if (building == "Girls Hostel BC")
+            /*if (building == "Girls Hostel BC")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Girls Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Girls Hostel", null, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/girls_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 23 <a href='GirlsHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 838.99 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 3562.28 sqm<br />No of storeys - G + 4<br />Height of Building - 16.50 m</p><br />";
@@ -194,21 +181,20 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
 
             if (building == "Boys Hostel A")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Boys Hostel", "A", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Boys Hostel", null, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/boys_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 34 <a href='BoysHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1116.19 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6798.57 sqm<br />No of storeys - G + 7<br />Height of Building - 26.40 m</p><br />";
                 wing1.Text = "Wing A   |";
-            }
+            }*/
 
-            if (building == "Boys Hostel BC")
+            if (building == "Boys Hostel")
             {
-                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime,factor, "Boys Hostel", "BC", paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
+                FetchEnergyDataS_Map.FetchBuildingHostels(frTime, tTime, factor, "Boys Hostel", null, paramList.SelectedValue, meterList.SelectedValue, out timeSt, out energyArray);
                 buildingimg.ImageUrl = "~/images/buildings/boys_hostel.png";
                 buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 34 <a href='BoysHostelMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 1116.19 sqm";
                 buildInfo.InnerHtml += "<br />Covered area (on floors) - 6798.57 sqm<br />No of storeys - G + 7<br />Height of Building - 26.40 m</p><br />";
             }
-
 
 
             double en = energyArray[0];
@@ -272,19 +258,25 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, building, null);
             }
+            if (building == "Facilities Building")
+            {
+                slabCount = 0;
+                selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", true, out slabCount);
+                Get_Slab_Data(selectDateList, slabCount, building, null);
+            }
             if (building == "Faculty Housing")
             {
                 slabCount = 0;                
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Faculty Housing", null);                
             }
-            if (building == "Girls Hostel AB")
+            if (building == "Girls Hostel")
             {
                 slabCount = 0;
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
-                Get_Slab_Data(selectDateList, slabCount, "Girls Hostel", "AB");
+                Get_Slab_Data(selectDateList, slabCount, "Girls Hostel", null);
             }
-            if (building == "Girls Hostel BC")
+            /*if (building == "Girls Hostel BC")
             {
                 slabCount = 0;
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
@@ -295,12 +287,12 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
                 slabCount = 0;
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
                 Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "A");
-            }
-            if (building == "Boys Hostel BC")
+            }*/
+            if (building == "Boys Hostel")
             {
                 slabCount = 0;
                 selectDateList = Utilitie_S.Return_Slab_Time(selectedDate, "DTD-Slabs", false, out slabCount);
-                Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", "BC");
+                Get_Slab_Data(selectDateList, slabCount, "Boys Hostel", null);
             }          
         }
     }
@@ -384,20 +376,20 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         if (slabCount > 0)
         {
             Time_Bound_Limit(slab22, out frDateArray, out toDateArray);
-            FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab2, out slab2Val);
+            FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, loadType.SelectedValue, out slab2, out slab2Val);
             //SubtractEnergyArray(slab2Val, out slab2Val);
             if (slabCount == 3 || slabCount == 4)
             {
                 Time_Bound_Limit(slab11, out frDateArray, out toDateArray);
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab1, out slab1Val);
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, loadType.SelectedValue, out slab1, out slab1Val);
                 //SubtractEnergyArray(slab1Val, out slab1Val);
                 Time_Bound_Limit(slab33, out frDateArray, out toDateArray);
-                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab3, out slab3Val);
+                FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, loadType.SelectedValue, out slab3, out slab3Val);
                 //SubtractEnergyArray(slab3Val, out slab3Val);
                 if (slabCount == 4)
                 {
                     Time_Bound_Limit(slab44, out frDateArray, out toDateArray);
-                    FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, "Building Total Mains", out slab4, out slab4Val);
+                    FetchEnergyDataS_Map.FetchBuildingBarConsumption(frDateArray, toDateArray, buildingName, block_wing, loadType.SelectedValue, out slab4, out slab4Val);
                     //SubtractEnergyArray(slab4Val, out slab4Val);
                 }
             }

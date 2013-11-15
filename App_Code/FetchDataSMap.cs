@@ -185,7 +185,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data in ('" + fromArr[j] + "' , '" + toArr[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data in before '"+fromArr[j] +"' limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);
@@ -461,7 +461,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "apply window(first, field='minute', width="+width.ToString()+") to data in (" + fromtime + ", " + toTime + ") limit 100000000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                stringData = "apply window(first, field='minute', width="+width.ToString()+") to data in (" + fromtime + ", " + toTime + ") limit 100000000 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -597,13 +597,13 @@ namespace App_Code.FetchingEnergySmap
                 {
                     stringData = "select data in ("+frtime+", "+totime+") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
                 }
-                if (building == "Mess Building" || building == "Library Building" || building == "Faculty Housing")
+                if (building == "Mess Building" || building == "Library Building" || building == "Facilities Building")
                 {
                     stringData = "select data in (" + frtime + ", " + totime + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
                 }
-                if (building == "Girls Hostel" || building=="Boys Hostel")
+                if (building == "Girls Hostel" || building == "Boys Hostel" || building == "Faculty Housing" )
                 {
-                    stringData = "select data in (" + frtime + ", " + totime + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                    stringData = "select data in (" + frtime + ", " + totime + ") limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
                 }
               
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
@@ -681,13 +681,13 @@ namespace App_Code.FetchingEnergySmap
                     {
                         stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Block = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
-                    if (building == "Mess Building" || building == "Library Building" || building == "Faculty Housing")
+                    if (building == "Mess Building" || building == "Library Building" || building=="Facilities Building" )
                     {
                         stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
-                    if (building == "Girls Hostel" || building == "Boys Hostel")
+                    if (building == "Girls Hostel" || building == "Boys Hostel" || building == "Faculty Housing")
                     {
-                        stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Wing = '" + block_wing + "' and Metadata/Extra/Type='" + meter_type + "'";
+                        stringData = "select data in ('" + frtime[j] + "' , '" + totime[j] + "') limit 1 where Metadata/Location/Building ='" + building + "' and Metadata/Extra/PhysicalParameter='" + criteria + "' and Metadata/Extra/Type='" + meter_type + "'";
                     }
 
                     ASCIIEncoding encoding = new ASCIIEncoding();

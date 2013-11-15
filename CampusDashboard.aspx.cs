@@ -33,11 +33,11 @@ public partial class CampusDashboard : System.Web.UI.Page
         int time1,time2, time3,time4;
         double[] value1, value2, value3, value4, diff;
         double Total=0, val1=0, val2=0, val3=0, val4=0;
-        value1 = new double[7];
-        value2 = new double[7];
-        value3 = new double[7];
-        value4 = new double[7];
-        diff = new double[7];
+        value1 = new double[8];
+        value2 = new double[8];
+        value3 = new double[8];
+        value4 = new double[8];
+        diff = new double[8];
 
         string endTime = "now -5minutes";
         string startTime1 = "now -" + (Convert.ToInt32((DateTime.Now - DateTime.Today).TotalMinutes)).ToString() + "minutes";
@@ -108,21 +108,25 @@ public partial class CampusDashboard : System.Web.UI.Page
         FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Faculty Housing", null, "Energy", "Building Total Mains", out time2, out val2);
         value1[3] = val1;
         value2[3] = val2;
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Faculty Housing", null, "Energy", "Building Total Backup", out time3, out val3);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Faculty Housing", null, "Energy", "Building Total Backup", out time4, out val4);
+        value3[3] = val3;
+        value4[3] = val4;
         HtmlTableRow row4 = new HtmlTableRow();
         HtmlTableCell cell4 = new HtmlTableCell();
-        if (time1 > 0 && time2 > 0)
+        if (time1 > 0 && time2 > 0 && time3 > 0 && time4 > 0)
         {
             row4.Cells.Add(cell4);
             buildingTable.Rows.Add(row4);
-            diff[3] = (value1[3] - value2[3]) / 1000;
+            diff[3] = ((value1[3] - value2[3]) + (value3[3] - value4[3])) / 1000; 
         }
 
-        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Girls Hostel", "AB", "Energy", "Building Total Mains", out time1, out val1);
-        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Girls Hostel", "AB", "Energy", "Building Total Mains", out time2, out val2);
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Girls Hostel", null, "Energy", "Building Total Mains", out time1, out val1);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Girls Hostel", null, "Energy", "Building Total Mains", out time2, out val2);
         value1[4] = val1;
         value2[4] = val2;
-        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Girls Hostel", "BC", "Energy", "Building Total Mains", out time3, out val3);
-        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Girls Hostel", "BC", "Energy", "Building Total Mains", out time4, out val4);
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Girls Hostel", null, "Energy", "Building Total Backup", out time3, out val3);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Girls Hostel", null, "Energy", "Building Total Backup", out time4, out val4);
         value3[4] = val3;
         value4[4] = val4;
         HtmlTableRow row5 = new HtmlTableRow();
@@ -134,12 +138,12 @@ public partial class CampusDashboard : System.Web.UI.Page
             diff[4] = ((value1[4] - value2[4]) + (value3[4] - value4[4])) / 1000; 
         }
 
-        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Boys Hostel", "A", "Energy", "Building Total Mains", out time1, out val1);
-        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Boys Hostel", "A", "Energy", "Building Total Mains", out time2, out val2);
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Boys Hostel", null, "Energy", "Building Total Mains", out time1, out val1);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Boys Hostel",null, "Energy", "Building Total Mains", out time2, out val2);
         value1[5] = val1;
         value2[5] = val2;
-        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Boys Hostel", "BC", "Energy", "Building Total Mains", out time3, out val3);
-        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Boys Hostel", "BC", "Energy", "Building Total Mains", out time4, out val4);
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Boys Hostel", null, "Energy", "Building Total Backup", out time3, out val3);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Boys Hostel", null, "Energy", "Building Total Backup", out time4, out val4);
         value3[5] = val3;
         value4[5] = val4;
         HtmlTableRow row6 = new HtmlTableRow();
@@ -164,8 +168,21 @@ public partial class CampusDashboard : System.Web.UI.Page
             diff[6] = (value1[6] - value2[6]) / 1000; 
         }
 
+        FetchEnergyDataS_Map.FetchBuildingTotal(endTime, "now", "Facilities Building", null, "Energy", "Building Total Mains", out time1, out val1);
+        FetchEnergyDataS_Map.FetchBuildingTotal(startTime1, startTime2, "Facilities Building", null, "Energy", "Building Total Mains", out time2, out val2);
+        value1[7] = val1;
+        value2[7] = val2;
+        HtmlTableRow row8 = new HtmlTableRow();
+        HtmlTableCell cell8 = new HtmlTableCell();
+        if (time1 > 0 && time2 > 0)
+        {
+            row8.Cells.Add(cell8);
+            buildingTable.Rows.Add(row8);
+            diff[7] = (value1[7] - value2[7]) / 1000;
+        }
+
         
-        for (int ff = 0; ff <= 6; ff++)
+        for (int ff = 0; ff <= 7; ff++)
         {
             if (diff[ff] > 0)
             {
@@ -182,11 +199,11 @@ public partial class CampusDashboard : System.Web.UI.Page
         //    }
         //}
 
-        HtmlTableRow row8 = new HtmlTableRow();
-        HtmlTableCell cell8 = new HtmlTableCell();
-        cell8.InnerHtml = "<font color='orange'>Total  =  " + Math.Round(Total,2).ToString() + " KWh";
-        row8.Cells.Add(cell8);
-        buildingTable.Rows.Add(row8);
+        HtmlTableRow row9 = new HtmlTableRow();
+        HtmlTableCell cell9 = new HtmlTableCell();
+        cell9.InnerHtml = "<font color='orange'>Total  =  " + Math.Round(Total,2).ToString() + " KWh";
+        row9.Cells.Add(cell9);
+        buildingTable.Rows.Add(row9);
 
         
         HtmlGenericControl p1=new HtmlGenericControl("span");
@@ -216,6 +233,10 @@ public partial class CampusDashboard : System.Web.UI.Page
         HtmlGenericControl p7 = new HtmlGenericControl("span");
         p7.InnerHtml = "Mess & Dining" + "<font color='skyblue'>&nbsp;(" + Math.Round(diff[6], 2).ToString() + " KWh)</font>&nbsp;<font color='orange'>(" + Math.Round((diff[6] / Total) * 100, 2).ToString() + "%)</font>";
         cell7.Controls.Add(p7);
+
+        HtmlGenericControl p8 = new HtmlGenericControl("span");
+        p8.InnerHtml = "Facilities Building" + "<font color='skyblue'>&nbsp;(" + Math.Round(diff[7], 2).ToString() + " KWh)</font>&nbsp;<font color='orange'>(" + Math.Round((diff[7] / Total) * 100, 2).ToString() + "%)</font>";
+        cell8.Controls.Add(p8);
 
         sideDiv.Controls.Add(divHeader);
         sideDiv.Controls.Add(buildingTable);

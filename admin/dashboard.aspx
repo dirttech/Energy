@@ -254,7 +254,8 @@
      <tr>
      <td style="vertical-align:top;" rowspan="2">
      <div class="HeadingLeftTop">
-    <label id="Heading" runat="server" style=" font-size:x-large;">Select Meters</label>
+    <label id="Heading" runat="server" style=" font-size:x-large;">Select Buildings</label>
+         <label id="subHeading" style="font-size:small;">and enter their respective meter ids.</label>
     </div>
     <input type="hidden" ID="selectedBoxes" runat="server" style="" />
     <br />
@@ -269,7 +270,7 @@
              <asp:ListItem>Service Block</asp:ListItem>
 
         </asp:DropDownList>
-        <asp:TextBox ID="meterTxt1" class="meterInput" runat="server"></asp:TextBox>
+        <asp:TextBox ID="meterTxt1" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
         
         </td></tr>
          <tr><td>   <asp:DropDownList ID="build2" runat="server">
@@ -282,7 +283,7 @@
              <asp:ListItem>Service Block</asp:ListItem>
 
         </asp:DropDownList>
-        <asp:TextBox ID="meterTxt2" class="meterInput" runat="server"></asp:TextBox>
+        <asp:TextBox ID="meterTxt2" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
         
         </td></tr>
            <tr><td>   <asp:DropDownList ID="build3" runat="server">
@@ -295,7 +296,7 @@
              <asp:ListItem>Service Block</asp:ListItem>
 
         </asp:DropDownList>
-        <asp:TextBox ID="meterTxt3" class="meterInput" runat="server"></asp:TextBox>
+        <asp:TextBox ID="meterTxt3" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
         
         </td></tr>
            <tr><td>   <asp:DropDownList ID="build4" runat="server">
@@ -308,7 +309,7 @@
              <asp:ListItem>Service Block</asp:ListItem>
 
         </asp:DropDownList>
-        <asp:TextBox ID="meterTxt4" class="meterInput" runat="server"></asp:TextBox>
+        <asp:TextBox ID="meterTxt4" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
         
         </td></tr>
            <tr><td>   <asp:DropDownList ID="build5" runat="server">
@@ -321,7 +322,7 @@
              <asp:ListItem>Service Block</asp:ListItem>
 
         </asp:DropDownList>
-        <asp:TextBox ID="meterTxt5" class="meterInput" runat="server"></asp:TextBox>
+        <asp:TextBox ID="meterTxt5" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
         
         </td></tr>
     </table>
@@ -333,7 +334,7 @@
     <td >
     
       <div id="datetimepicker1" class="input-append date">
-      <input type="text" id="fromDate" runat="server" style=" margin-left:30px;"/>     
+      <input type="text" placeholder="From Date/Time" id="fromDate" runat="server" style=" margin-left:30px; top: 0px; left: 0px;"/>     
 
       <span class="add-on">
         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
@@ -346,7 +347,7 @@
    
     <td >
         <div id="datetimepicker2" class="input-append date">
-      <input type="text" id="toDate" runat="server" style=" margin-left:10px;"/>
+      <input type="text" placeholder="To Date/Time" id="toDate" runat="server" style=" margin-left:10px;"/>
       
 
       <span class="add-on">
@@ -363,7 +364,7 @@
         <asp:ListItem Value="Energy" units="Whr">Energy</asp:ListItem>
             <asp:ListItem Value="Frequency" units="Hertz">Frequency</asp:ListItem>
         </asp:DropDownList>
-              <asp:Button ID="Button1" runat="server" Text="Submit" class="customButton"
+              <asp:Button ID="Button1" runat="server" Text="Plot" class="customButton"
                 style=" margin-left:5px; margin-bottom:10px;" onclick="submitDate_Click"/>  </td>  
    
     </tr>
