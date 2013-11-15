@@ -135,7 +135,10 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
             if (building == "Facilities Building")
             {
                 FetchEnergyDataS_Map.FetchBuildingData(frTime, tTime, factor, building, paramList.SelectedValue, "Building Total Mains", out timeSt, out energyArray);
-                
+                buildingimg.ImageUrl = "";
+                buildInfo.InnerHtml = "<h3>Buiding Information</h3><br /><p>Smart Meter (EM6400) - 14 <a href='FacilitiesBuildingMeterStatus.aspx' style='font-size:large;'>(Meter Status)</a><br />Covered area (on ground) - 577 sqm";
+                buildInfo.InnerHtml += "<br />Covered area (on floors) - 913.06 sqm<br />No of storeys - G + 2<br />Height of Building - 7.8 m</p><br />";
+         
             }
             if (building == "Mess Building")
             {

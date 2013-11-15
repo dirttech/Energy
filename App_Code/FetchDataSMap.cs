@@ -754,7 +754,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (now -5minutes, now) limit 1 where Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/MeterID='" + meter_id + "'";
+                stringData = "select data in (now -5minutes, now) limit 1 where Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/MeterID='" + meter_id + "' and Metadata/Location/Building='"+building+"'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();

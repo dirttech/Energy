@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FacultyMeterStatus.aspx.cs" Inherits="MeterStatus" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="FacilitiesBuildingMeterStatus.aspx.cs" Inherits="MeterStatus" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 
@@ -150,7 +150,8 @@
     <li><a  href="AcademicMeterStatus.aspx">Academic Building</a></li>
      <li><a href="LibraryMeterStatus.aspx">Library</a></li>
      <li><a href="MessMeterStatus.aspx">Mess & Dining</a></li>
-          <li><a href="FacilitiesBuildingMeterStatus.aspx">Facilities Building</a></li>
+     <li><a href="FacilitiesBuildingMeterStatus.aspx">Facilities Building</a></li>
+    
     </ul>
     </div>
 <div style="text-align:right; margin-right:100px;"><asp:Button ID="Button1" runat="server" Text="Refresh" 
@@ -174,27 +175,11 @@
          </div>
 
             <div id="statusHolder" runat="server">
-               <div id="fac" runat="server">
+             
+                <div id="serv" runat="server">
                
                </div>
-                <div id="grl" runat="server">
-               
-               </div>
-                <div id="boy" runat="server">
-               
-               </div>
-                <div id="acd" runat="server">
-               
-               </div>
-                <div id="cls" runat="server">
-               
-               </div>
-                <div id="lib" runat="server">
-               
-               </div>
-                <div id="mess" runat="server">
-               
-               </div>
+              
             </div>
         </ContentTemplate>
         

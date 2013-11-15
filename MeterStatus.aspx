@@ -150,7 +150,7 @@
     <li><a  onclick="scrollTo('<%=acd.ClientID %>')">Academic Building</a></li>
      <li><a  onclick="scrollTo('<%=lib.ClientID %>')">Library</a></li>
      <li><a  onclick="scrollTo('<%=mess.ClientID %>')">Mess & Dining</a></li>
-          <li><a  onclick="scrollTo('<%=serv.ClientID %>')">Service Block</a></li>
+          <li><a  onclick="scrollTo('<%=serv.ClientID %>')">Facilities Building</a></li>
     
     </ul>
     </div>

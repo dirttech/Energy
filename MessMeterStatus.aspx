@@ -150,6 +150,7 @@
     <li><a  href="AcademicMeterStatus.aspx">Academic Building</a></li>
      <li><a href="LibraryMeterStatus.aspx">Library</a></li>
      <li><a href="MessMeterStatus.aspx">Mess & Dining</a></li>
+          <li><a href="FacilitiesBuildingMeterStatus.aspx">Facilities Building</a></li>
     
     </ul>
     </div>

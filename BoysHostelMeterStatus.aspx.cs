@@ -60,7 +60,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
                 for (int i = 0; i < allMeters.Length; i++)
                 {
-                    FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                    FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                     HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                     meterIdSpan.Attributes.Add("class", "meterSpan");

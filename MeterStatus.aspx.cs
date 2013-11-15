@@ -67,7 +67,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
             for (int i = 0; i < allMeters.Length; i++)
             {
-                FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -136,7 +136,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
             for (int i = 0; i < allMeters.Length; i++)
             {
-                FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -205,7 +205,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
                 for (int i = 0; i < allMeters.Length; i++)
                 {
-                    FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                    FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                     HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                     meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -272,7 +272,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
                     for (int i = 0; i < allMeters.Length; i++)
                     {
-                        FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                        FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                         HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                         meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -336,7 +336,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
                     for (int i = 0; i < allMeters.Length; i++)
                     {
-                        FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                        FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                         HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                         meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -398,7 +398,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
             for (int i = 0; i < allMeters.Length; i++)
             {
-                FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                 HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                 meterIdSpan.Attributes.Add("class", "meterSpan");
@@ -432,7 +432,7 @@ public partial class MeterStatus : System.Web.UI.Page
     protected void DrawServiceBlock()
     {
         serv.Controls.Clear();
-        string building = "Service Block";
+        string building = "Facilities Building";
         string[] allFloors;
 
         HtmlGenericControl facultyDiv = new HtmlGenericControl("div");
@@ -441,7 +441,7 @@ public partial class MeterStatus : System.Web.UI.Page
 
         HtmlGenericControl heading = new HtmlGenericControl("h1");
 
-        heading.InnerHtml = "Service Block";
+        heading.InnerHtml = "Facilities Building";
         facultyDiv.Controls.Add(heading);
 
         FetchEnergyDataS_Map.ListingFloors(building, out allFloors);
@@ -461,13 +461,13 @@ public partial class MeterStatus : System.Web.UI.Page
 
                 for (int i = 0; i < allMeters.Length; i++)
                 {
-                    FetchEnergyDataS_Map.PingingMeter(null, allMeters[i], out status);
+                    FetchEnergyDataS_Map.PingingMeter(building, allMeters[i], out status);
 
                     HtmlGenericControl meterIdSpan = new HtmlGenericControl("span");
                     meterIdSpan.Attributes.Add("class", "meterSpan");
 
                     Button meterIdLabel = new Button();
-                    meterIdLabel.ID = "meterTickMS" + i.ToString() + kfloor;
+                    meterIdLabel.ID = "meterTickFB" + i.ToString() + kfloor;
                     meterIdLabel.Text = allMeters[i];
                     meterIdLabel.Attributes.Add("build", building);
 
