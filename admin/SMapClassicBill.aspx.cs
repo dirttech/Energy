@@ -86,6 +86,8 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 check.ID = "check"+i;
                 check.Checked = true;               
                 check.Attributes.Add("Apart", AllApartments[i].Apartment);
+                check.Attributes.Add("class", "chkbox");
+                check.Attributes.Add("name", "chk");
                 check.Style.Add("padding", "20px");
 
                 HtmlGenericControl nameLabel = new HtmlGenericControl("label");
@@ -96,8 +98,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 nameLabel.Attributes.Add("UID", AllApartments[i].UserId.ToString());
                 nameLabel.Attributes.Add("Apart", AllApartments[i].Apartment);
                 ListBox1.Items.Add(AllApartments[i].Apartment);
-                nameLabel.Attributes.Add("onclick", "JavaScript:CopyHidden(this)");
-
+                
                 cell.Controls.Add(check);
                 cell.Controls.Add(nameLabel);
                 wrapper.Cells.Add(cell);
@@ -155,32 +156,12 @@ public partial class SMapClassicBill : System.Web.UI.Page
     }
     protected void printBill_Click(object sender, EventArgs e)
     {
-        //uid.Value = ListBox1.Items[0].Text;
-        if (printMode.SelectedValue == "selected")
-        {
             var primeArray = selectedBoxes.Value.Split(',');
             for (int apt = 0; apt < primeArray.Length - 1; apt++)
             {
                 UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", primeArray[apt]);
                 UNameOfPrinter.InnerText = userObj.Apartment;
                 calculatePrint(userObj);
-            }
-        }
-        else if (printMode.SelectedValue == "all")
-        {
-            for (int apt = 0; apt < ListBox1.Items.Count; apt++)
-            {
-                UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", ListBox1.Items[apt].Text);
-                UNameOfPrinter.InnerText = userObj.Apartment;
-                calculatePrint(userObj);
-            }
-        }
-        else
-        {
-            UserMapping userObj = UserMapping_S.UserMapWithApartmentBuilding("Faculty Housing", uid.Value);
-            UNameOfPrinter.InnerText = userObj.Apartment;
-            calculatePrint(userObj);
-        }
-        
+            }    
     }
 }

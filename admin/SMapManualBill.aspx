@@ -94,16 +94,9 @@
         {
              width:100%;   
         }
-        input[type="checkbox"]
+        .chkbox
         {
-              -ms-transform: scale(4); /* IE */
-  -moz-transform: scale(4); /* FF */
-  -webkit-transform: scale(4); /* Safari and Chrome */
-  -o-transform: scale(4); /* Opera */
-  padding: 10px;
-  margin-left:30px;
-  margin-right:10px;
-margin-bottom:7px;
+           margin-left:70px;
         }
          @media print
         {
@@ -202,9 +195,9 @@ margin-bottom:7px;
                      Select Meters
                          </h4>
                          <hr />
-                         <h5><asp:CheckBox ID="powerCheck" runat="server" Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
+                         <h5><asp:CheckBox ID="powerCheck" runat="server" style="margin-left:30px;"  Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
         <p style="padding-left:30px;"> <asp:TextBox ID="meter_1Initial" placeholder="Initial Reading" runat="server"></asp:TextBox><asp:TextBox ID="meter_1Final" placeholder="Final Reading" runat="server"></asp:TextBox></p>
-                       <h5>  <asp:CheckBox ID="lightCheck" runat="server" Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>
+                       <h5>  <asp:CheckBox ID="lightCheck" runat="server" style="margin-left:30px;"  Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>
           <p style="padding-left:30px;"><asp:TextBox ID="meter_2Initial" placeholder="Initial Reading" runat="server"></asp:TextBox><asp:TextBox ID="meter_2Final" placeholder="Final Reading" runat="server"></asp:TextBox></p>
                        <asp:Button ID="printBill" runat="server" Text="Calculate" 
         class="customButton" style=" position:relative; display:block; top: -2px; left: 89px;" 

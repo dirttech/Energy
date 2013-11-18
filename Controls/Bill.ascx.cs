@@ -176,7 +176,9 @@ using App_Code.BillCalculate;
                             address.InnerHtml = "Flat No: " + userData.Apartment + ", " + userData.Building + " (IIITD)," + " Okhla Phase III, Delhi";
 
                             meterNo.InnerText =userData.Apartment;
-                            billPeriod.InnerText = fromDate.ToString("dd/MM/yyyy") + " to " + toDate.ToString("dd/MM/yyyy");
+                            Utilities utFr=Utilitie_S.EpochToDateTime(billObj.BillStartPeriod);
+                            Utilities utTo = Utilitie_S.EpochToDateTime(billObj.BillEndPeriod);
+                            billPeriod.InnerText = utFr.Date.ToString("dd/MM/yyyy HH:mm") + " to " + utTo.Date.ToString("dd/MM/yyyy HH:mm");
                             dueDate.InnerHtml = "Due Date: " + billObj.dueDate;
                             billNo.InnerText = "Rep " + meterNo.InnerText + " - " + DateTime.Today.ToString("dd-MMM-yyyy");
                             billDate.InnerText =billObj.billDate;

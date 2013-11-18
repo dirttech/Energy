@@ -185,7 +185,7 @@ namespace App_Code.FetchingEnergySmap
                     req.ContentType = "";
 
 
-                    stringData = "select data in before '"+fromArr[j] +"' limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
+                    stringData = "select data before '"+fromArr[j] +"' limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/Type='" + type + "'";
 
                     ASCIIEncoding encoding = new ASCIIEncoding();
                     byte[] data = encoding.GetBytes(stringData);

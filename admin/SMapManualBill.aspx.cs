@@ -91,11 +91,12 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 cell.Style.Add("height", "40px");
                 cell.Style.Add("border-bottom-style", "groove");
 
-                CheckBox check = new CheckBox();
+                /*CheckBox check = new CheckBox();
                 check.ID = "check"+i;
                 check.Checked = true;               
                 check.Attributes.Add("Apart", AllApartments[i].Apartment);
-                check.Style.Add("padding", "20px");
+                check.Attributes.Add("class", "chkbox");
+                check.Style.Add("padding", "20px");*/
 
                 HtmlGenericControl nameLabel = new HtmlGenericControl("label");
                 nameLabel.ID = "nameLabel" + i;
@@ -107,7 +108,7 @@ public partial class SMapClassicBill : System.Web.UI.Page
                 ListBox1.Items.Add(AllApartments[i].Apartment);
                 nameLabel.Attributes.Add("onclick", "JavaScript:CopyHidden(this)");
 
-                cell.Controls.Add(check);
+                //cell.Controls.Add(check);
                 cell.Controls.Add(nameLabel);
                 wrapper.Cells.Add(cell);
                 sideTable.Rows.Add(wrapper);

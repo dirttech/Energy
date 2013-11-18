@@ -197,6 +197,21 @@ namespace App_Code.BillCalculate
             set { billAmount = value; }
         }
 
+        private Int32 billStartPeriod;
+        public Int32 BillStartPeriod
+        {
+            get { return billStartPeriod; }
+            set { billStartPeriod = value; }
+        }
+        private Int32 billEndPeriod;
+        public Int32 BillEndPeriod
+        {
+            get { return billEndPeriod; }
+            set { billEndPeriod = value; }
+        }
+
+
+
         public string billDate = DateTime.Now.ToString("dd-MMM-yyyy");
         public string dueDate = DateTime.Now.AddDays(7).ToString("dd-MMM-yyyy");
        
@@ -260,7 +275,7 @@ namespace App_Code.BillCalculate
                                 {
                                     Utilities utFr = Utilitie_S.DateTimeToEpoch(calculateObj.FromDate);        //Converting datetime to unix time. These functions are defined in Utilities.cs file
                                     Utilities utTo = Utilitie_S.DateTimeToEpoch(calculateObj.ToDate);
-
+                                    int dayNo = 0;
                                     if (mode == "auto")
                                     {
                                         int[] timeStMet1 = new int[2]; valuesMet1 = new double[2];
@@ -269,6 +284,9 @@ namespace App_Code.BillCalculate
                                             FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_1, out timeStMet1, out valuesMet1);
                                             Utilitie_S.ZeroArrayRefiner(timeStMet1, valuesMet1, out timeStMet1, out valuesMet1);
                                             calculateObj.Meter_1 = Meter_1;
+                                            dayNo = ((timeStMet1[1] - timeStMet1[0]) / (60 * 60 * 24)) + 1;     //Calculating for how much time we did billing (in days)
+                                            calculateObj.BillStartPeriod = timeStMet1[0];
+                                            calculateObj.BillEndPeriod = timeStMet1[1];
                                         }
                                         int[] timeStMet2 = new int[2]; valuesMet2 = new double[2];
                                         if (Meter_2 != null)
@@ -276,17 +294,28 @@ namespace App_Code.BillCalculate
                                             FetchEnergyDataS_Map.FetchBillConsumption(utFr.Epoch, utTo.Epoch, map.Apartment, Meter_2, out timeStMet2, out valuesMet2);
                                             Utilitie_S.ZeroArrayRefiner(timeStMet2, valuesMet2, out timeStMet2, out valuesMet2);
                                             calculateObj.Meter_2 = Meter_2;
+                                            dayNo = ((timeStMet2[1] - timeStMet2[0]) / (60 * 60 * 24)) + 1;     //Calculating for how much time we did billing (in days)
+                                            calculateObj.BillStartPeriod = timeStMet2[0];
+                                            calculateObj.BillEndPeriod = timeStMet2[1];
                                         }
+                                    }
+                                    else
+                                    {
+                                        dayNo = ((utTo.Epoch-utFr.Epoch) / (60 * 60 * 24)) + 1;     //Calculating for how much time we did billing (in days)
+                                        calculateObj.BillStartPeriod = utFr.Epoch;
+                                        calculateObj.BillEndPeriod = utTo.Epoch;
                                     }
                                     if (valuesMet1 != null || valuesMet2 != null)
                                     {
                                         double lightingUnits = 0, powerUnits = 0;                   //Initializing and calculating units consumed in next step
+                                        
                                         if (Meter_1 != null)
                                         {
                                             powerUnits = Math.Round(((valuesMet1[1] - valuesMet1[0]) / 1000), 2);
                                             calculateObj.Meter1Units = powerUnits;
                                             calculateObj.Meter1InitialReading = Math.Round(valuesMet1[0], 2);
                                             calculateObj.Meter1FinalReading = Math.Round(valuesMet1[1], 2);
+                                            
                                         }
                                         if (Meter_2 != null)
                                         {
@@ -297,7 +326,7 @@ namespace App_Code.BillCalculate
                                         }
                                         double totalUnit = lightingUnits + powerUnits;              //Total units consumed for both light and power meters(1&2)
                                         calculateObj.TotalUnits = totalUnit;
-                                        int dayNo = ((utTo.Epoch - utFr.Epoch) / (60 * 60 * 24)) + 1;     //Calculating for how much time we did billing (in days)
+                                        
                                         calculateObj.BillDays = dayNo;
                                         double tempUnits = totalUnit;
                                         int tempCounter = 0;

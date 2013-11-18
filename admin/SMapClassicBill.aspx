@@ -94,16 +94,10 @@
         {
              width:100%;   
         }
-        input[type="checkbox"]
+        .chkbox
         {
-              -ms-transform: scale(4); /* IE */
-  -moz-transform: scale(4); /* FF */
-  -webkit-transform: scale(4); /* Safari and Chrome */
-  -o-transform: scale(4); /* Opera */
-  padding: 10px;
-  margin-left:30px;
-  margin-right:10px;
-margin-bottom:7px;
+              margin-left:70px;
+ 
         }
          @media print
         {
@@ -121,14 +115,19 @@ margin-bottom:7px;
     <div class="SideBar" style="height:500px;">
     <div class="HeadingLeftTop" style="opacity:0.9; width:93.3%">
      <label id="Heading" runat="server" style=" font-size:x-large;">
-     
-        <asp:RadioButtonList ID="printMode" runat="server" 
+    <table><tr><td>
+          <asp:RadioButtonList ID="printMode" runat="server" 
             RepeatDirection="Horizontal">
-            <asp:ListItem Selected="True" Value="all">All&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
-            <asp:ListItem Value="selected">Selected&nbsp;&nbsp;&nbsp;&nbsp;</asp:ListItem>
-            <asp:ListItem Value="single">Individual</asp:ListItem>
+            <asp:ListItem Selected="True" Value="all">Select All&nbsp;</asp:ListItem>
+            <asp:ListItem Value="none">Unselect All&nbsp;</asp:ListItem>
         </asp:RadioButtonList>
-     
+               </td>
+        <td>
+             <input type="button" id="appear" class="customButton" value="Calculate">
+        </td>
+           </tr></table>
+      
+    
      </label>    
     </div>
       <div id="sideBar" runat="server" style="background-color:skyblue; padding-left:20px; ">
@@ -202,12 +201,12 @@ margin-bottom:7px;
                      Select Meters
                          </h4>
                          <hr />
-                         <h5><asp:CheckBox ID="powerCheck" runat="server" Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
-                       <h5>  <asp:CheckBox ID="lightCheck" runat="server" Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>
+                         <h5><asp:CheckBox ID="powerCheck" style="margin-left:50px;" runat="server" Checked="true" Height="20px" val="Power"/>&nbsp;Power</h5>
+                       <h5>  <asp:CheckBox ID="lightCheck" style="margin-left:50px;" runat="server" Checked="true" Height="20px" val="Light Backup"/>&nbsp;Light Backup</h5>
                                         
                        <asp:Button ID="printBill" runat="server" Text="Calculate" 
         class="customButton" style=" position:relative; display:block; top: -2px; left: 89px;" 
-                         onclick="printBill_Click" />
+                         onclick="printBill_Click" OnClientClick="AllSelectedCopy()" />
                      
                         
                      </div>
@@ -237,14 +236,20 @@ margin-bottom:7px;
             $('.clicker').hover(function () {
                 $('.clicker').css('font-size', 'large');
                 $(this).css('font-size', 'x-large');
-
-
             });
-            $('.clicker').click(function () {
+            $('#appear').click(function () {
                 var offset = $(this).offset();
                 $("#printOptions").hide();
                 $("#printOptions").fadeIn("drop");
                 //$("#printOptions").offset({ top: offset.top - 4, left: offset.left + 145 });
+            });
+            $('input:radio[name="printMode"]').change(function () {
+                if ($(this).is(':checked') && $(this).val() == 'all') {
+                    $('.chkbox > :checkbox').prop('checked', true);
+                }
+                else {
+                    $('.chkbox > :checkbox').prop('checked', false);
+                }
             });
         });
            </script>    
