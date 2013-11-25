@@ -37,7 +37,7 @@
    <a id="userInf" runat="server" onserverclick="usrInfo_Click" >User Info</a>
 
      <a id="dashbrd" runat="server" onserverclick="dashbrd_Click" >Energy Dashboard</a>
-   
+     <a id="analyt" runat="server" onserverclick="analyt_ServerClick">User Analytics</a>
      <a id="mnthlyBill" runat="server" href="MonthlyBill.aspx" target="_blank">Print Bills</a>
      
      </div>
@@ -45,9 +45,7 @@
         style="color:Black; font-weight:bold;  position:absolute; top:5px; right:20px;" 
         onclick="logOut_Click">LOG OUT</asp:LinkButton>
      <a style="color:Black;  font-size:large;  position:absolute; top:10px; left:20px;" id="nameTitle" runat="server">Welcome</a>
-     
-     <br />
-     <iframe id="belowFrame"   runat="server" style="height:900px; width:1300px; border:none;" src="userInfo.aspx"></iframe>
+        <iframe id="belowFrame"   runat="server" style="height:900px; width:100%; border:none;padding:0px; margin-top:-4px;" src="userInfo.aspx"></iframe>
 
     </form>
 </body>

@@ -39,4 +39,8 @@ public partial class admin_adminPanel : System.Web.UI.Page
     {
         belowFrame.Attributes.Add("src", "dashboard.aspx");
     }
+    protected void analyt_ServerClick(object sender, EventArgs e)
+    {
+        belowFrame.Attributes.Add("src", "UserAnalytics.aspx");
+    }
 }

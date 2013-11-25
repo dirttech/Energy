@@ -237,6 +237,7 @@
 <script src="../Scripts/high_charts/js/highcharts.js"></script>
     <script src="../Scripts/high_charts/js/modules/exporting.js"></script>
     <form id="form1" runat="server">
+        <br />
     <table>
     <tr>
     <td>
