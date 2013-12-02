@@ -1165,5 +1165,563 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Array of Load-Types for given Building
+        ///</summary>        
+        public static void ListingLoadTypes(string building, out string[] loadTypes)
+        {
+            string stringData = "";
+            loadTypes = new string[1];
+            try
+            {
+                stringData = "select distinct Metadata/Extra/LoadType where Metadata/Location/Building ='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                loadTypes = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    loadTypes[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Array of SubLoad-Types for given LoadType in given Building
+        ///</summary>        
+        public static void ListingSubLoadTypes(string building, string loadType, out string[] subLoadTypes)
+        {
+            string stringData = "";
+            subLoadTypes = new string[1];
+            try
+            {
+                stringData = "select distinct Metadata/Extra/SubLoadType where Metadata/Location/Building ='" + building + "' and Metadata/Extra/LoadType = '"+loadType+"'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                subLoadTypes = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    subLoadTypes[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Supply Type's with specific Load and SubLoad Types for given building
+        ///</summary>        
+        public static void ListingSupplyTypesByLoadSubLoad(string building, string loadType, string subLoadType, out string[] supplyTypes)
+        {
+            string stringData = "";
+            supplyTypes = new string[1];
+            try
+            {
+
+                stringData = "select distinct Metadata/Extra/SupplyType where Metadata/Location/Building ='" + building + "' and Metadata/Extra/LoadType ='" + loadType + "' and Metadata/Extra/SubLoadType ='" + subLoadType + "'";
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+               
+                supplyTypes = new string[f1.Length];
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    supplyTypes[i] = f1[i];
+                }
+                
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Meter Id's with specific Load, SubLoad and Supply Types for given building
+        ///</summary>        
+        public static void ListingMeterByLoadSubLoadAndSupply(string building, string loadType, string subLoadType, string supplyType, out string meterID)
+        {
+            string stringData = "";
+            meterID = "0";
+            try
+            {
+
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "' and Metadata/Extra/LoadType ='" + loadType + "' and Metadata/Extra/SubLoadType ='" + subLoadType + "' and Metadata/Extra/SupplyType='"+supplyType+"'";
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+                
+                meterID = f1[0];
+                
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Array of Load-Types for Academic Building
+        ///</summary>        
+        public static void ListingLoadTypesAcademia(string block, out string[] loadTypes)
+        {
+            string stringData = "";
+            loadTypes = new string[1];
+            try
+            {
+                stringData = "select distinct Metadata/Extra/LoadType where Metadata/Location/Building ='Academic Building' and Metadata/Extra/Block='" + block + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                loadTypes = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    loadTypes[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Array of SubLoad-Types for given LoadType in Academic Building
+        ///</summary>        
+        public static void ListingSubLoadTypesAcademia(string block, string loadType, out string[] subLoadTypes)
+        {
+            string stringData = "";
+            subLoadTypes = new string[1];
+            try
+            {
+                stringData = "select distinct Metadata/Extra/SubLoadType where Metadata/Location/Building ='Academic Building' and Metadata/Extra/Block='" + block + "' and Metadata/Extra/LoadType = '" + loadType + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                subLoadTypes = new string[f1.Length];
+
+                for (int i = 0; i < f1.Length; i++)
+                {
+
+                    subLoadTypes[i] = f1[i];
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Meter Id's with specific Load and SubLoad Types for Academic building
+        ///</summary>        
+        public static void ListingMeterByLoadSubLoadAcademia(string block, string loadType, string subLoadType, out string meterID)
+        {
+            string stringData = "";
+            meterID = "0";
+            try
+            {
+
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='Academic Building' and Metadata/Extra/Block='" + block + "' and Metadata/Extra/LoadType ='" + loadType + "' and Metadata/Extra/SubLoadType ='" + subLoadType + "'";
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                meterID = f1[0];
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Meter Id's with specific Load, SubLoad and Supply Types for Academic Building
+        ///</summary>        
+        public static void ListingMeterByLoadSubLoadAndSupplyAcademia(string block, string loadType, string subLoadType, string supplyType, out string meterID)
+        {
+            string stringData = "";
+            meterID = "0";
+            try
+            {
+
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='Academic Building' and Metadata/Extra/Block='" + block + "' and Metadata/Extra/LoadType ='" + loadType + "' and Metadata/Extra/SubLoadType ='" + subLoadType + "' and Metadata/Extra/SupplyType='" + supplyType + "'";
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                meterID = f1[0];
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Electrical Parameter value for given load+subload+supplyType (For mains meters)
+        ///</summary>        
+        public static void GetParamByLoadSubloadBuilding(string loadType,string subLoad, string param, string building, string datetime, out double value, out int time)
+        {
+            string stringData = "";
+            time = 0; value = 0;
+            try
+            {
+                stringData = "select data after '" + datetime + "' limit 1 where Metadata/Extra/LoadType = '" + loadType + "' and Metadata/Extra/SubLoadType='"+subLoad+"' and Metadata/Extra/PhysicalParameter='" + param + "' and Metadata/Location/Building ='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f21 = f1[0];
+                var f2 = f21["uuid"];
+                var f3 = f21["Readings"];
+                
+                for (int i = 0; i < f3.Length; i++)
+                {
+                    var f4 = f3[0];
+                    time = Convert.ToInt32(f4[0] / 1000);
+                    value = Convert.ToDouble(f4[1]);
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+        ///<summary>
+        ///Returns Electrical Parameter value for given Meter ID and building after time
+        ///</summary>        
+        public static void GetSingleParambyIDBuilding(string meterID, string building, string param, string datetime, out double value, out int time)
+        {
+            string stringData = "";
+            value = 0; time = 0;
+            try
+            {
+                stringData = "select data after '"+datetime+"' limit 1 where Metadata/Extra/MeterID = '" + meterID + "' and Metadata/Extra/PhysicalParameter='" + param + "' and Metadata/Location/Building='" + building + "'";
+
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+
+                var f21 = f1[0];
+                var f2 = f21["uuid"];
+                var f3 = f21["Readings"];
+                if (f3.Length > 0)
+                {
+                    var f4 = f3[0];
+                    time = Convert.ToInt32(f4[0] / 1000);
+                    value = Convert.ToDouble(f4[1]);
+                }
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
+
+
     }
 }

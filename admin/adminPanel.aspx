@@ -34,8 +34,8 @@
 <body>
     <form id="form1" runat="server">
     <div id="navigationTop">
-   <a id="userInf" runat="server" onserverclick="usrInfo_Click" >User Info</a>
-
+     <a id="userInf" runat="server" onserverclick="usrInfo_Click" >User Info</a>
+     <a id="meterTree" runat="server" onserverclick="meterTree_Click" >Line Diagram</a>
      <a id="dashbrd" runat="server" onserverclick="dashbrd_Click" >Energy Dashboard</a>
      <a id="analyt" runat="server" onserverclick="analyt_ServerClick">User Analytics</a>
      <a id="mnthlyBill" runat="server" href="MonthlyBill.aspx" target="_blank">Print Bills</a>
