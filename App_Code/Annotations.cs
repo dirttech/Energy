@@ -93,7 +93,7 @@ namespace App_Code.AnnotateDevice
                     using (DbCommand cmd = conn.CreateCommand())
                     {
 
-                        string sqlQuery = "SELECT meter_id, fromtime, totime, device, building FROM annonation_data WHERE fromtime >= " +fromtime + " AND totime <= " +totime+ " AND MeterID = @meterID AND building = @build";
+                        string sqlQuery = "SELECT meter_id, fromtime, totime, device, building FROM annonation_data WHERE fromtime BETWEEN " +fromtime + " AND " +totime+ " AND meter_id = @meterID AND building = @build";
 
                         if (parmPrefix != "@")
                         {

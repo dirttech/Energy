@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using App_Code.FetchingEnergySmap;
 using App_Code.Utility;
 using System.Web.Script.Serialization;
@@ -15,6 +16,7 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     public JavaScriptSerializer javaSerial = new JavaScriptSerializer();
     public double[] energyArray;
     public int[] timeArray;
+    public string[] meterIDs;
     public static Int32[] timeSt;
     public static int interval;
 
@@ -43,12 +45,21 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CheckLogin();
+        if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"] != null)
+        {
+            building = Session["Building"].ToString();
+            apartment = Session["Apartment"].ToString();
+        }
+        else
+        {
+            Response.Write("<script>alert('Sorry! Your Meter is not registered yet.');</script>");
+        }
         if (IsPostBack == false)
         {
             try
             {
                 Populate_DeviceList();
-
+                Populate_Meters();
                 WebAnalytics.LoggerService LG = new LoggerService();
 
                 LoggingEvent logObj = new LoggingEvent();
@@ -62,19 +73,7 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
 
             }
         }
-        if (Session["MeterType"] != null && Session["Apartment"] != null && Session["Building"]!=null)
-        {
-
-            building = Session["Building"].ToString();
-            apartment= Session["Apartment"].ToString();
-
-           
-        }
-        else
-        {
-            Response.Write("<script>alert('Sorry! Your Meter is not registered yet.');</script>");
-
-        }
+        
         Plot_Line_Graph();
     }
 
@@ -82,14 +81,19 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     {
         try
         {
-            string meter_type = meterTypeList.SelectedValue;
-            meterTypeList.SelectedValue = meter_type;
+            string meter_id = meterTypeList.SelectedValue;
 
-            string frTime="now -1440minutes";
-            string tTime="now";
-            string path="/FH-RPi02/Meter32/Power";
+            DateTime frDate = DateTime.Now.AddMinutes(-1440);
+            DateTime tDate = DateTime.Now;
 
-            FetchEnergyDataS_Map.FetchPowerConsumption(frTime, tTime, apartment, meter_type, out timeSt, out energyArray);
+            string frTime = frDate.ToString("MM/dd/yyyy HH:mm");
+            string tTime = tDate.ToString("MM/dd/yyyy HH:mm");
+
+            Utilities utFr = Utilitie_S.DateTimeToEpoch(frDate);
+            Utilities utTo = Utilitie_S.DateTimeToEpoch(tDate);
+
+           
+            FetchEnergyDataS_Map.FetchPowerConsumption(frTime, tTime, apartment, meter_id, out timeSt, out energyArray);
 
             for (int i = 0; i < energyArray.Length; i++)
             {
@@ -99,6 +103,73 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             interval = timeSt[timeSt.Length - 1] - timeSt[0];
             startDate = timeSt[0];
 
+            List<DeviceAnnotations> annonations = Device_Annotations.GettingAnnotations(utFr.Epoch, utTo.Epoch, Convert.ToInt32(meterTypeList.SelectedValue), building);
+           
+                Table annonateTable = new Table();
+                annonateTable.ID = "datatable";
+                annonateTable.Style.Add("display", "none");
+
+                TableHeaderRow tableHead = new TableHeaderRow();
+                tableHead.TableSection = TableRowSection.TableHeader;
+                annonateTable.Rows.Add(tableHead);
+
+                TableHeaderCell thcell1 = new TableHeaderCell();
+                tableHead.Cells.Add(thcell1);
+
+                TableHeaderCell thcell2 = new TableHeaderCell();
+                thcell2.Text = "Power Consumption";
+                tableHead.Cells.Add(thcell2);
+                annonateTable.Rows.Add(tableHead);
+
+                if (annonations != null)
+                {
+                    foreach (DeviceAnnotations annonator in annonations)
+                    {
+                        TableHeaderCell thcell = new TableHeaderCell();
+                        thcell.Text = annonator.Device;
+                        tableHead.Cells.Add(thcell);
+                    }
+                }
+
+                for (int k = 0; k < timeSt.Length; k++)
+                {
+                    TableRow row = new TableRow();
+                    row.TableSection = TableRowSection.TableBody;
+
+                    TableHeaderCell rowHead = new TableHeaderCell();
+                    rowHead.Text = (Convert.ToDouble(timeSt[k])*1000).ToString();
+                    row.Cells.Add(rowHead);
+                    
+                    if (annonations != null)
+                    {
+                        int kt = 100;
+                        foreach (DeviceAnnotations annonator in annonations)
+                        {
+                            kt =  kt+100;
+                           
+                            TableCell cell = new TableCell();
+                            if (annonator.FromTime >= timeSt[k] || annonator.ToTime <= timeSt[k])
+                            {
+                                cell.Text = (0).ToString();
+                            }
+                            else
+                            {
+                                cell.Text = (kt).ToString();
+                            }
+                            row.Cells.Add(cell);
+                        }
+                    }
+                    TableCell readingCell = new TableCell();
+                    readingCell.Text = energyArray[k].ToString();
+                    row.Cells.Add(readingCell);
+                    annonateTable.Rows.Add(row);
+                }
+
+                tableContainer.Controls.Clear();
+                tableContainer.Controls.Add(annonateTable);
+            
+            
+            
         }
         catch (Exception e)
         {
@@ -155,7 +226,7 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             DeviceAnnotations annonateObj = new DeviceAnnotations();
             annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
             annonateObj.ToTime = Convert.ToInt32(tTime.Text);
-            annonateObj.MeterId = 1;
+            annonateObj.MeterId =Convert.ToInt32( meterTypeList.SelectedValue);
             annonateObj.building = Session["Building"].ToString();
             annonateObj.Device = deviceList.SelectedItem.Text;
             bool stat = Device_Annotations.InsertAnnotations(annonateObj);
@@ -182,7 +253,7 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
                 DeviceAnnotations annonateObj = new DeviceAnnotations();
                 annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
                 annonateObj.ToTime = Convert.ToInt32(tTime.Text);
-                annonateObj.MeterId = 1;
+                annonateObj.MeterId = Convert.ToInt32(meterTypeList.SelectedValue);
                 annonateObj.building = Session["Building"].ToString();
                 annonateObj.Device = newDeviceText.Text;
                 bool stc = Device_Annotations.InsertAnnotations(annonateObj);
@@ -211,6 +282,20 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             {
                 deviceList.Items.Add(deviceListing[i].DeviceName);
             }
+        }
+    }
+
+    protected void Populate_Meters()
+    {
+        meterTypeList.Items.Clear();
+        string supplyType = "";
+        string demo="";
+        FetchEnergyDataS_Map.ListingMeterIDsByApartment(building, apartment, out meterIDs);
+        foreach (string id in meterIDs)
+        {
+            FetchEnergyDataS_Map.GetMeterLocationByID(id, building,out demo,out demo, out demo, out demo, out demo,out supplyType);
+            meterTypeList.Items.Add(new ListItem(supplyType+"-"+id, id));
+            meterTypeList.SelectedValue = id;
         }
     }
 }

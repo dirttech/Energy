@@ -277,11 +277,11 @@ public partial class admin_MeterTree : System.Web.UI.Page
         FetchEnergyDataS_Map.PingingMeter(buildingSelected, metId, out sts);
         if (sts == true)
         {
-            metertype.InnerHtml = "<p><font style='background-color:lightgreen;color:black;font-weight:bolder;font-size:larger;line-height:10px;width:35px;padding:5px;padding-left:10px;padding-right:10px;text-align:center'>" + metId + "</font> <img src='../images/closeButton.png' alt='close' width='20px' align='right'style='padding-right:10px;cursor:pointer;' class='clos'/></p>";
+            metertype.InnerHtml = "<p><font style='background-color:lightgreen;color:black;font-weight:bolder;font-size:larger;line-height:10px;width:35px;padding:5px;padding-left:10px;padding-right:10px;text-align:center'>" + metId + "</font> </p>";
         }
         else
         {
-            metertype.InnerHtml = "<p><font style='background-color:lightsalmon;color:black;font-weight:bolder;font-size:larger;line-height:10px;width:35px;padding:5px;padding-left:10px;padding-right:10px;text-align:center'>" + metId + "</font> <img src='../images/closeButton.png' alt='close' width='20px' align='right'style='padding-right:10px;cursor:pointer;' class='clos'/></p>";
+            metertype.InnerHtml = "<p><font style='background-color:lightsalmon;color:black;font-weight:bolder;font-size:larger;line-height:10px;width:35px;padding:5px;padding-left:10px;padding-right:10px;text-align:center'>" + metId + "</font> </p>";
         }
         realPop.Controls.Add(metertype);
 
@@ -304,15 +304,30 @@ public partial class admin_MeterTree : System.Web.UI.Page
             FetchEnergyDataS_Map.GetSingleParambyIDBuilding(metId, buildingSelected, "Energy", tDate.ToString("MM/dd/yyyy HH:mm"), out energy2, out tim2);
             if (tim1 > 0 && tim2 > 0)
             {
-                if (buildingSelected == "Faculty Housing" || buildingSelected == "Girls Hostel" || buildingSelected == "Boys Hostel" || (buildingSelected=="Facilities Building" && metId=="21"))
+                Utilities ut1 = Utilitie_S.EpochToDateTime(tim1);
+                Utilities ut2 = Utilitie_S.EpochToDateTime(tim2);
+                if (ut1 != null && ut2 != null)
                 {
-                    percentage = Math.Round(((energy2 - energy1)*100)/(residentialValue), 3);
-                    per.InnerHtml = percentage.ToString() + "% of the Total Residential Usage(" + (Math.Round((energy2 - energy1) / 1000)).ToString() + "KWh)";
-                }
-                else
-                {
-                    percentage = Math.Round(((energy2 - energy1) * 100) / (commercialValue), 3);
-                    per.InnerHtml = percentage.ToString() + "% of the Total Commercial Usage(" + (Math.Round((energy2 - energy1) / 1000)).ToString() + "KWh)";
+                    if (buildingSelected == "Faculty Housing" || buildingSelected == "Girls Hostel" || buildingSelected == "Boys Hostel" || (buildingSelected=="Facilities Building" && metId=="21"))
+                    {
+                        if (residentialValue > 0)
+                        {
+                            percentage = Math.Round(((energy2 - energy1) * 100) / (residentialValue), 3);
+                            string s= percentage.ToString() + "% of the Total Residential Usage(" + (Math.Round((energy2 - energy1) / 1000)).ToString() + "KWh) ";
+                            s = s + "between <font style='color:yellow'>" + ut1.Date.ToString("ddMMM HH:mm") + " and " + ut2.Date.ToString("ddMMM HH:mm")+"</font>";
+                            per.InnerHtml = s;
+                        }
+                    }
+                    else
+                    {
+                        if (commercialValue > 0)
+                        {
+                            percentage = Math.Round(((energy2 - energy1) * 100) / (commercialValue), 3);
+                            string s = percentage.ToString() + "% of the Total Commercial Usage(" + (Math.Round((energy2 - energy1) / 1000)).ToString() + "KWh)";
+                            s = s + "between <font style='color:yellow'>" + ut1.Date.ToString("ddMMM HH:mm") + " and " + ut2.Date.ToString("ddMMM HH:mm") + "</font>";
+                            per.InnerHtml = s;
+                        }
+                    }               
                 }
             }
 
@@ -392,5 +407,9 @@ public partial class admin_MeterTree : System.Web.UI.Page
     protected void timeSet_Click(object sender, EventArgs e)
     {
         realPop.Style.Add("display", "none");
+        if (TreeView1.SelectedNode != null)
+        {
+            TreeView1.SelectedNode.Selected = false;
+        }   
     }
 }

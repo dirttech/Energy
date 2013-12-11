@@ -168,7 +168,7 @@
             </tr>
             <tr>
              
-                <td colspan="2" style="border-left:2px solid skyblue;"> 
+                <td colspan="2" style="border-left:2px solid skyblue;width:300px;"> 
                     
                      <div id="page_views" runat="server"></div>
                 </td>

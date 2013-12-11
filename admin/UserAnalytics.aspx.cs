@@ -11,7 +11,7 @@ using App_Code.Analytics;
 public partial class admin_UserAnalytics : System.Web.UI.Page
 {
     double pageViews = 0, uniqueVisitors = 0, totalVisitors = 0,avgTimeSpent=0,totalTimeSpent;
-    double trackBillCount = 0, powerPageCount = 0, energyPageCount = 0, averagePageCount = 0, facultyLoginCount=0, facultyHomePage=0;
+    double trackBillCount = 0, powerPageCount = 0, energyPageCount = 0, averagePageCount = 0, facultyLoginCount=0, facultyHomePage=0,facultyLogOut=0;
     double avgPageMeterChange = 0, powerPageMeterChange = 0, energyPageMeterChange = 0;
     double energy7Days=0, energyDTD=0, energyHBH=0, energyWKND=0,energyWKDY=0;
     double avg7Days = 0, avgDTD = 0, avgYEAR = 0;
@@ -49,11 +49,13 @@ public partial class admin_UserAnalytics : System.Web.UI.Page
                 timePer.InnerHtml = frDate.ToString("dd MMM yy") + " - " + tDate.ToString("dd MMM yy");
                 if (antList != null)
                 {
-                    GeneralInfo(antList);
+                    //Sequence should be maintained as it is critical for correct value of page views and average time spent of general analytics section
 
                     PageViews(antList);
 
                     UserFlow(antList);
+
+                    GeneralInfo(antList);
                 }
                 else
                 {
@@ -69,7 +71,7 @@ public partial class admin_UserAnalytics : System.Web.UI.Page
 
     protected void GeneralInfo(List<AnalyticUI> antList)
     {
-            pageViews = antList.Count;
+            pageViews = antList.Count-facultyLogOut-facultyLoginCount;
             string prevUser = antList[0].User_id;
             DateTime prevTime = antList[0].dated;
             for (int i = 1; i < antList.Count; i++)
@@ -124,7 +126,7 @@ public partial class admin_UserAnalytics : System.Web.UI.Page
             visitsCell.Attributes.Add("class", "gen_label");
 
             HtmlTableCell timeCell = new HtmlTableCell();
-            timeCell.InnerHtml = "Avg Time Spent(Sec): " + Math.Round(avgTimeSpent, 2);
+            timeCell.InnerHtml = "Avg Time Spent(page/Sec): " + Math.Round(avgTimeSpent, 2);
             timeCell.Attributes.Add("class", "gen_label");
 
             row1.Cells.Add(pageCell);
@@ -221,9 +223,9 @@ public partial class admin_UserAnalytics : System.Web.UI.Page
             {
                 facultyHomePage++;
             }
-            else
+            else if (antList[i].Event_id.Contains("Faculty Log Out"))
             {
-
+                facultyLogOut++;
             }
         }
 
@@ -347,7 +349,7 @@ public partial class admin_UserAnalytics : System.Web.UI.Page
         userFlow[0, 3] = "Energy Consumption Page";
         userFlow[0, 4] = "Average Comparison Page";
         userFlow[0, 5] = "Track Bill Page";
-        userFlow[0, 0] = "Unaccounted";        
+        userFlow[0, 0] = "Other Events";        
 
         string prevUser = antList[0].User_id;
         string prevPage = antList[0].Event_id;

@@ -133,7 +133,8 @@
                     $('#draggable').fadeOut();
                     $('#msg').text('');
                 });
-            $('#container').highcharts({
+                $('#container').highcharts({
+                    data:{table: document.getElementById('datatable')},
             chart: {
                 type: 'area',
                  zoomType: 'x',
@@ -185,15 +186,7 @@
                         }
                     }
                 }
-            },
-            credits:false,
-            series: [
-            {
-                name: 'Power Consumption',
-                data: readings
             }
-            
-            ]
         });
 
     });
@@ -204,6 +197,7 @@
 <body>
 
 <script src="../Scripts/high_charts/js/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/data.js"></script>
 <script src="../Scripts/high_charts/js/modules/exporting.js"></script>
     <form id="form1" runat="server" style="margin:0px;">
 
@@ -309,8 +303,6 @@
   <asp:DropDownList ID="meterTypeList" runat="server" AutoPostBack="True" 
         class="styled" onselectedindexchanged="meterTypeList_SelectedIndexChanged" 
          ViewStateMode="Enabled">
-        <asp:ListItem>Power</asp:ListItem>
-        <asp:ListItem>Light Backup</asp:ListItem>
     </asp:DropDownList>
  </td>
  </tr>
@@ -320,7 +312,9 @@
 </tr>
     
       </table>
+      
       <div id="container" style="width: 1100px; height: 550px; max-width:1100px; margin:0 auto"></div>
+          <div id="tableContainer" runat="server"></div>
     </form>
 </body>
 </html>

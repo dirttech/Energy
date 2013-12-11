@@ -24,7 +24,7 @@ namespace App_Code.FetchingEnergySmap
         ///<summary>
         ///To Fetch Power data for Apartment between given time limit 
         ///</summary>        
-        public static void FetchPowerConsumption(string fromtime, string toTime, string flat, string type, out Int32[] timeSt, out double[] values)
+        public static void FetchPowerConsumption(string fromtime, string toTime, string flat, string meterId, out Int32[] timeSt, out double[] values)
         {
             string stringData = "";
             timeSt = new int[1];
@@ -32,7 +32,7 @@ namespace App_Code.FetchingEnergySmap
 
             try
             {
-                stringData = "select data in (" + fromtime + ", " + toTime + ") where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/Type='" + type + "'";
+                stringData = "select data in ('" + fromtime + "', '" + toTime + "') where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Power' and Metadata/Extra/MeterID='" + meterId + "'";
 
                 HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
                 IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
@@ -1722,6 +1722,62 @@ namespace App_Code.FetchingEnergySmap
 
         }
 
+        ///<summary>
+        ///Returns Meters with specific Load and SubLoad Types for given building. Use for apartments
+        ///</summary>        
+        public static void ListingMeterIDsByApartment(string building, string flat, out string[] meterIds)
+        {
+            string stringData = "";
+            meterIds = new string[1];
+            try
+            {
+
+                stringData = "select distinct Metadata/Extra/MeterID where Metadata/Location/Building ='" + building + "' and Metadata/Extra/FlatNumber ='" + flat + "'";
+                HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                req.Proxy = iwprxy;
+
+                req.Method = "POST";
+                req.ContentType = "";
+
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(stringData);
+
+                req.ContentLength = data.Length;
+
+                Stream os = req.GetRequestStream();
+                os.Write(data, 0, data.Length);
+                os.Close();
+
+
+                HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                Stream objStream = req.GetResponse().GetResponseStream();
+
+                StreamReader objReader = new StreamReader(objStream);
+
+                var jss = new JavaScriptSerializer();
+
+                string sline = objReader.ReadLine();
+
+                var f1 = jss.Deserialize<dynamic>(sline);
+                
+
+                meterIds = new string[f1.Length];
+                for (int i = 0; i < f1.Length; i++)
+                {
+                    meterIds[i] = f1[i];
+                }
+
+
+                response.Close();
+            }
+            catch (Exception exp)
+            {
+
+            }
+
+        }
 
     }
 }

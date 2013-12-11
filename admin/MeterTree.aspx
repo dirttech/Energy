@@ -155,6 +155,14 @@
             padding-top:10px;
             opacity:0.85;
         }
+        .cut-image
+        {
+            display:none;
+            position:fixed;
+            left:866px;
+            top:135px;
+            z-index:101;
+        }
         .duplicate
         {
             padding-top:70px;
@@ -311,12 +319,18 @@
                     </asp:TreeView>
                 </td>
                 <td>
+                    <img src='../images/closeButton.png' alt='close' width='20px' align='right' class="cut-image" style='padding-right:10px;cursor:pointer;'/>
+                            
                      <asp:ScriptManager ID="ScriptManager1" runat="server">
                     
                 </asp:ScriptManager>
                     <asp:UpdatePanel ID="popUp" runat="server" >
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="TreeView1" EventName="SelectedNodeChanged" />
+                        </Triggers>
                          <ContentTemplate>
-                             <div id="realPop" runat="server" class="pop-up">
+                               <div id="realPop" runat="server" class="pop-up">
+                                
                                  
                              </div>
                              <div id="duplicate" runat="server" class="duplicate"><img src="../images/loader.gif" style="height:20px;" />
@@ -357,15 +371,18 @@
          $('.dupl').click(function () {
              $(".pop-up").hide();
              $(".duplicate").show('slide', function () {
-                
+                 $(".cut-image").show("slow");
              });
+            
          });
-         $('.clos').click(function () {
-             $(".pop-up").toggle("slide");
+         $('.cut-image').click(function () {
+             $(".pop-up").hide("slide");
+             $(".cut-image").hide();
          });
         
          $('#timeShow').click(function () {
              $(".pop-up").hide("slide");
+             $(".cut-image").hide();
              $(".pop-up").css("display", "none");
              $("#timeDiv").show("drop");
 
