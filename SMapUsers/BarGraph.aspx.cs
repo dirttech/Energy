@@ -17,6 +17,7 @@ public partial class BarGraph : System.Web.UI.Page
     public JavaScriptSerializer javaSerial = new JavaScriptSerializer();
     public double[] energyArray;
     public int[] timeArray;
+    public string[] meterIDs;
     public static string[] timeSeries;
 
     public static string apartment = "";
@@ -63,6 +64,8 @@ public partial class BarGraph : System.Web.UI.Page
          {
              try
              {
+                 
+
                  WebAnalytics.LoggerService LG = new LoggerService();
 
                  LoggingEvent logObj = new LoggingEvent();
@@ -84,6 +87,7 @@ public partial class BarGraph : System.Web.UI.Page
             apartment= Session["Apartment"].ToString();
             if (IsPostBack == false)
              {
+                 Populate_Meters();
                  Plot_Bar_Graph("LOAD");
              }
              else
@@ -108,8 +112,7 @@ public partial class BarGraph : System.Web.UI.Page
 
         try
         {
-            string meter_type = meterTypeList.SelectedValue;
-            meterTypeList.SelectedValue = meter_type;
+            string meter_id = meterTypeList.SelectedValue;
 
             DateTime frDate = new DateTime();
             if (callBy == "LOAD")
@@ -131,7 +134,7 @@ public partial class BarGraph : System.Web.UI.Page
                 WebAnalytics.LoggerService LG = new LoggerService();
 
                 LoggingEvent logObj = new LoggingEvent();
-                logObj.EventID = "Energy Consumption of meter" + meter_type + " compare " + comparisonType;
+                logObj.EventID = "Energy Consumption of meter" + meter_id + " compare " + comparisonType;
                 logObj.UserID = Session["UserID"].ToString();
                 bool sts = LG.LogEvent(logObj);
 
@@ -169,7 +172,7 @@ public partial class BarGraph : System.Web.UI.Page
                 
                 string[] toDateArray = Utilitie_S.SMapValidDateFormatter(toEpochs);
                
-                FetchEnergyDataS_Map.FetchBarConsumption(frDateArray, toDateArray, apartment, meter_type, out timeArray, out energyArray);
+                FetchEnergyDataS_Map.FetchBarConsumptionWithMeterId(frDateArray, toDateArray, apartment, meter_id, out timeArray, out energyArray);
                 Utilitie_S.ZeroArrayRefiner(timeArray, energyArray, out timeArray, out energyArray);
 
                 for (int p = 1; p < energyArray.Length; p++)
@@ -213,6 +216,19 @@ public partial class BarGraph : System.Web.UI.Page
         catch (Exception e)
         {
 
+        }
+    }
+    protected void Populate_Meters()
+    {
+        meterTypeList.Items.Clear();
+        string supplyType = "";
+        string demo = "";
+        FetchEnergyDataS_Map.ListingMeterIDsByApartment(building, apartment, out meterIDs);
+        foreach (string id in meterIDs)
+        {
+            FetchEnergyDataS_Map.GetMeterLocationByID(id, building, out demo, out demo, out demo, out demo, out demo, out supplyType);
+            meterTypeList.Items.Add(new ListItem(supplyType , id));
+            meterTypeList.SelectedValue = id;
         }
     }
     protected void meterTypeList_SelectedIndexChanged(object sender, EventArgs e)

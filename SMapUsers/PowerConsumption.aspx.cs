@@ -10,6 +10,7 @@ using System.Web.Script.Serialization;
 using WebAnalytics;
 using App_Code.AnnonationCategories;
 using App_Code.AnnotateDevice;
+using System.Linq;
 
 public partial class Users_PowerConsumption : System.Web.UI.Page
 {
@@ -19,12 +20,9 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     public string[] meterIDs;
     public static Int32[] timeSt;
     public static int interval;
-
     public static string apartment = "";
     public static string building = "";
-
     public static int startDate;
-
 
     protected void CheckLogin()
     {
@@ -40,6 +38,7 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     protected void addCustom_Click(object sender, EventArgs e)
     {
         newDeviceTable.Visible = true;
+        oldDevice.Visible = false;
         draggable.Style.Add("display", "block");
     }
     protected void Page_Load(object sender, EventArgs e)
@@ -58,6 +57,9 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
         {
             try
             {
+                fromDate.Value = DateTime.Today.AddDays(-1).ToString("dd/MM/yyyy hh:mm:ss");
+                toDate.Value = DateTime.Today.ToString("dd/MM/yyyy hh:mm:ss");
+
                 Populate_DeviceList();
                 Populate_Meters();
                 WebAnalytics.LoggerService LG = new LoggerService();
@@ -73,7 +75,10 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
 
             }
         }
-        
+
+        subHeading.InnerText = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                              System.Globalization.CultureInfo.InvariantCulture).ToString("dd MMM HH:mm") + " - " + DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                              System.Globalization.CultureInfo.InvariantCulture).ToString("dd MMM HH:mm");
         Plot_Line_Graph();
     }
 
@@ -83,8 +88,10 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
         {
             string meter_id = meterTypeList.SelectedValue;
 
-            DateTime frDate = DateTime.Now.AddMinutes(-1440);
-            DateTime tDate = DateTime.Now;
+            DateTime frDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                              System.Globalization.CultureInfo.InvariantCulture);
+            DateTime tDate = DateTime.ParseExact(toDate.Value + ",000", "dd/MM/yyyy HH:mm:ss,fff",
+                                               System.Globalization.CultureInfo.InvariantCulture);
 
             string frTime = frDate.ToString("MM/dd/yyyy HH:mm");
             string tTime = tDate.ToString("MM/dd/yyyy HH:mm");
@@ -92,29 +99,35 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             Utilities utFr = Utilitie_S.DateTimeToEpoch(frDate);
             Utilities utTo = Utilitie_S.DateTimeToEpoch(tDate);
 
-           
             FetchEnergyDataS_Map.FetchPowerConsumption(frTime, tTime, apartment, meter_id, out timeSt, out energyArray);
 
             for (int i = 0; i < energyArray.Length; i++)
             {
                 energyArray[i] = Math.Round(energyArray[i], 2);
             }
-
             interval = timeSt[timeSt.Length - 1] - timeSt[0];
             startDate = timeSt[0];
 
-            List<DeviceAnnotations> annonations = Device_Annotations.GettingAnnotations(utFr.Epoch, utTo.Epoch, Convert.ToInt32(meterTypeList.SelectedValue), building);
-           
-                Table annonateTable = new Table();
-                annonateTable.ID = "datatable";
-                annonateTable.Style.Add("display", "none");
+            List<DeviceAnnotations> annonation=Device_Annotations.GettingAnnotations(utFr.Epoch, utTo.Epoch, Convert.ToInt32(meterTypeList.SelectedValue), building);
+            
 
-                TableHeaderRow tableHead = new TableHeaderRow();
-                tableHead.TableSection = TableRowSection.TableHeader;
-                annonateTable.Rows.Add(tableHead);
+            Table annonateTable = new Table();
+            annonateTable.ID = "datatable";
+            annonateTable.Style.Add("display", "none");
 
-                TableHeaderCell thcell1 = new TableHeaderCell();
-                tableHead.Cells.Add(thcell1);
+            TableHeaderRow tableHead = new TableHeaderRow();
+            tableHead.TableSection = TableRowSection.TableHeader;
+            annonateTable.Rows.Add(tableHead);
+
+            TableHeaderCell thcell1 = new TableHeaderCell();
+            tableHead.Cells.Add(thcell1);
+
+            List<DeviceAnnotations> annonations = new List<DeviceAnnotations>();
+               if (annonation != null)
+               {
+                   annonations = annonation.OrderBy(o => o.Device).ThenBy(o => o.FromTime).ToList();
+               }
+                string prevDevice = "";
 
                 TableHeaderCell thcell2 = new TableHeaderCell();
                 thcell2.Text = "Power Consumption";
@@ -125,57 +138,91 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
                 {
                     foreach (DeviceAnnotations annonator in annonations)
                     {
-                        TableHeaderCell thcell = new TableHeaderCell();
-                        thcell.Text = annonator.Device;
-                        tableHead.Cells.Add(thcell);
+                        if (prevDevice != annonator.Device)
+                        {
+                            TableHeaderCell thcell = new TableHeaderCell();
+                            thcell.Text = annonator.Device;
+                            tableHead.Cells.Add(thcell);
+                            prevDevice = annonator.Device;
+                        }
                     }
                 }
 
+                
                 for (int k = 0; k < timeSt.Length; k++)
                 {
                     TableRow row = new TableRow();
                     row.TableSection = TableRowSection.TableBody;
 
                     TableHeaderCell rowHead = new TableHeaderCell();
-                    rowHead.Text = (Convert.ToDouble(timeSt[k])*1000).ToString();
+                    rowHead.Text = (Convert.ToDouble(timeSt[k]) * 1000).ToString();
                     row.Cells.Add(rowHead);
-                    
-                    if (annonations != null)
-                    {
-                        int kt = 100;
-                        foreach (DeviceAnnotations annonator in annonations)
-                        {
-                            kt =  kt+100;
-                           
-                            TableCell cell = new TableCell();
-                            if (annonator.FromTime >= timeSt[k] || annonator.ToTime <= timeSt[k])
-                            {
-                                cell.Text = (0).ToString();
-                            }
-                            else
-                            {
-                                cell.Text = (kt).ToString();
-                            }
-                            row.Cells.Add(cell);
-                        }
-                    }
+
                     TableCell readingCell = new TableCell();
                     readingCell.Text = energyArray[k].ToString();
                     row.Cells.Add(readingCell);
-                    annonateTable.Rows.Add(row);
-                }
+                   
 
-                tableContainer.Controls.Clear();
-                tableContainer.Controls.Add(annonateTable);
+                    if (annonations != null)
+                    {
+                        int kt = 200;
+                        string prevDev = "";
+                        bool success_signal = true;
+                        foreach (DeviceAnnotations annonator in annonations)
+                        {
+                            if (prevDev != annonator.Device)
+                            {
+                                if (success_signal == false)
+                                {
+                                    TableCell tcl = new TableCell();
+                                    tcl.Text = "0";
+                                    row.Cells.Add(tcl);
+                                    kt = kt + 100;
+                                }
+                                TableCell cell = new TableCell();
+                                if (annonator.FromTime >= timeSt[k] || annonator.ToTime <= timeSt[k])
+                                {
+                                    cell.Text = (0).ToString();
+                                    success_signal = false;
+                                }
+                                else
+                                {
+                                    cell.Text = energyArray[k].ToString();
+                                    success_signal = true;
+                                    kt = kt + 100;
+                                    row.Cells.Add(cell);
+                                }
+                                prevDev = annonator.Device;
+                            }
+                            else if (success_signal == false)
+                            {
+                                TableCell cell = new TableCell();
+                                if (annonator.FromTime >= timeSt[k] || annonator.ToTime <= timeSt[k])
+                                {
+                                    cell.Text = (0).ToString();
+                                    success_signal = false;
+                                }
+                                else
+                                {
+                                    cell.Text = energyArray[k].ToString();
+                                    success_signal = true;
+                                    kt = kt + 100;
+                                    row.Cells.Add(cell);
+                                }
+                                prevDev = annonator.Device;
+                            }
+                        }
+                    }
+                    annonateTable.Rows.Add(row); 
+                }
             
-            
-            
+            tableContainer.Controls.Clear();
+            tableContainer.Controls.Add(annonateTable);
         }
         catch (Exception e)
         {
 
         }
-
     }
 
     protected void meterTypeList_SelectedIndexChanged(object sender, EventArgs e)
@@ -220,12 +267,13 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
     }
     protected void annotateButton_Click(object sender, EventArgs e)
     {
-
         if (newDeviceTable.Visible == false)
         {
             DeviceAnnotations annonateObj = new DeviceAnnotations();
-            annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
-            annonateObj.ToTime = Convert.ToInt32(tTime.Text);
+            Utilities uttf = Utilitie_S.DateTimeToEpoch(Convert.ToDateTime(frmTime.Text));
+            annonateObj.FromTime = uttf.Epoch;
+            Utilities uttt = Utilitie_S.DateTimeToEpoch(Convert.ToDateTime(tTime.Text));
+            annonateObj.ToTime = uttt.Epoch;
             annonateObj.MeterId =Convert.ToInt32( meterTypeList.SelectedValue);
             annonateObj.building = Session["Building"].ToString();
             annonateObj.Device = deviceList.SelectedItem.Text;
@@ -250,9 +298,12 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             if (sts == true)
             {
                 msg.Text = "Something went wrong with annotation! Device Added.";
+                oldDevice.Visible = true;
                 DeviceAnnotations annonateObj = new DeviceAnnotations();
-                annonateObj.FromTime = Convert.ToInt32(frmTime.Text);
-                annonateObj.ToTime = Convert.ToInt32(tTime.Text);
+                Utilities uttf = Utilitie_S.DateTimeToEpoch(Convert.ToDateTime(frmTime.Text));
+                annonateObj.FromTime = uttf.Epoch;
+                Utilities uttt = Utilitie_S.DateTimeToEpoch(Convert.ToDateTime(tTime.Text));
+                annonateObj.ToTime = uttt.Epoch;
                 annonateObj.MeterId = Convert.ToInt32(meterTypeList.SelectedValue);
                 annonateObj.building = Session["Building"].ToString();
                 annonateObj.Device = newDeviceText.Text;
@@ -264,13 +315,14 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
                     frmTime.Text = ""; tTime.Text = "";
                 }
                 Populate_DeviceList();
-                
+                newDeviceTable.Visible = false;
             }
             else
             {
                 msg.Text = "Something went wrong!";
             }
         }
+        Plot_Line_Graph();
     }
     protected void Populate_DeviceList()
     {
@@ -284,7 +336,6 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
             }
         }
     }
-
     protected void Populate_Meters()
     {
         meterTypeList.Items.Clear();
@@ -294,8 +345,13 @@ public partial class Users_PowerConsumption : System.Web.UI.Page
         foreach (string id in meterIDs)
         {
             FetchEnergyDataS_Map.GetMeterLocationByID(id, building,out demo,out demo, out demo, out demo, out demo,out supplyType);
-            meterTypeList.Items.Add(new ListItem(supplyType+"-"+id, id));
+            meterTypeList.Items.Add(new ListItem(supplyType, id));
             meterTypeList.SelectedValue = id;
         }
+    }
+
+    protected void timeSet_Click(object sender, EventArgs e)
+    {
+        Plot_Line_Graph();
     }
 }

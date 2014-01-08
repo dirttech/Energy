@@ -6,6 +6,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Power Consumption</title>
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="../Scripts/calender/bootstrap-datetimepicker.min.css" />
+   
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet" />
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -21,6 +25,7 @@
 </script>
 
      <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.customSelect.js"></script>
     <script type="text/javascript">
@@ -35,7 +40,7 @@
 
             $('#options').click(function () {
 
-                $('#optionsDiv').toggle("slow");
+                $('#optionsDiv').toggle("slow");             
             });
 
             $('select.styled').customSelect();
@@ -96,6 +101,10 @@
         {
             color: white;
         }
+        #datatable> th> td
+{
+border: 1px solid black;
+}
     </style>
 
     <link rel="Stylesheet" type="text/css" media="screen" href="../Scripts/Default.css" />
@@ -122,39 +131,35 @@
         readings[i][1]=energyData[i];
     }
    
-       jQuery(document).ready(function ($) {
-                Highcharts.setOptions({
-	global: {
-		useUTC: false
-	}
-                });
-                $('#draggable').draggable();
-                $('#closeButton').click(function() {
-                    $('#draggable').fadeOut();
-                    $('#msg').text('');
-                });
-                $('#container').highcharts({
-                    data:{table: document.getElementById('datatable')},
+    jQuery(document).ready(function ($) {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+        $('#draggable').draggable();
+        $('#closeButton').click(function() {
+            $('#draggable').fadeOut();
+            $('#msg').text('');
+        });
+        $('#container').highcharts({
+            data:{table: document.getElementById('datatable')},
             chart: {
                 type: 'area',
-                 zoomType: 'x',
+                zoomType: 'x',
                 spacingRight: 20
             },
             title: {
                 text: 'Click and Drag to Zoom in'
-                
             },
             subtitle: {
                 text: 'Click on certain point to annotate'              
             },
             xAxis: {
-             
-               type:'datetime',
-              
+                type:'datetime'              
             },
             yAxis: {
                 title: {
-                    
                     text: 'Power(Watts)'
                 }
             },
@@ -169,11 +174,12 @@
                         var notAnnonated=$('.NotAnnonated').attr('id');
                         var annonated= $('.Annonated').attr('id');
                        
-                        $('#'+annonated).val(this.x/1000);
+                        $('#'+annonated).val(new Date(this.x).toLocaleString());
                         $('#'+notAnnonated).attr('class','Annonated');
                         $('#'+annonated).attr('class','NotAnnonated');
                         $('#'+notAnnonated).attr('readonly','readonly');
                         $('#'+annonated).attr('readonly','readonly');
+                        $("#form1").valid(); 
                     }}},
                     marker: {
                         enabled: false,
@@ -184,8 +190,8 @@
                                 enabled: true
                             }
                         }
-                    }
-                }
+                    }                   
+                }               
             }
         });
 
@@ -200,25 +206,65 @@
 <script src="http://code.highcharts.com/modules/data.js"></script>
 <script src="../Scripts/high_charts/js/modules/exporting.js"></script>
     <form id="form1" runat="server" style="margin:0px;">
-
+              <div id="timeDiv" runat="server" style=" display:none; position:absolute; left:205px; top:102px;-moz-border-radius:8px;	-webkit-border-radius:8px;	border-radius:8px; 
+                           box-shadow: 0px 0px 10px rgba(0,0,0,0.2); width:600px; height:170px; background-color:#0d96c5; opacity:0.99; z-index:12;">
+                        <img id="Img1" runat="server" height="30" style="position:absolute; height:30px; top:5px; right:5px; cursor:pointer;" src="~/images/closeButton.png" alt="close" />
+                        <br />
+                        
+                        <table style="color:white;" >
+                            <tr>
+                                <td class="page_names" style="color:black; "><h3 style="line-height:0px;">&nbsp;&nbsp;&nbsp;Set time period
+                                    </h3><hr style="border-color:black;"/>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From:</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="datetimepicker1" class="input-append date">
+                                        <input type="text" id="fromDate" runat="server" style=" margin-left:30px;"/> 
+                                        <span class="add-on">
+                                        </span>
+                                    </div>       
+                                </td>
+                                <td>
+                                    <div id="datetimepicker2" class="input-append date">
+                                        <input type="text" id="toDate" runat="server" style=" margin-left:30px;"/>
+                                        <span class="add-on">
+                                        </span>
+                                    </div>       
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td align="right">
+                                    <asp:Button ID="timeSet" runat="server" Text="Set Time" class="customButton" OnClick="timeSet_Click" />
+                                </td>
+                            </tr>
+                        </table>
+                        
+             </div>
            <div id="draggable" runat="server" style="-webkit-border-radius:8px;display:none;	border-radius:8px; z-index:100; background-color:#0d96c5; cursor:move;  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);position:absolute; -khtml-user-drag: element; left:800px; top:150px; padding:10px;" draggable="true">
      <img id="closeButton" runat="server" style="position:absolute; top:15px; right:15px; height:20px; cursor:pointer;" src="~/images/closeButton.png" alt="close" />
         <table>
             <tr>
                 <td colspan="2"><h3>Annotate Device</h3>
-                    <p id="pmesg" runat="server">Select seconed point on graph.</p>
+                    <p id="pmesg" runat="server"></p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:TextBox ID="frmTime" name="frmTime" runat="server" placeholder="From Time" class="Annonated" onClick="return Annonating(this)" ViewStateMode="Enabled"></asp:TextBox>
+                    <asp:TextBox ID="frmTime" name="frmTime" runat="server" txt="" placeholder="From Time" class="Annonated" onClick="return Annonating(this)" ViewStateMode="Enabled" required="required"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:TextBox ID="tTime" name="tTime" runat="server" placeholder="To Time" class="NotAnnonated" onClick="return Annonating(this)"  ViewStateMode="Enabled"></asp:TextBox>
+                    <asp:TextBox ID="tTime" name="tTime" runat="server" txt="" placeholder="To Time" class="NotAnnonated" onClick="return Annonating(this)"  ViewStateMode="Enabled" required="required"></asp:TextBox>
                 </td>
             </tr>
-            <tr>
-                <td>
+            <tr id="oldDevice" runat="server">
+                <td>  
                     <asp:DropDownList ID="deviceList" runat="server">
                     </asp:DropDownList>
                 </td>
@@ -294,12 +340,12 @@
  <table><tr>
  <td style="width:82%;">
   <div class="HeadingLeftTop">
-    <label id="Heading" runat="server" style=" font-size:x-large;">Last 24 Hours</label>    
+    <label id="Heading" runat="server" style=" font-size:x-large;">Power Consmption</label>    
     <label id="subHeading" runat="server" style="font-size:small;" ></label>
     </div>
  </td>
  <td align="right">
- 
+ <img src="../images/clock.png" id="timeShow" alt="Set time" style="position:absolute; right:350px; height:35px; cursor:pointer;" title="Reset Time Period" />
   <asp:DropDownList ID="meterTypeList" runat="server" AutoPostBack="True" 
         class="styled" onselectedindexchanged="meterTypeList_SelectedIndexChanged" 
          ViewStateMode="Enabled">
@@ -316,5 +362,63 @@
       <div id="container" style="width: 1100px; height: 550px; max-width:1100px; margin:0 auto"></div>
           <div id="tableContainer" runat="server"></div>
     </form>
+    
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap-datetimepicker.min.js">
+    </script>
+    <script type="text/javascript"
+     src="../Scripts/calender/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            
+            $('#datetimepicker1').datetimepicker({
+                format: 'dd/MM/yyyy hh:mm:ss',
+                pick12HourFormat: true
+            });
+            $('#datetimepicker2').datetimepicker({
+                format: 'dd/MM/yyyy hh:mm:ss',
+                pick12HourFormat: true
+            });
+            $('#Img1').click(function () {
+                $("#timeDiv").hide("drop");
+            });
+            $('#timeSet').click(function () {
+                $("#timeDiv").hide("drop");
+
+            });
+       
+        $('#timeShow').click(function () {
+            $("#timeDiv").show("drop");
+
+        });
+
+            $("#form1").validate({
+                errorLabelContainer: '#pmesg',
+                rules: {
+                    frmTime: "required",
+                    tTime:"required",
+                    newDeviceText:"required",
+                    deviceList:"required"
+                },
+                messages: {
+                    frmTime: "Please specify 'From Time'",
+                    tTime: "Please specify 'To Time'",
+                    newDeviceText:"Please specify 'New Device'",
+                    deviceList:"Please select 'Device'"
+                }
+            });
+
+            $('#annonateButton').click(function () {
+                $("#form1").valid(); 
+            });
+            $("#form1").valid(); 
+        });
+
+    </script>
+
 </body>
 </html>

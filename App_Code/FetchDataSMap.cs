@@ -153,6 +153,72 @@ namespace App_Code.FetchingEnergySmap
         }
 
         ///<summary>
+        ///To Fetch Energy data for Apartment between Array of times
+        ///Give "FromTime" in first array and "ToTime" in corresponding element of seconed array
+        ///</summary> 
+        public static void FetchBarConsumptionWithMeterId(string[] fromTimeArray, string[] toTimeArray, string flat, string meterId, out Int32[] timeSt, out double[] values)
+        {
+            string stringData = "";
+            timeSt = new int[toTimeArray.Length];
+            values = new double[toTimeArray.Length];
+            try
+            {
+
+
+                for (int j = 0; j < toTimeArray.Length; j++)
+                {
+                    HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                    IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                    req.Proxy = iwprxy;
+
+                    req.Method = "POST";
+                    req.ContentType = "";
+
+
+                    stringData = "select data in ('" + fromTimeArray[j] + "' , '" + toTimeArray[j] + "') limit 1 where Metadata/Extra/FlatNumber ='" + flat + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/MeterID='" + meterId + "'";
+
+                    ASCIIEncoding encoding = new ASCIIEncoding();
+                    byte[] data = encoding.GetBytes(stringData);
+
+                    req.ContentLength = data.Length;
+
+                    Stream os = req.GetRequestStream();
+                    os.Write(data, 0, data.Length);
+                    os.Close();
+
+                    HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                    Stream objStream = req.GetResponse().GetResponseStream();
+
+                    StreamReader objReader = new StreamReader(objStream);
+
+                    var jss = new JavaScriptSerializer();
+
+                    string sline = objReader.ReadLine();
+
+                    var f1 = jss.Deserialize<dynamic>(sline);
+
+                    var f21 = f1[0];
+                    var f2 = f21["uuid"];
+                    var f3 = f21["Readings"];
+
+                    for (int i = 0; i < f3.Length; i++)
+                    {
+                        var f4 = f3[i];
+                        timeSt[j] = Convert.ToInt32(f4[0] / 1000);
+                        values[j] = Convert.ToDouble(f4[1]);
+                    }
+
+                    response.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+        }
+
+        ///<summary>
         ///To Fetch Energy Values for Bills of Apartment between given time limit 
         ///This function applies "Window" of 5 minutes and "From-Time = start of day" , "To-Time = end of day"  
         ///</summary> 
@@ -314,6 +380,93 @@ namespace App_Code.FetchingEnergySmap
 
             }
         }
+
+        ///<summary>
+        ///Provides "Average Energy Consumption" between given times of provided "Building"
+        ///Floors = 2 to 9
+        ///Give "FromTime" in first array and "ToTime" in corresponding element of seconed array
+        ///
+        ///</summary> 
+        public static void FetchAvgConsumptionWithMeterId(string[] fromTimeArray, string[] toTimeArray, string location, string meter_id, out Int32[] timeSt, out double[] values)
+        {
+            string stringData = "";
+            timeSt = new int[toTimeArray.Length];
+            values = new double[toTimeArray.Length];
+
+            try
+            {
+                for (int j = 0; j < toTimeArray.Length; j++)
+                {
+                    int count = 0;
+                    HttpWebRequest req = WebRequest.Create(sURL) as HttpWebRequest;
+                    IWebProxy iwprxy = WebRequest.GetSystemWebProxy();
+                    req.Proxy = iwprxy;
+
+                    req.Method = "POST";
+                    req.ContentType = "";
+
+
+                    stringData = "select data before '" + fromTimeArray[j] + "' limit 1 where Metadata/Location/Building ='" + location + "' and Metadata/Extra/PhysicalParameter='Energy' and Metadata/Extra/MeterID='" + meter_id + "' and (Metadata/Location/Floor = '2' or Metadata/Location/Floor='3'  or Metadata/Location/Floor='4'  or Metadata/Location/Floor='5'  or Metadata/Location/Floor='6'  or Metadata/Location/Floor='7'  or Metadata/Location/Floor='8'  or Metadata/Location/Floor='9' )";
+
+                    ASCIIEncoding encoding = new ASCIIEncoding();
+                    byte[] data = encoding.GetBytes(stringData);
+
+                    req.ContentLength = data.Length;
+
+                    Stream os = req.GetRequestStream();
+                    os.Write(data, 0, data.Length);
+                    os.Close();
+
+                    HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+
+                    Stream objStream = req.GetResponse().GetResponseStream();
+
+                    StreamReader objReader = new StreamReader(objStream);
+
+                    var jss = new JavaScriptSerializer();
+
+                    string sline = objReader.ReadLine();
+
+                    var f1 = jss.Deserialize<dynamic>(sline);
+
+                    for (int k = 0; k < f1.Length; k++)
+                    {
+
+                        var f21 = f1[k];
+                        var f2 = f21["uuid"];
+                        var f3 = f21["Readings"];
+
+                        if (f3.Length > 0)
+                        {
+                            //if (count == 0)
+                            //{
+                            //    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\BillingApp\avgData.txt", true))
+                            //    {
+                            //        file.WriteLine(sline);
+                            //        file.WriteLine("\n ------------------------------------ \n");
+                            //    }
+                            //}
+                            count++;
+                            var f4 = f3[0];
+                            timeSt[j] = Convert.ToInt32(f4[0] / 1000);
+                            values[j] = values[j] + Convert.ToDouble(f4[1]);
+                        }
+
+                    }
+                    if (count > 1)
+                    {
+                        values[j] = values[j] / count;
+                    }
+
+                    response.Close();
+                }
+            }
+            catch (Exception exp)
+            {
+
+            }
+        }
+
 
         ///<summary>
         ///Provides Electric Parameter Values of given building.

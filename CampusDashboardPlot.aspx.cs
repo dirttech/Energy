@@ -39,6 +39,7 @@ public partial class CampusDashboardPlot : System.Web.UI.Page
         if (IsPostBack == false)
         {
             months.SelectedValue = DateTime.Now.Month.ToString();
+            years.SelectedValue = DateTime.Now.Year.ToString();
             if (Session["Building-Selected"] != null)
             {
                 building = Session["Building-Selected"].ToString();

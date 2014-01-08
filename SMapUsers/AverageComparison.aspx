@@ -231,7 +231,7 @@ box-shadow: 0px 0px 8px 0px #000000;
 
            <asp:DropDownList ID="meterTypeList" runat="server" AutoPostBack="True" 
         class="styled" onselectedindexchanged="meterTypeList_SelectedIndexChanged">
-        <asp:ListItem>Power</asp:ListItem>
+       <asp:ListItem>Power</asp:ListItem>
         <asp:ListItem>Light Backup</asp:ListItem>
     </asp:DropDownList>
 
