@@ -268,7 +268,7 @@
              <asp:ListItem>Girls Hostel</asp:ListItem>
              <asp:ListItem>Mess Building</asp:ListItem>
              <asp:ListItem>Library Building</asp:ListItem>
-             <asp:ListItem>Service Block</asp:ListItem>
+             <asp:ListItem>Facilities Building</asp:ListItem>
 
         </asp:DropDownList>
         <asp:TextBox ID="meterTxt1" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
@@ -281,7 +281,7 @@
              <asp:ListItem>Girls Hostel</asp:ListItem>
              <asp:ListItem>Mess Building</asp:ListItem>
              <asp:ListItem>Library Building</asp:ListItem>
-             <asp:ListItem>Service Block</asp:ListItem>
+             <asp:ListItem>Facilities Building</asp:ListItem>
 
         </asp:DropDownList>
         <asp:TextBox ID="meterTxt2" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
@@ -294,7 +294,7 @@
              <asp:ListItem>Girls Hostel</asp:ListItem>
              <asp:ListItem>Mess Building</asp:ListItem>
              <asp:ListItem>Library Building</asp:ListItem>
-             <asp:ListItem>Service Block</asp:ListItem>
+             <asp:ListItem>Facilities Building</asp:ListItem>
 
         </asp:DropDownList>
         <asp:TextBox ID="meterTxt3" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
@@ -307,7 +307,7 @@
              <asp:ListItem>Girls Hostel</asp:ListItem>
              <asp:ListItem>Mess Building</asp:ListItem>
              <asp:ListItem>Library Building</asp:ListItem>
-             <asp:ListItem>Service Block</asp:ListItem>
+             <asp:ListItem>Facilities Building</asp:ListItem>
 
         </asp:DropDownList>
         <asp:TextBox ID="meterTxt4" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
@@ -320,7 +320,7 @@
              <asp:ListItem>Girls Hostel</asp:ListItem>
              <asp:ListItem>Mess Building</asp:ListItem>
              <asp:ListItem>Library Building</asp:ListItem>
-             <asp:ListItem>Service Block</asp:ListItem>
+             <asp:ListItem>Facilities Building</asp:ListItem>
 
         </asp:DropDownList>
         <asp:TextBox ID="meterTxt5" class="meterInput" runat="server" placeholder="Meter Id"></asp:TextBox>
