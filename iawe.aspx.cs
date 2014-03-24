@@ -9,6 +9,6 @@ public partial class iawe : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Redirect("http://energy.iiitd.edu.in:5000/");
+        Response.Redirect("http://iawe.github.io/");
     }
 }
