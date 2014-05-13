@@ -311,7 +311,7 @@ Internet of Things.
          <tr>
                
                     <td class="infoWrapper">
-                      <a target="_blank" href="http://nipunbatra.wordpress.com/"class="nameWrapper">Nipun Batra</a><br />
+                      <a target="_blank" href="http://nipunbatra.github.io/"class="nameWrapper">Nipun Batra</a><br />
                     <label class="namePosition">Ph.D Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    
