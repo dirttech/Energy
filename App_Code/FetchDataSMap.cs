@@ -20,7 +20,7 @@ namespace App_Code.FetchingEnergySmap
         static string uuid;
         //static string sURL = "http://nms.iiitd.edu.in:9101/api/query";
         //static string sURL = "http://192.168.1.40:9101/api/query";
-        static string sURL = "http://energy.iiitd.edu.in:9106/";
+        static string sURL = "http://energy.iiitd.edu.in:9106/api/query";
 
         ///<summary>
         ///To Fetch Power data for Apartment between given time limit 
