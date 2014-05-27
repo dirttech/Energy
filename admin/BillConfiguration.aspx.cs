@@ -30,8 +30,8 @@ public partial class admin_BillConfiguration : System.Web.UI.Page
     {
         BillConfigure billobj = new BillConfigure();
 
-        billobj.ApplicableDate = DateTime.ParseExact(fromDate.Value + ",000", "dd/MM/yyyy HH:mm:ss",
-                                           System.Globalization.CultureInfo.InvariantCulture);
+        billobj.ApplicableDate = DateTime.ParseExact(fromDate.Value, "dd/MM/yyyy HH:mm:ss",
+                                           System.Globalization.CultureInfo.InvariantCulture).ToLocalTime();
         billobj.FixedCharge = Convert.ToDouble(fixedCharge.Text);
         billobj.AdjCharge = Convert.ToDouble(adjCharge.Text);
         billobj.DefCharge = Convert.ToDouble(defCharge.Text);
