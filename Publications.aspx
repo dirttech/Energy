@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="News.aspx.cs" Inherits="News" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Publications.aspx.cs" Inherits="Publications" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
  <style type="text/css">
@@ -6,11 +6,8 @@
      {
          display:block;
      }
-     h3
-     {
-         color:skyblue;
-     }
-     li#new
+    
+     li#publ
         {
           background-color:skyblue;   
         }
@@ -54,9 +51,10 @@
     .teamWrapper
     {
         position:relative;
-        left:180px;
-        margin-left:50px;
+        left:80px;
+      
         max-width:1000px;
+        margin-left:50px;
         
     }
     .imgbox
@@ -128,105 +126,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">&nbsp;<br /><br />
 
-    <div class="sideLine">
-  
-    
-    <a>Whats Happening</a><br />
-      <ul >
-            
-    <li><a href="#funding">Funding</a></li>
-    <li><a href="#recent">Recent News<a></li>
-    
-    </ul>
- 
-    </div>
-    <div class="teamWrapper" id="funding">
-        
+    <div class="teamWrapper">
    
-    <br />
-    <h3>Funding</h3>
-    <ul>
-    <li>Pervasive Sensing and Computing Technologies for Energy and Water Sustainability in Buildings, Dr. Amarjeet Singh(PI), Dr. 	Pushpendra Singh & Dr. Vinayak Naik (Co-PI),
- funded by DIT and NSF, 2 years starting April 2012, App. Rs 1,30,00,000
-</li>
-<li>Time and Presence Based Actuation, Research Project funded by Telecommunication Consultants India Limited (TCIL), completed May 2013, App. Rs 2,00,000</li>
-    </ul>
-        <br />
-         <hr id="recent"/>
-    <h3>Recent News</h3>
-    <ul>
-    <li>More than 120 smart meters installed on IIIT Delhi campus with data being collected from them every 30 seconds.
-</li>
-<li> Recently completed an extensive home deployment.
-<div >
-<table  style="border:1px solid black;">
-<tr><td class="style1" rowspan="2">
-<div class="img2Container" style="border: 1px solid gray;">
-<p class="desc2">Schematic showing overall home deployment.</p>
-        <img class="c2img" src="images/deployments/overall_deployment1.png"/>
-        
-</div>
-</td>
-<td style="display:inline-block;" class="style1">
-
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/ambient_2.png"/>
-        <p class="desc"> Sensing environmental parameters & light, temprature, motion.
-</p>
-</span>
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/cc_1.png"/>
-        <p class="desc">Current cost CT based monitoring.<br /></p>
-</span>
-
-
-</td>
-</tr>
-<tr>
-<td  class="style1">
-
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/electric_meter_1.png"/>
-        <p class="desc">EM6400 Smart Electric Meter</p>
-        </span>
-        <span class="imgContainer">
-        <img class="cimg" src="images/deployments/watermeter.png">
-        <p class="desc"> Pulse output water meter</p>
-</span>
-
-
-</td>
-</tr>
-<tr><td colspan="2" style="text-align:center;"><span class="imgContainer">
-        <img class="cimg" src="images/deployments/jplug_2.png"/>
-        <p class="desc">Appliance level monitoring using jPlug.</p>
-</span>
-<span class="imgContainer" style="margin-left:20px;">
-        <img class="cimg" src="images/deployments/led.png" />
-        <p class="desc">Glowing LEDs in the Night.</p>
-</span>
-<span class="imgContainer" style="margin-left:20px;">
-        <img class="cimg" src="images/deployments/mcb_2.png"/>
-        <p class="desc">Split Core CT monitoring circuit level current.</p>
-</span>
-
-<span class="imgContainer">
-        <img class="cimg" src="images/deployments/rpi_2.png"/>
-        <p class="desc">Raspberry Pi collecting pulse outputs from water meter.</p>
-</span>
-</td></tr>
-
-</table>
-
-</div>
-</li>    
-<br />
-<li>Surveyed more than 1500 households in Delhi for energy consumption behavior in summer 2013.</li>
-    </ul>
-   
-
-     <br />
-    <hr id="publications"/>
     <br />
 
     <h3>Publications</h3>
@@ -389,7 +290,7 @@ performance results.
          
 
     </ul>
-    <br />
+   
 </div>
 
 </asp:Content>

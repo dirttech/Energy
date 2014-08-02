@@ -106,6 +106,8 @@
                             <a href="http://iawe.github.io/" target="_blank" class="uselink"> Indian data set for ambient water and energy sensing (iAWE) </a>
                         </li><li>
                             <a href="http://nipunbatra.github.io/downloads/files/commercial_dataset.zip" target="_blank" class="uselink">Commercial NILM dataset</a>
+                        </li><li>
+                            <a href="https://www.iiitd.edu.in/~amarjeet/Datasets/eadivino/" target="_blank" class="uselink"> IIIT Delhi electricity consumption</a>
                    </li></ul>
                  
                 

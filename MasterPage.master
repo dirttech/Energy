@@ -56,10 +56,10 @@
 				<li id="camp"><a href="CampusDashboard.aspx">Campus Dashboard</a></li>
 				<li id="log"><a href="Loggin.aspx">Faculty Dashboard</a></li>
                 <li id="new"><a href="News.aspx">Research</a></li>
-				<li id="tem"><a href="Team.aspx">People</a></li>
-                <li id="lin"><a href="UsefulLinks.aspx">Links</a></li>
-                <li id="highlighter"><a href="power_down.aspx" target="_blank" style="display:none;">&darr;Power Down</a></li>
+                <li id="publ"><a href="Publications.aspx">Publications</a></li>
                 <li id="data"><a href="Datasets.aspx">Datasets</a></li>
+                <li id="lin"><a href="UsefulLinks.aspx">Links</a></li>
+				<li id="tem"><a href="Team.aspx">People</a></li>
 				<li id="cont"><a href="ContactUs.aspx">Contact us</a></li>
                 
 			</ul>
