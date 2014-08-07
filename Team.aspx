@@ -26,6 +26,7 @@
              left:300px;   
              line-height:normal;
              color:skyblue; 
+             margin-bottom:0px;
         }
         .sideLine
         {
@@ -193,8 +194,9 @@
     <li><a  onclick="scrollTo('prof')">Faculty</a></li>
     <li><a  onclick="scrollTo('phd')">Ph.D</a></li>
     <li><a  onclick="scrollTo('ra')">Software Engineer / RA</a></li>
-    <li><a  onclick="scrollTo('mtech')">M.Tech</a></li>
-    <li><a  onclick="scrollTo('btech')">B.Tech</a></li>
+    <li style="display:none;"><a  onclick="scrollTo('mtech')" >M.Tech</a></li>
+    <li style="display:none;"><a  onclick="scrollTo('btech')" >B.Tech</a></li>
+    <li><a onclick="scrollTo('alumni')">Alumni</a></li>
     
     </ul>
     <a>Collaborators</a><br />
@@ -237,7 +239,6 @@
                   
                 </table>
                 </div>
-
                 
      <div class="personal-wrapper"  id="Div8">
             <table>
@@ -305,7 +306,7 @@ Internet of Things.
                 </table>
                 </div>
 
-                  <div class="personal-wrapper"  id="Div3">
+          <div class="personal-wrapper"  id="Div3">
             <table>
          
          <tr>
@@ -358,6 +359,35 @@ Internet of Things.
               
                 </table>
                 </div>
+
+          <div class="personal-wrapper" style="margin-top:10px;"  id="milanDiv">
+            <table>
+            
+                <tr>
+               
+                   
+                    <td class="infoWrapper">
+                    <a target="_blank" href=" http://milanjainblog.wordpress.com/" class="nameWrapper">Milan Jain</a><br />
+                    <label class="namePosition">Ph.D Scholar</label><br />    
+                    <label class="below-info">CSE(MUC), IIIT Delhi
+                    </label><br /><br />
+                  <label class="description"><p class="reHead">Research Interests -</p>
+                 Home Automation based on Z-Wave,
+                Wireless Communication, Algorithms, Web Interfaces<br /><br />
+                
+                </label>
+                <label class="below-info">
+                Email - milan1267 [at] iiitd [dot] ac [dot] in
+               
+                </label>
+                
+                </td>
+                </tr>
+              
+                
+                
+            </table>
+        </div>
                 </div>
     </td></tr>
     <tr><td>
@@ -365,7 +395,7 @@ Internet of Things.
     <hr />
       <div id="raDiv" class="teamWrapper">
 
-                   <div class="personal-wrapper"  id="Div2">
+         <div class="personal-wrapper"  id="Div2">
             <table>
          
          <tr>
@@ -401,13 +431,13 @@ Internet of Things.
                
                    
                     <td class="infoWrapper">
-                <a target="_blank" href="http://en.gravatar.com/inderpalsinghs" class="nameWrapper">Inderpal Singh</a><br />
+                <a target="_blank" href="https://www.linkedin.com/profile/view?id=94509414&trk=nav_responsive_tab_profile" class="nameWrapper">Inderpal Singh</a><br />
                     <label class="namePosition">Software Engineer</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    
                     </label><br />
-               <label class="description"><p class="reHead">Technical Interests -</p>
-                Web Development, Web Interfaces, System Programming.
+               <label class="description"><p class="reHead">Tech Involvement -</p>
+                Web Programming, Web Interfaces, System Programming.
                 <br /><br />
                 
                 </label>
@@ -423,50 +453,64 @@ Internet of Things.
                 </table>
                 </div>
 
-                </div>
-    </td></tr>
-    <tr><td>
-    <h4 id="mtech">M.Tech</h4>
-    <hr />
-     <div id="mtechDiv" class="teamWrapper">
-         <div class="personal-wrapper"  id="milanDiv">
-            <table>
-            
-                <tr>
-               
-                   
-                    <td class="infoWrapper">
-                    <a target="_blank" href=" http://milanjainblog.wordpress.com/" class="nameWrapper">Milan Jain</a><br />
-                    <label class="namePosition">M.Tech</label><br />    
-                    <label class="below-info">CSE(MUC), IIIT Delhi
-                    </label><br /><br />
-                  <label class="description"><p class="reHead">Research Interests -</p>
-                 Home Automation based on Z-Wave,
-                Wireless Communication, Algorithms, Web Interfaces<br /><br />
-                
-                </label>
-                <label class="below-info">
-                Email - milan1267 [at] iiitd [dot] ac [dot] in
-               
-                </label>
-                
-                </td>
-                </tr>
-              
-                
-                
-            </table>
-        </div>
-
-         <div class="personal-wrapper"  id="Div1">
+         <div class="personal-wrapper"  id="Div25">
             <table>
          
          <tr>
                
                     
                     <td class="infoWrapper">
+                    <a target="_blank" href="#" class="nameWrapper">Shubham Saini</a><br />
+                    <label class="namePosition">Research Scholar</label><br />    
+                    <label class="below-info">MUC - IIIT Delhi<br />
+                   </label><br />
+                  
+                <label class="description"><p class="reHead">    Research Interests -</p>
+                Machine Learning, Data Mining and Analytics (with applications in Computational Sustainability and Anomaly Detection)
+                
+               <br />
+                </label>
+                <label class="below-info">
+                Email - shubhams [at] iiitd [dot] ac [dot] in
+                
+                </label>
+                
+                </td>
+                </tr>
+               
+                </table>
+                </div>
+
+
+                </div>
+    </td></tr>
+    <tr><td style="display:none;">
+    <h4 id="mtech">M.Tech</h4>
+    <hr />
+     <div id="mtechDiv" class="teamWrapper">
+
+
+      </div>
+    </td></tr>
+    <tr><td style="display:none;">
+    <h4 id="btech">B.Tech</h4>
+    <hr />
+      <div id="btechDiv" class="teamWrapper">
+      </div>
+
+    </td></tr>
+    <tr><td>
+    <h4 id="alumni">Alumni</h4>
+        <hr />
+        <div id="alumniDiv" class="teamWrapper">
+            
+         <div class="personal-wrapper"  id="Div1">
+            <table>
+         
+         <tr>           
+                    <td class="infoWrapper">
                     <a target="_blank" href="http://shailjathakur.wordpress.com/" class="nameWrapper">Shailja Thakur</a><br />
-                    <label class="namePosition">M.Tech</label><br />    
+                    <label class="namePosition">Alumni (M.Tech)</label><br />    
                     <label class="below-info">CSE(MUC),IIIT Delhi
                     </label><br /><br />
                 <label class="description"><p class="reHead">Research Interests -</p>
@@ -484,21 +528,41 @@ Internet of Things.
                    
                 </table>
                 </div>
+         
+         <div class="personal-wrapper"  id="Div24">
+            <table>
+         
+         <tr>
+                    
+                    <td class="infoWrapper">
+                    <a target="_blank" href="#" class="nameWrapper">Deepika Chabra</a><br />
+                    <label class="namePosition">Alumni (M.Tech)</label><br />    
+                    <label class="below-info">CSE(MUC),IIIT Delhi
+                    </label><br /><br />
+                <label class="description"><p class="reHead">Research Interests -</p>
 
-      </div>
-    </td></tr>
-    <tr><td>
-    <h4 id="btech">B.Tech</h4>
-    <hr />
-      <div id="btechDiv" class="teamWrapper">
-                  <div class="personal-wrapper"  id="Div9">
+             Human Computer Interaction, Data Analysis
+                <br />   <br />
+                </label>
+                <label class="below-info">
+                Email - Deepika1264 [at] iiitd [dot] ac [dot] in
+                
+                </label>
+                
+                </td>
+                </tr>
+                   
+                </table>
+                </div>
+
+         <div class="personal-wrapper"  id="Div9">
             <table>
          
          <tr>
                
                     <td class="infoWrapper">
                     <label class="nameWrapper">Prateek Malhotra</label><br />
-                    <label class="namePosition">B.Tech</label><br />    
+                    <label class="namePosition">Alumni (B.Tech)</label><br />    
                     <label class="below-info">CSE - IIIT Delhi<br />
                     </label><br />
                  <label class="description"><p class="reHead">Research Interests -</p>
@@ -518,14 +582,14 @@ Internet of Things.
                 </table>
                 </div>
 
-                    <div class="personal-wrapper"  id="Div10">
+         <div class="personal-wrapper" style="margin-top:10px;"  id="Div10">
             <table>
          
          <tr>
                
                     <td class="infoWrapper">
                     <label class="nameWrapper">Vinayak Shukl</label><br />
-                    <label class="namePosition">B.Tech</label><br />    
+                    <label class="namePosition">Alumni (B.Tech)</label><br />    
                     <label class="below-info">CSE - IIIT Delhi<br />
                     </label><br />
                <label class="description"><p class="reHead">Research Interests -</p>
@@ -545,14 +609,14 @@ Internet of Things.
                 </table>
                 </div>
 
-                <div class="personal-wrapper"  id="Div11">
+         <div class="personal-wrapper" style="margin-top:10px;"  id="Div11">
             <table>
          
          <tr>
                 
                     <td class="infoWrapper">
                     <label class="nameWrapper">Romil Bhardwaj</label><br />
-                    <label class="namePosition">B.Tech</label><br />    
+                    <label class="namePosition"> Alumni (B.Tech)</label><br />    
                     <label class="below-info">CSE - IIIT Delhi<br /><br />
                     </label>
                 <label class="description"><p class="reHead">Research Interests -</p>
@@ -570,7 +634,8 @@ Internet of Things.
                
                 </table>
                 </div>
-                </div>
+
+        </div>
     </td></tr>
      <tr><td>
     <h4 id="ucla">UCLA</h4>

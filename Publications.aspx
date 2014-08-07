@@ -161,6 +161,21 @@ Our proposed EnergyLens system intelligently fuses electricity meter data with s
            Non-intrusive load monitoring, or energy disaggregation, aims to separate household energy consumption data collected from a single point of measurement into appliance-level consumption data. In recent years, the field has rapidly expanded due to increased interest as national deployments of smart meters have begun in many countries. However, empirically comparing disaggregation algorithms is currently virtually impossible. This is due to the different data sets used, the lack of reference implementations of these algorithms and the variety of accuracy metrics employed. To address this challenge, we present the Non-intrusive Load Monitoring Toolkit (NILMTK); an open source toolkit designed specifically to enable the comparison of energy disaggregation algorithms in a reproducible manner. This work is the first research to compare multiple disaggregation approaches across multiple publicly available data sets. Our toolkit includes parsers for a range of existing data sets, a collection of preprocessing algorithms, a set of statistics for describing data sets, two reference benchmark disaggregation algorithms and a suite of accuracy metrics. We demonstrate the range of reproducible analyses which are made possible by our toolkit, including the analysis of six publicly available data sets and the evaluation of both benchmark disaggregation algorithms across such data sets.
 </label>
 </li>
+        <li>Mohit Jain, Deepika Chabra, Jennifer Mankoff, Amarjeet Singh. Energy Usage Attitudes of Urban India In: ICT4S-2014 
+        <a val="ict4s" class="abstractLink">[Abstract]</a>
+        <a href="https://www.iiitd.edu.in/~amarjeet/Papers/ICT4S-2014-IndiaSurvey.pdf"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="ict4s">
+            Though rapid increase in energy consumption has become a global problem, most of the solutions developed to address it for residential consumers are based on qualitative 
+studies conducted with small numbers of users, typically in the developed world. Recent work has begun to explore consumption practices, and motivations, barriers and other factors affecting 
+energy consumption in urban India. However, the small numbers of participants in those studies limit their generality. Our work contributes to this picture through a survey of 1724 residents of 
+urban India, exploring the motivations and barriers affecting energy conservation and their opinions about sharing energy consumption data and future technologies for conservation. We 
+found that urban Indians practice conservation because it is a learned habit and to save money, while comfort and convenience are the major barriers in conserving energy. Contrary to 
+previous findings, we did not find a major influence of tradition, spirituality or moral reasons for conservation. Moreover, participants have minimal privacy concerns regarding sharing 
+energy data. Interestingly, participants were not only interested in energy monitoring solutions, but were also positive about automated energy controlling systems, which contrasts previous 
+findings. We conclude with design opportunities for this demographic such as information-sharing opportunities, appliance level consumption disaggregation, and convenient 
+manual controls.</label>
+</li>
 
          <li>Nipun Batra, Haimonti Dutta, Amarjeet Singh, “INDiC: Improved Non-Intrusive load monitoring using load Division and Calibration”, to appear at the 12th International Conference on Machine Learning and Applications (ICMLA’13) will be held in Miami, Florida, USA, December 4 – December 7, 2013
 <a val="loadDiv" class="abstractLink">[Abstract]</a>

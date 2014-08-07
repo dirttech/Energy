@@ -108,6 +108,8 @@
                             <a href="http://nipunbatra.github.io/downloads/files/commercial_dataset.zip" target="_blank" class="uselink">Commercial NILM dataset</a>
                         </li><li>
                             <a href="https://www.iiitd.edu.in/~amarjeet/Datasets/eadivino/" target="_blank" class="uselink"> IIIT Delhi electricity consumption</a>
+                        </li><li>
+                            <a href="https://www.iiitd.edu.in/~amarjeet/UrbanIndiaSurvey/Data.zip" target="_blank" class="uselink">Urban India Survey Dataset</a>
                    </li></ul>
                  
                 
