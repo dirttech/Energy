@@ -14,14 +14,19 @@
         {
           background-color:skyblue;   
         }
-        td,p,h3
+        td,p,h3,h4
         {
-             font-family:Verdana;
              font-weight:normal;
              font-variant:normal;
              font-style:normal;
              line-height:normal;
-             
+             font-size:medium;
+        }
+        h4
+        {
+          font-weight:normal;
+          font-size:large; 
+          margin:0px;
         }
        
         input
@@ -32,17 +37,18 @@
         h3
         {
           font-weight:normal;
-          color:skyblue;   
+          color:skyblue;  
+          font-size:x-large; 
         }
     </style>
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 <br />
-<br /><br />
+<br />
     <table style="margin: 0 auto;">
         <tr>
-            <td style="vertical-align:top; width:400px;  padding-right:50px;">
+            <td style="vertical-align:top; width:550px;  padding-right:50px;">
            
                 <h3>Energy Lab</h3>
                 <p>3rd Floor, B-Wing, Academic Block<br />IIIT Delhi</p><hr style="display:block;"/><br />
@@ -57,8 +63,9 @@ New Delhi, India - 110020</p>
                 <table class="style1">
                     <tr>
                         <td colspan="2">
-                            Got Query? Suggestion? Opinion?<br />
-                            Share with us!<br /><hr style=" display:block"/>
+                            <h4>Got Query / Suggestion / Opinion?</h4>
+                            
+                            <font style="color:skyblue;padding-top:10px;padding-bottom:10px;">Share with us.</font><br /><hr style=" display:block"/>
                         </td>
                     </tr>
                     <tr>

@@ -6,16 +6,21 @@
         {
           background-color:skyblue;   
         }
+           h3
+     {
+         color:skyblue;
+         font-weight:600;
+     }
           .linkContainer {
               position: relative;
               width:80%;
-              left: 230px;
+              left: 130px;
               right: 30px;
             
           }
           p {
               font-weight: normal;
-              font-size: small;
+              font-size: medium;
               color: black;
           }
           
@@ -29,7 +34,8 @@
         {
             display:block;
             position:relative;
-            left:280px;
+            margin-bottom:30px;
+            left:0px;
         }
         .sideLine
         {
@@ -56,8 +62,8 @@
           cursor:pointer;   
         }
          .uselink {
-              text-decoration: none;
-              color: skyblue;
+              text-decoration: underline;
+              color: royalblue;
           }
          a:hover {
               text-decoration: underline;
@@ -87,7 +93,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
         <br /><br />
 
-    <div class="sideLine">
+    <div class="sideLine" style="display:none;">
   
     
     <a>Useful Links</a><br />
@@ -100,7 +106,7 @@
     </div>
     
     <div id="linkDiv" class="linkContainer" runat="server">
-               <div id="radv"><br />
+               <div id="radv">
                <h3>Research Advice</h3>
                <p>
                    
@@ -116,9 +122,10 @@ It contains advice starting from being a graduate student till the post PhD peri
 Its a good collection of advice on how to conduct research and how to communicate it. Its mostly for computer science researchers.
                </p>
                </div>
+        <hr />
                 <div id="stat" >
                <h3>Statistical Links</h3><p>
-               <b style="color:skyblue">Reproducible Research:</b><br /> Similar to <a target="_blank" href="http://reference.wolfram.com/legacy/v5/Tour/MathematicaNotebooks.html">Mathematica Notebook</a>, <a href="http://ipython.org/notebook.html" target="_blank">IPython Notebook</a> allows one to integrate code, output, markdown and much more in the same document. These notebooks 
+               <b style="">Reproducible Research:</b><br /> Similar to <a target="_blank" href="http://reference.wolfram.com/legacy/v5/Tour/MathematicaNotebooks.html">Mathematica Notebook</a>, <a href="http://ipython.org/notebook.html" target="_blank">IPython Notebook</a> allows one to integrate code, output, markdown and much more in the same document. These notebooks 
                can be rendered as <a href="http://en.wikipedia.org/wiki/HTML" target="_blank">HTML</a>, <a href="http://www.latex-project.org/" target="_blank">LaTeX</a> and even in <a href="http://en.wikipedia.org/wiki/HTML5" target="_blank">HTML5</a> based slideshows. 
                <br /><br />
                Similarly, <a href="http://en.wikipedia.org/wiki/R_(programming_language)" target="_blank">R</a> has a package named <a href="http://yihui.name/knitr/" target="_blank">Knitr</a>, which allows similar stuff. <a href="http://www.mathworks.in/products/matlab/" target="_blank">Matlab</a> too allows to publish your work. 
@@ -129,15 +136,16 @@ Its a good collection of advice on how to conduct research and how to communicat
 The flowchart below is designed to give users a bit of a rough guide on how to approach problems with regard to which estimators to try on your data."- Documentation <a href="http://scikit-learn.org/stable/index.html" target="_blank">Scikit-learn</a>. 
 We have found <a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html" target="_blank">this</a> flowchart on their site very helpful.
 </p>
-
+                   
                </div>
+         <hr />
                 <div id="tech" >
                <h3>Technical Writing</h3>
                <p><a class="uselink" href="http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/" target="_blank">Matt Might's shell scripts to improve writing:</a><br />
                Three scripts developed by Matt Might in course of his experience in reviewing and writing papers. These scripts help in finding passive voice usage (which if not done properly, may lead to misplacement of emphasis), to remove lexical illusions (such as consecutive 'the') and to remove weasel words such as very, quite, etc., which we often use to spice up our work, but, are not required.</p>
                </div>
               
-                
+                <br /><br />
             </div>
 </asp:Content>
 

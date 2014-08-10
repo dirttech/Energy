@@ -6,12 +6,25 @@
         {
           background-color:skyblue;   
         }
+           h3
+     {
+         color:skyblue;
+         font-weight:600;
+     }
+          .links > li
+          {              
+               font-size:medium;
+               margin-top:10px;
+          }
+          .links > li>a:hover
+          {              
+               color:royalblue;
+          }
           .linkContainer {
               position: relative;
               width:80%;
-              left: 130px;
+              left: 150px;
               right: 30px;
-            
           }
           p {
               font-weight: normal;
@@ -102,14 +115,14 @@
     <div id="linkDiv" class="linkContainer" runat="server">
                <div id="radv">
                <h3>Data sets</h3>
-                   <ul><li>
-                            <a href="http://iawe.github.io/" target="_blank" class="uselink"> Indian data set for ambient water and energy sensing (iAWE) </a>
+                   <ul class="links"><li>
+                            <a href="http://iawe.github.io/" target="_blank" > Indian data set for ambient water and energy sensing (iAWE) </a>
                         </li><li>
-                            <a href="http://nipunbatra.github.io/downloads/files/commercial_dataset.zip" target="_blank" class="uselink">Commercial NILM dataset</a>
+                            <a href="http://nipunbatra.github.io/downloads/files/commercial_dataset.zip" target="_blank" >Commercial NILM dataset</a>
                         </li><li>
-                            <a href="https://www.iiitd.edu.in/~amarjeet/Datasets/eadivino/" target="_blank" class="uselink"> IIIT Delhi electricity consumption</a>
+                            <a href="https://www.iiitd.edu.in/~amarjeet/Datasets/eadivino/" target="_blank" > IIIT Delhi electricity consumption</a>
                         </li><li>
-                            <a href="https://www.iiitd.edu.in/~amarjeet/UrbanIndiaSurvey/Data.zip" target="_blank" class="uselink">Urban India Survey Dataset</a>
+                            <a href="https://www.iiitd.edu.in/~amarjeet/UrbanIndiaSurvey/Data.zip" target="_blank">Urban India Survey Dataset</a>
                    </li></ul>
                  
                 

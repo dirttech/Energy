@@ -13,7 +13,7 @@
         {
             display:block;
             position:relative;
-            left:280px;
+            left:130px;
             
         }
         li#tem
@@ -23,29 +23,49 @@
         h4
         {
              position:relative;
-             left:300px;   
+             left:130px;   
              line-height:normal;
              color:skyblue; 
              margin-bottom:0px;
         }
         .sideLine
         {
-             left:0px;
+             top:40px;
+             z-index:100;
              position:fixed;
-             width:240px;
-             background-color:offwhite;
-             height:300px;
+             width:100%;
+             background-color:whitesmoke;
+             height:110px;
              margin-top:5px;
              padding:10px;
-               border-radius:0px 12px 12px 0px;  
-             box-shadow:  0px 2px  2px 2px #888, 2px 3px 5px 0px #888;
+             
         }
         .sideLine>a
         {
           color:navy;
           line-height:30px;   
+          padding-left:120px;
         }
-        .sideLine>ul>li>a:hover
+        .ul
+        {
+            margin: 0px;
+            padding-left:150px;
+        }
+            .ul > li
+            {
+                padding-right:50px;
+                
+                display: inline-block;
+                /* You can also add some margins here to make it look prettier */
+                zoom:1;
+                display:inline;
+                /* this fix is needed for IE7- */
+            }
+                .ul > li > a
+                {
+                    font-size: medium;
+                }
+        .ul>li>a:hover
         {
           
           text-decoration:underline;
@@ -76,10 +96,15 @@
     {
       font-size:small;   
     }
+        .bottomSec
+        {
+            position:absolute;
+            top:160px;
+        }
     .teamWrapper
     {
         position:relative;
-        left:250px;
+        left:90px;
         max-width:1000px;
         margin-left:50px;
         
@@ -128,12 +153,6 @@
     }
     </style>
 
-    <script type="text/jscript">
-
-        function scrollTo(hash) {
-            location.hash = "#" + hash;
-        }
-    </script>
     
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
@@ -184,30 +203,28 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <br /><br />
-
     <div class="sideLine">
   
     
-    <a>Our Team</a><br />
-      <ul >
-    <li><a  onclick="scrollTo('prof')">Faculty</a></li>
-    <li><a  onclick="scrollTo('phd')">Ph.D</a></li>
-    <li><a  onclick="scrollTo('ra')">Software Engineer / RA</a></li>
-    <li style="display:none;"><a  onclick="scrollTo('mtech')" >M.Tech</a></li>
-    <li style="display:none;"><a  onclick="scrollTo('btech')" >B.Tech</a></li>
-    <li><a onclick="scrollTo('alumni')">Alumni</a></li>
+    <a>Our Team</a>
+      <ul class="ul">
+    <li><a  onclick="scrollTo('prof')" name="prof" class="lnk">Faculty</a></li>
+    <li><a  onclick="scrollTo('phd')" name="phd" class="lnk">Ph.D</a></li>
+    <li><a  onclick="scrollTo('ra')" name="ra" class="lnk">Software Engineer / RA</a></li>
+    <li style="display:none;"><a  onclick="scrollTo('mtech')" name="mtech" class="lnk">M.Tech</a></li>
+    <li style="display:none;"><a  onclick="scrollTo('btech')" name="btech" class="lnk">B.Tech</a></li>
+    <li><a onclick="scrollTo('alumni')" name="alumni" class="lnk">Alumni</a></li>
     
     </ul>
     <a>Collaborators</a><br />
-     <ul >
-    <li><a onclick="scrollTo('ucla')">UCLA</a></li>
-    <li><a onclick="scrollTo('ibm')">IBM Research</a></li>
-    <li><a onclick="scrollTo('ccls')">CCLS Columbia</a></li>
-    <li><a onclick="scrollTo('cmu')">CMU</a></li>
+     <ul class="ul">
+    <li><a onclick="scrollTo('ucla')" name="ucla" class="lnk">UCLA</a></li>
+    <li><a onclick="scrollTo('ibm')" name="ibm" class="lnk">IBM Research</a></li>
+    <li><a onclick="scrollTo('ccls')" name="ccls" class="lnk">CCLS Columbia</a></li>
+    <li><a onclick="scrollTo('cmu')" name="cmu" class="lnk">CMU</a></li>
     </ul>
     </div>
-    <div>
+    <div class="bottomSec">
     <table>
     <tr><td>
     <h4 id="prof">Faculty</h4>
@@ -437,7 +454,7 @@ Internet of Things.
                    
                     </label><br />
                <label class="description"><p class="reHead">Tech Involvement -</p>
-                Web Programming, Web Interfaces, System Programming.
+                Web Programming, Web Interfaces, Web Scrapping, System Programming.
                 <br /><br />
                 
                 </label>
@@ -460,7 +477,7 @@ Internet of Things.
                
                     
                     <td class="infoWrapper">
-                    <a target="_blank" href="#" class="nameWrapper">Shubham Saini</a><br />
+                    <a target="_blank" href="http://www.shubhamsaini.com/" class="nameWrapper">Shubham Saini</a><br />
                     <label class="namePosition">Research Scholar</label><br />    
                     <label class="below-info">MUC - IIIT Delhi<br />
                    </label><br />
@@ -880,20 +897,33 @@ Data Intensive Computing
                 </table>
                 </div>
   
-               
-
        </div>
                  
     </td></tr>
 
     </table>
-  
-       
-      
-              
-               
-    
-        
     </div>
+    
+    <script type="text/jscript">
+
+        jQuery(document).ready(function ($) {
+            
+            $('.lnk').click(function () {
+                var namer = $(this).attr('name');
+                $('html, body').animate({
+                    scrollTop: $('#' + namer).offset().top -150
+                }, 700);
+                $('.sideLine').animate({ top: -10 }, 500, function () { });
+            });
+            $(window).scroll(function () {
+                if ($(window).scrollTop() == 0) {
+                    $('.sideLine').animate({ top: 40 }, 100, function () { });
+                }
+                else if ($(window).scrollTop() > 10) {
+                    $('.sideLine').animate({ top: -10 }, 100, function () { });
+                }
+            });
+        });
+    </script>
 </asp:Content>
 
