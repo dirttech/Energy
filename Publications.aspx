@@ -148,6 +148,75 @@
 
     <ul class="publ">
 
+        <li><b>Shailja Thakur</b>, Manaswi Saha, Amarjeet Singh, Yuvraj Agarwal, 
+               <publ>WattShare: Detailed Energy Apportionment in Shared Living Spaces within Commercial Buildings</publ>
+                ,To appear in First ACM International Conference on Embedded Systems for Energy-Efficient Buildings (BuildSys). Memphis, TN, USA, November 2014        
+        <a val="watts" class="abstractLink">[Abstract]</a>
+        <a href="https://dl.dropboxusercontent.com/u/95976723/papers/wattshare_buildsys14.pdf"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="watts">
+                Increasing energy consumption of commercial buildings has motivated numerous energy tracking and monitoring sys- tems in the recent years. 
+                A particular area that is less explored in this domain is that of energy apportionment whereby total energy usage of a shared space such as a build- ing is disaggregated
+                 to attribute it to an individual occupant. This particular scenario of individual apportionment is im- portant for increased transparency in the actual energy 
+                con- sumption of shared living spaces in commercial buildings e.g. hotels, student dormitories and hospitals amongst oth- ers. Accurate energy accounting is a 
+                difﬁcult problem to solve using only a single smart meter. In this paper, we present a novel, scalable and a low cost energy apportion- ment system called 
+                WattShare that builds upon our Ener- gyLens architecture, where data from a common electricity meter and smartphones (carried by the occupants) is fused, 
+                and then used for detailed energy disaggregation. This infor- mation is then used to measure the room-level energy con- sumption. We evaluate WattShare 
+                using a week long deploy- ment conducted in a student dormitory in a campus in India. We show that WattShare is able to disaggregate the total en- ergy 
+                usage from a single smart meter to individual rooms with an average precision of 96.42% and average recall of 94.96%. WattShare achieves 86.42% energy 
+                apportionment accuracy which increases to 94.57% when an outlier room is removed. 
+            </label>     
+         </li>
+
+        <li><b>Jack Kelly</b>, Nipun Batra, Oliver Parson, Haimonti Dutta, William Knottenbelt, Alex Rogers, Amarjeet Singh, Mani Srivastava,
+               <publ>NILMTK v0.2: A Non-intrusive Load Monitoring Toolkit for Large Scale Data Sets</publ>
+                , to appear as demo paper at the 1st ACM International Conference on Embedded Systems For Energy-Efficient Buildings (BuildSys' 2014), to be held in Memphis, USA on 5-6 November, 2014.    
+        <a val="nimltk2" class="abstractLink">[Abstract]</a>
+        <a href=""
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="nimltk2">
+                
+            </label>     
+         </li>
+
+        <li><b>Nipun Batra</b>, Manoj Gulati, Puneet Jain, Kamin Whitehouse, Amarjeet Singh, 
+               <publ>Bits and Watts: Improving energy disaggregation performance using power line communication modems</publ>
+                , to appear as poster paper at the 1st ACM International Conference on Embedded Systems For Energy-Efficient Buildings (BuildSys' 2014), to be held in Memphis, USA on 5-6 November, 2014.    
+        <a val="bits_watts" class="abstractLink">[Abstract]</a>
+        <a href=""
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="bits_watts">
+                
+            </label>     
+         </li>
+
+        <li><b>Manoj Gulati</b>, Shobha Sundar Ram, Amarjeet Singh,
+               <publ>An In Depth Study into Using EMI Signatures for Appliance Identification</publ>, to appear as full paper at the 1st ACM International Conference on Embedded Systems For Energy-Efficient Buildings (BuildSys' 2014), to be held in Memphis, USA on 5-6 November, 2014.
+        <a val="emi_signatures" class="abstractLink">[Abstract]</a>
+        <a href="https://www.dropbox.com/s/5hgzgcwk9c67bc7/BuildSys14_Draft_CR_ver1.10_MG_Final.pdf?dl=0"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="emi_signatures">
+                Energy conservation is a key factor towards long term energy sustainability. Real-time end user energy feedback, using disaggregated electric load composition, can play a pivotal role in motivating consumers towards energy conservation. Recent works have explored using high frequency conducted electromagnetic interference (EMI) on power lines as a single point sensing parameter for monitoring common home appliances. However, key questions regarding the reliability and feasibility of using EMI signatures for non-intrusive load monitoring over multiple appliances across different sensing paradigms remain unanswered. This work presents some of the key challenges towards using EMI as a unique and time invariant feature for load disaggregation. In-depth empirical evaluations of a large number of appliances in different sensing configurations are carried out, in both laboratory and real world settings. Insights into the effects of external parameters such as line impedance, background noise and appliance coupling on the EMI behavior of an appliance are realized through simulations and measurements. A generic approach for simulating the EMI behavior of an appliance that can then be used to do a detailed analysis of real world phenomenology is presented. The simulation approach is validated with EMI data from a router. Our EMI dataset - High Frequency EMI Dataset (HFED) is also released. 
+            </label>     
+           </li>
+
+        <li><b>Shailja Thakur</b>, Thesis committee - Amarjeet Singh (Chair), Pushpendra Singh, Zainul M Charbiwala 
+               <publ>WattShare: Detailed Energy Apportionment in Shared Living Spaces within Commercial Buildings</publ>, IIIT Delhi
+        <a val="wattshare" class="abstractLink">[Abstract]</a>
+        <a href="https://drive.google.com/file/d/0B5SRRTp1j_lGd1V0V0hrMDE2YUU2SW5HUFRUb01adlJ5UmFN/view?usp=sharing"
+           style="color:#6666FF;" target="_blank">[Download Link]</a><br />
+            <label class="abstract" id="wattshare">
+                Increasing energy consumption of commercial buildings has motivated numerous energy tracking and monitoring systems in the recent years. A particular area that is less explored in this domain
+                is that of energy apportionment whereby total energy usage of a shared space such as a building is disaggregated to attribute it to an individual occupant. This particular scenario of individual
+                apportionment is important for increased transparency in the actual energy consumption of shared living spaces in commercial buildings e.g. hotels, student dormitories and hospitals
+                amongst others. Accurate energy accounting is a difficult problem to solve using only a single smart meter. In this paper, we present a novel, scalable and a low cost energy apportionment
+                system called WattShare that builds upon our EnergyLens architecture, where data from a common electricity meter and smartphones (carried by the occupants) is fused, and then used
+                for detailed energy disaggregation. This information is then used to measure the room-level energy consumption. We evaluate WattShare using a week long deployment conducted in a
+                student dormitory in a campus in India. We show that WattShare is able to disaggregate the total energy usage from a single smart meter to individual rooms with an average precision
+                of 96.42% and average recall of 94.96%. WattShare achieves 86.42% energy apportionment accuracy which increases to 94.57% when an outlier room is removed.
+            </label>        
+        </li>
+
            <li><b>Manaswi Saha</b>, Shailja Thakur, Amarjeet Singh, Yuvraj Agarwal, 
                <publ>EnergyLens: Combining Smartphones with Electricity Meter for Accurate Activity Detection and User Annotation</publ>,  In Proceedings of the Fifth International Conference on Future Energy Systems (ACM e-Energy), 2014. 
         <a val="energyLens" class="abstractLink">[Abstract]</a>
@@ -157,7 +226,8 @@
          Inferring human activity is of interest for various ubiquitous computing applications, particularly if it can be done using ambient information that can be collected non intrusively. In this paper, we explore human activity inference, in the context of energy consumption within a home, where we define an "activity" as the usage of an electrical appliance, its usage duration and its location. We also explore the dimension of identifying the occupant who performed the activity. Our goal is to answer questions such as "Who is watching TV in the Dining Room and during what times?". This information is particularly important for scenarios such as the apportionment of energy use to individuals in shared settings for better understanding of occupant's energy consumption behavioral patterns. Unfortunately, accurate activity inference in realistic settings is challenging, especially when considering ease of deployment. One of the key differences between our work and prior research in this space is that we seek to combine readily available sensor data (i.e. home level electricity meters and sensors on smartphones carried by the occupants) and metadata information (e.g. appliance power ratings and their location) for activity inference.
                 <br />
 Our proposed EnergyLens system intelligently fuses electricity meter data with sensors on commodity smartphones -- the WiFi radio and the microphone -- to infer, with high accuracy, which appliance is being used, when its being used, where its being used in the home, and who is using it. EnergyLens exploits easily available metadata to further improve the detection accuracy. Real world experiments show that EnergyLens significantly improves the inference of energy usage activities (average precision= 75.2%, average recall= 77.8%) as compared to traditional approaches that use the meter data only (average precision = 28.4%, average recall = 22.3%).
-                </li>
+            </label>     
+           </li>
 
            <li><b>Nipun Batra</b>, Amarjeet Singh, Pushpendra Singh, Haimonti Dutta, Venkatesh Sarangan, Mani Srivastava. 
                <publ>Data Driven Energy Efficiency in Buildings PhD. qualifiers report</publ>, IIIT Delhi
@@ -179,6 +249,7 @@ are more prevalent in developed countries, separate room level Air Conditioners 
 major opportunity for energy conservation in these countries. We propose PACMAN - a novel approach for predicting the energy consumption of room level AC. PACMAN involves learning a thermal model of the room from historical usage and combines this model with the weather
 forecast for user’s location to guide the user towards optimized AC settings in order to balance user comfort and energy efficiency. Empirical validation was performed using a real world study, conducted across 7 homes in India, with collective data for a duration of 2200 hours in
 total. PACMAN achieved more than 90% accuracy in predicting the energy consumption across different ACs, room types and set temperatures used during the data collection. We further describe a prototype realization of the proposed PACMAN system towards achieving reduced AC energy consumption with better feedback and control.
+            </label>
           </li>
 
 
