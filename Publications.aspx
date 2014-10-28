@@ -11,6 +11,14 @@
          color:skyblue;
          font-weight:600;
      }
+     h4
+     {
+         line-height:normal;
+         padding-left:10px;
+         color:white;
+         background-color:black;
+         opacity:0.5;
+     }
     li#publ
         {
           background-color:skyblue;   
@@ -38,33 +46,54 @@
         border:1px none gray;
      }
      
-        .sideLine
+       
+     b
+     {
+         font-weight:normal;
+     }
+       .sideLine
         {
-             left:0px;
+             top:40px;
+             z-index:100;
              position:fixed;
-             width:170px;
-             background-color:offwhite;
-             
-             height:180px;
+             width:100%;
+             background-color:whitesmoke;
+             height:30px;
              margin-top:5px;
              padding:10px;
-             border-radius:0px 12px 12px 0px;  
-             box-shadow:  0px 2px  2px 2px #888, 2px 3px 5px 0px #888;
              
         }
-        .sideLine>ul>li>a
+        .sideLine>a
         {
           color:navy;
-          line-height:30px;  
-          text-decoration:none; 
+          line-height:30px;   
+          padding-left:100px;
         }
-        .sideLine>ul>li>a:hover
+        .ul
+        {
+            margin: 0px;
+            padding-left:120px;
+        }
+            .ul > li
+            {
+                padding-right:50px;
+                
+                display: inline-block;
+                /* You can also add some margins here to make it look prettier */
+                zoom:1;
+                display:inline;
+                /* this fix is needed for IE7- */
+            }
+                .ul > li > a
+                {
+                    font-size: large;
+                }
+        .ul>li>a:hover
         {
           
           text-decoration:underline;
           cursor:pointer;   
         }
-  
     .teamWrapper
     {
         position:relative;
@@ -141,12 +170,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">&nbsp;<br /><br />
 
+    <div class="sideLine">
+        <ul class="ul">
+            <li><a  onclick="scrollTo('2014')" name="2014" class="lnk">2014</a></li>
+            <li><a  onclick="scrollTo('2013')" name="2013" class="lnk">2013</a></li>
+            <li><a  onclick="scrollTo('2012')" name="2012" class="lnk">2012</a></li>
+        </ul>
+    </div>
     <div class="teamWrapper">
    
-
+        <br />
     <h3>Publications</h3>
-
-    <ul class="publ">
+        <h4 id="2014">2014</h4>
+    <ul class="publ 2014">
 
         <li><b>Shailja Thakur</b>, Manaswi Saha, Amarjeet Singh, Yuvraj Agarwal, 
                <publ>WattShare: Detailed Energy Apportionment in Shared Living Spaces within Commercial Buildings</publ>
@@ -277,8 +313,10 @@ previous findings, we did not find a major influence of tradition, spirituality 
 energy data. Interestingly, participants were not only interested in energy monitoring solutions, but were also positive about automated energy controlling systems, which contrasts previous 
 findings. We conclude with design opportunities for this demographic such as information-sharing opportunities, appliance level consumption disaggregation, and convenient 
 manual controls.</label>
-</li>
-
+    </li>
+</ul>
+<h4 id="2013">2013</h4>
+<ul class="publ 2013">
          <li><b>Nipun Batra</b>, Haimonti Dutta, Amarjeet Singh, 
              <publ>INDiC: Improved Non-Intrusive load monitoring using load Division and Calibration</publ>
              , to appear at the 12th International Conference on Machine Learning and Applications (ICMLA’13) will be held in Miami, Florida, USA, December 4 – December 7, 2013
@@ -333,6 +371,9 @@ effective data collection worth 45 days. Collected data is analyzed accounting f
 occupancy based frameworks. Our analysis shows that occupancy prediction using simple heuristic based modeling can achieve similar performance as more complex Hidden Markov Models, thus simplifying the analytic framework.
 </label>
 </li>
+</ul>
+<h4 id="2012">2012</h4>
+<ul class="publ 2012">
     <li><b>Pandarasamy Arjunan</b>, Nipun Batra, Haksoo Choi, Amarjeet Singh, Pushpendra Singh, Mani Srivastava. 
         <publ>SensorAct: A Privacy and Security Aware Federated Middleware for Building Management.</publ> In Buildsys, USA, 2012 
        <a val="buildsys" class="abstractLink">[Abstract]</a>
@@ -353,6 +394,26 @@ SensorAct’s architecture, current implementation, and preliminary performance 
     </ul>
    
 </div>
+     <script type="text/jscript">
 
+         jQuery(document).ready(function ($) {
+
+             $('.lnk').click(function () {
+                 var namer = $(this).attr('name');
+                 $('html, body').animate({
+                     scrollTop: $('#' + namer).offset().top - 150
+                 }, 700);
+                 $('.sideLine').animate({ top: -10 }, 500, function () { });
+             });
+             $(window).scroll(function () {
+                 if ($(window).scrollTop() == 0) {
+                     $('.sideLine').animate({ top: 40 }, 100, function () { });
+                 }
+                 else if ($(window).scrollTop() > 10) {
+                     $('.sideLine').animate({ top: -10 }, 100, function () { });
+                 }
+             });
+         });
+    </script>
 </asp:Content>
 
