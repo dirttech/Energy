@@ -14,23 +14,21 @@
     <style type="text/css">
         .Annonated
         {
-            background-color:pink !important;
+            background-color: pink !important;
         }
         .NotAnnonated
         {
-            background-color:white;
-            cursor:pointer !important;
+            background-color: white;
+            cursor: pointer !important;
         }
         p
         {
-            color:white;
+            color: white;
         }
-
     </style>
     <script type="text/javascript">
 
-        function Annonating(obj)
-        {
+        function Annonating(obj) {
             document.getElementById('<%=frmTime.ClientID%>').setAttribute("class", "NotAnnonated");
             document.getElementById('<%=tTime.ClientID%>').setAttribute("class", "NotAnnonated");
             obj.setAttribute("class", "Annonated");
@@ -97,8 +95,7 @@
                     <asp:Button ID="annonateButton" runat="server" Text="Annonate" CssClass="customButton" OnClick="annonateButton_Click"/>
                 </td>
             </tr>
-        </table>
-     
+        </table>     
     </div>
     </form>
 </body>
